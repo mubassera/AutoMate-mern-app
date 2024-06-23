@@ -1,126 +1,264 @@
-import React, { useState } from 'react';
-import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import { FaCar, FaMotorcycle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaCar,
+  FaMotorcycle,
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./Login.css";
 
 export const Login = () => {
-  const [action, setAction] = useState('Login');
+  const [action, setAction] = useState("Login");
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    vehicleType: "",
+    vehicleBrand: "",
+    vehicleModel: "",
+  });
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log('Login');
-    navigate('/home');
+  const changeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSignUp = () => {
-    console.log('Sign Up');
-    // Add sign-up logic here
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    //console.log(data);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/user/login/",
+        data,
+        config
+      );
+
+      //console.log("login: ", response);
+      if (response.data == "Invalid email or password") {
+        alert("Invalid email or password");
+      } else {
+        localStorage.setItem("userData", JSON.stringify(response.data));
+        navigate("/home");
+      }
+    } catch (error) {
+      alert("Some error has occured. Please try again later");
+      console.log(error);
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    console.log(data);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/user/register/",
+        data,
+        config
+      );
+      //console.log(response);
+      if (response.data == "choose your vehicle") {
+        alert("Choose your vehicle");
+      } else if (response.data == "User already Exists") {
+        alert("User already Exists");
+      } else if (response.data == "Username already Exists") {
+        alert("Username already Exists");
+      } else {
+        localStorage.setItem("userData", JSON.stringify(response.data));
+        navigate("/home");
+      }
+    } catch (error) {
+      alert("Some error has occured. Please try again later");
+      console.log(error);
+    }
   };
 
   return (
-    <div className='loginpage'>
-      <div className='leftContainer'>
+    <div className="loginpage">
+      <div className="leftContainer">
         <h1>AutoMate</h1>
-        <p>Amra gari bechi ..amra gari dhui</p>
+        <p>Amra gari bachai ..amra gari dhui</p>
       </div>
-      <div className='container'>
-        {action === 'Login' ? (
+      <div className="container">
+        {action === "Login" ? (
           <>
-            {/* Login Form */}
-            <div className='inputs'>
-              <div className='input'>
-                <span className='icon'><FaEnvelope /></span>
-                <input type="email" placeholder='Email Id' />
+            <form onSubmit={handleLogin} className="inputs">
+              <div className="input">
+                <span className="icon">
+                  <FaEnvelope />
+                </span>
+                <input
+                  type="email"
+                  placeholder="Email Id"
+                  name="email"
+                  onChange={changeHandler}
+                  required
+                />
               </div>
-              <div className='input'>
-                <span className='icon'><FaLock /></span>
-                <input type="password" placeholder='Password' />
+              <div className="input">
+                <span className="icon">
+                  <FaLock />
+                </span>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={changeHandler}
+                  required
+                />
               </div>
-            </div>
 
-            <div className='checkboxInput'>
-              <input type="checkbox" id="checkbox" />
-              <label htmlFor="checkbox" id='rememberMe'>Remember me</label>
-            </div>
-
-            <div className='submit-container'>
-              <div className='submit' onClick={handleLogin}>
-                Login
+              <div className="checkboxInput">
+                <input type="checkbox" id="checkbox" />
+                <label htmlFor="checkbox" id="rememberMe">
+                  Remember me
+                </label>
               </div>
-            </div>
-            <div className='forgot-password'>
+
+              <div className="submit-container">
+                <button type="submit" className="submit">
+                  Login
+                </button>
+              </div>
+            </form>
+
+            <div className="forgot-password">
               Forgot Password? <span>Click Here!</span>
             </div>
-            <div className='underline'></div>
-            <div className='submit-container'>
-              <div className='submit' onClick={() => setAction('Sign Up')}>
+            <div className="underline"></div>
+            <div className="submit-container">
+              <div className="submit" onClick={() => setAction("Sign Up")}>
                 Create New Account
               </div>
             </div>
           </>
         ) : (
           <>
-            {/* Sign Up Form */}
-            <div className='inputs'>
-              <div className='input'>
-                <span className='icon'><FaUser /></span>
-                <input type="text" placeholder='Name' />
-              </div>
-              <div className='input'>
-                <span className='icon'><FaEnvelope /></span>
-                <input type="email" placeholder='Email Id' />
-              </div>
-              <div className='input'>
-                <span className='icon'><FaLock /></span>
-                <input type="password" placeholder='Password' />
-              </div>
-            </div>
-
-              {/* Vehicle Options */}
-            <div className='vehicleOption'>
-              <div className='vehicleTitle'>Choose Your Vehicle:</div>
-              <form className='vehicles'>
-                <div>
-                  <input type="radio" id="Car" name="vehicle" value="Car" />
-                  <label htmlFor="Car">Car</label>
+            <form onSubmit={handleSignUp}>
+              <div className="inputs">
+                <div className="input">
+                  <span className="icon">
+                    <FaUser />
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    onChange={changeHandler}
+                    required
+                  />
                 </div>
-                <div>
-                  <input type="radio" id="Bike" name="vehicle" value="Bike" />
-                  <label htmlFor="Bike">Bike</label>
+                <div className="input">
+                  <span className="icon">
+                    <FaEnvelope />
+                  </span>
+                  <input
+                    type="email"
+                    placeholder="Email Id"
+                    name="email"
+                    onChange={changeHandler}
+                    required
+                  />
                 </div>
-                {/* Add more vehicle options if needed */}
-              </form>
-            </div>
-
-
-            <div className='input'>
-                <span className='icon'><FaCar /></span>
-                <input type="text" placeholder='Brand' />
+                <div className="input">
+                  <span className="icon">
+                    <FaLock />
+                  </span>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={changeHandler}
+                    required
+                  />
+                </div>
               </div>
 
-            <div className='input'>
-                <span className='icon'><FaMotorcycle /></span>
-                <input type="text" placeholder='Model' />
+              <div className="vehicleOption">
+                <div className="vehicleTitle">Choose Your Vehicle:</div>
+                <div className="vehicles">
+                  <div>
+                    <input
+                      type="radio"
+                      id="Car"
+                      name="vehicleType"
+                      value="Car"
+                      onChange={changeHandler}
+                    />
+                    <label htmlFor="Car">Car</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      id="Bike"
+                      name="vehicleType"
+                      value="Bike"
+                      onChange={changeHandler}
+                    />
+                    <label htmlFor="Bike">Bike</label>
+                  </div>
+                </div>
               </div>
 
-
-
-
-
-            <div className='submit-container'>
-              <div className='submit' onClick={handleSignUp}>
-                Sign Up
+              <div className="input">
+                <span className="icon">
+                  <FaCar />
+                </span>
+                <input
+                  type="text"
+                  placeholder="Brand"
+                  name="vehicleBrand"
+                  onChange={changeHandler}
+                  required
+                />
               </div>
-            </div>
-            <div className='existing-account'>
-              Already have an account? <span onClick={() => setAction('Login')}>Login</span>
+
+              <div className="input">
+                <span className="icon">
+                  <FaMotorcycle />
+                </span>
+                <input
+                  type="text"
+                  placeholder="Model"
+                  name="vehicleModel"
+                  onChange={changeHandler}
+                  required
+                />
+              </div>
+
+              <div className="submit-container">
+                <button
+                  type="submit"
+                  className="submit"
+                  onSubmit={handleSignUp}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+            <div className="existing-account">
+              Already have an account?{" "}
+              <span onClick={() => setAction("Login")}>Login</span>
             </div>
           </>
         )}
       </div>
 
-      <div className='footer'>
+      <div className="footer">
         <p>&copy; 2024 AutoMate. All rights reserved.</p>
       </div>
     </div>
@@ -128,3 +266,15 @@ export const Login = () => {
 };
 
 export default Login;
+
+/*
+{
+    "name": "amiiii",
+    "email": "meow1@gmail.com",
+    "password": "123456",
+    "vehicleType": "bike",
+    "vehicleBrand": "yamaha",
+    "vehicleModel": "mt15"
+
+}
+*/

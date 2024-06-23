@@ -1,11 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
+const cors = require("cors");
 const userRoutes = require("./Routes/userRoutes");
 
 const app = express();
 dotenv.config();
 
+app.use(cors());
 app.use(express.json());
 
 //connecting mongodb
