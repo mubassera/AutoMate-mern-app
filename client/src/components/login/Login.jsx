@@ -11,13 +11,14 @@ import axios from "axios";
 import "./Login.css";
 
 export const Login = () => {
-  //pre-loggedIn check
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log(userData);
   const navigate = useNavigate();
+  //pre-loggedIn check
+  /*const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log(userData);
+  
   if (userData) {
     navigate("/home");
-  }
+  }*/
 
   const [action, setAction] = useState("Login");
   const [data, setData] = useState({
