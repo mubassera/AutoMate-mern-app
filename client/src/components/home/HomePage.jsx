@@ -1,37 +1,25 @@
 import React from 'react';
+import Navbar from '../navbar/navbar';
 import { AiOutlineTool, AiOutlineSafetyCertificate, AiOutlineDollarCircle } from 'react-icons/ai'; 
-import './HomePage.css'
+import './HomePage.css';
+import { NavLink } from 'react-router-dom';
+import bikepartsImage from '../Assets/bikeparts.jpeg';
+import bikewashImage from '../Assets/bikewash.jpeg';
+import carserviceImage from '../Assets/carservice.jpeg';
+import carwashImage from '../Assets/carwash.jpeg';
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <div className='homePage'>
-
-      {/* NavBar */}
-       <div className='navbar'>
-        <div className='navLogo'>
-            <h2>LOGO</h2>
-            <p>Automate</p>
-        </div>
-
-        <ul className='navMenu'>
-            <li>Home</li>
-            <li>Book Now</li>
-            <li>Parts</li>
-            <li>About Us</li>
-            <li>Purchase & Booking History</li>
-        </ul>
-    </div>
-
-
-{/* 1st box */}
-<div className='box1'>
+      <Navbar />
+      <div className='box1'>
         <h1>Vehicle Services</h1>
         <p>Life is too short to spend at a repair shop</p>
         <p>Your place | Your time | Your Vehicle</p>
         
-        <div className='bookNow'>
+        <NavLink to="/book-now" className='bookNow'>
           <h3>BOOK NOW</h3>
-        </div>
+        </NavLink>
         
         <div className='ourQuality'>
           <div className='qualityBox'>
@@ -48,98 +36,63 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      
 
-
-{/* 2nd box
-    <div className='box2'>
-      <div className='ChooseVehicle'>
-        <h1>Choose Vehicle</h1>
-        <div className='VehicleList'>
-          <ul>
-            <li>Car</li>
-            <li>Bike</li>
-            <li>Cycle</li>
-            <li>Truck</li>
-          </ul>
+      <div className='serviceImages'>
+        <div className='imageContainer'>
+          <img src={bikepartsImage} alt="Bike Parts" />
+          <img src={bikewashImage} alt="Bike Wash" />
+          <img src={carserviceImage} alt="Car Service" />
+          <img src={carwashImage} alt="Car Wash" />
         </div>
       </div>
-    </div> */}
 
-
-
-{/* 2nd box */}
-<div className='box2'>
-  <div className='WhatWeDo'>
-    <h3>What we do?</h3>
-    <div className='workList'>
-      <ul>
-        <li>Vehicle Service</li>
-        <li>Vehicle Wash</li>
-        <li>Parts Sell</li>
-        <li>Emergency Service</li>
-      </ul>
-    </div>
-</div>
-</div>
-
-
-
-
-{/* 3rd box */}
-<div className='box3'>
-  <div className='WhyChooseUs'>
-      <h1>Why Choose Us?</h1>
-      <div className='whyUsList'>
-        <ol>
-          <li>Car Service at home</li>
-          <li>Repairs at home</li>
-          <li>Used car inspection</li>
-          <li>a/c repair</li>
-          <li>battery replacement</li>
-        </ol>
+      <div className='box2'>
+        <div className='WhatWeDo'>
+          <h3>What we do?</h3>
+          <div className='workList'>
+            <ul>
+              <li>Vehicle Service</li>
+              <li>Vehicle Wash</li>
+              <li>Parts Sell</li>
+              <li>Emergency Service</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className='bookNow'>
-          <h3>BOOK NOW</h3>
+
+      <div className='box3'>
+        <div className='WhyChooseUs'>
+          <h1>Why Choose Us?</h1>
+          <div className='whyUsList'>
+            <ul>
+              <li>Expert vehicle servicing and wash</li>
+              <li>Genuine parts sales</li>
+              <li>24/7 emergency services</li>
+              <li>Reliable, tailored solutions</li>
+              <li>Customer-focused satisfaction</li>
+            </ul>
+          </div>
+          <NavLink to="/book-now" className='bookNow'>
+            <h3>BOOK NOW</h3>
+          </NavLink>
+        </div>
       </div>
-  </div>
 
-</div>
+      <div className='box4'>
+        <div className='contactUs'>
+          <h3>Contact Us</h3>
+          <p>123, ABC Street,Dhaka-1000,Bangladesh</p>
+        </div>
 
-
-{/* box 4 */}
-<div className='box4'>
-  {/* <div className='ourService'>
-    <h4>Our Services</h4>
-    <ul>
-      <li>lalala</li>
-      <li>lalala</li>
-      <li>lalalla</li>
-    </ul>
-  </div> */}
-
-  <div className='contactUs'>
-    <h3>Contact Us</h3>
-    <p>amar bari ghor nai</p>
-  </div>
-
-  <div className='socialHandles'>
-    <ul>
-      <li>instagram</li>
-      <li>facebook</li>
-    </ul>
-  </div>
-</div>
-
-<div className='Chat'>
-  <button>Chat with us</button>
-</div>
-
-
-
-
-
-{/* div close */}
+        {/* <div className='socialHandles'>
+          <ul>
+            <li>instagram</li>
+            <li>facebook</li>
+          </ul>
+        </div> */}
+      </div>
     </div>
   );
 };
+
+export default HomePage;
