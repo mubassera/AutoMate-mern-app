@@ -26,12 +26,12 @@ const HomePage = () => {
             <AiOutlineTool className='icon' />
             <p>Experienced Mechanics</p>
           </div>
-          <div className='qualityBox'>
-            <AiOutlineSafetyCertificate className='icon' />
+          <div className="qualityBox">
+            <AiOutlineSafetyCertificate className="icon" />
             <p>Quality Service</p>
           </div>
-          <div className='qualityBox'>
-            <AiOutlineDollarCircle className='icon' />
+          <div className="qualityBox">
+            <AiOutlineDollarCircle className="icon" />
             <p>Affordable Price</p>
           </div>
         </div>
