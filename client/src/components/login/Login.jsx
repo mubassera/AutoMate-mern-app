@@ -11,6 +11,14 @@ import axios from "axios";
 import "./Login.css";
 
 export const Login = () => {
+  //pre-loggedIn check
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log(userData);
+  const navigate = useNavigate();
+  if (userData) {
+    navigate("/home");
+  }
+
   const [action, setAction] = useState("Login");
   const [data, setData] = useState({
     name: "",
@@ -20,7 +28,6 @@ export const Login = () => {
     vehicleBrand: "",
     vehicleModel: "",
   });
-  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
