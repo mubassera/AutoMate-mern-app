@@ -7,6 +7,8 @@ import {
 import "./HomePage.css";
 
 export const HomePage = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log(userData);
   return (
     <div className="homePage">
       {/* NavBar */}
