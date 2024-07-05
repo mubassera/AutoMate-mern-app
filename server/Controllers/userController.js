@@ -1,7 +1,7 @@
 const express = require("express");
 const userModel = require("../models/userModel");
 const expressAsyncHandler = require("express-async-handler");
-const generateToken = require("../Config/generateToken");
+const generateRefreshToken = require("../Config/generateToken");
 
 //login controller for logging in
 const loginController = expressAsyncHandler(async (req, res) => {
@@ -16,7 +16,7 @@ const loginController = expressAsyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: generateRefreshToken(user._id),
     };
     //console.log(response);
     //console.log("user exists");
@@ -75,7 +75,7 @@ const registerController = expressAsyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: generateRefreshToken(user._id),
     });
   } else {
     res.status(400);
