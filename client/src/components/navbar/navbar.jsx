@@ -26,6 +26,13 @@ const Navbar = () => {
         <li>
           <NavLink to="/history" className={({ isActive }) => (isActive ? 'active' : '')}>Purchase & Booking History</NavLink>
         </li>
+        <li>
+        <NavLink to="/admin-page" className={({ isActive }) => (isActive ? 'active' : '')}>Admin</NavLink>
+        </li>
+        <li>
+          <NavLink to="/logout" className={({ isActive }) => (isActive ? 'active' : '')}>Logout</NavLink>
+        </li>
+        
       </ul>
     </div>
   );
