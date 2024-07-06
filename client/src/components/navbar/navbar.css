@@ -42,3 +42,17 @@
     cursor: pointer;
     color: bisque;
     }
+
+
+.navbar li a{
+    
+            color: white;
+            /* Set text color to white */
+            text-decoration: none;
+            /* Remove underline */
+        
+}
+
+.navMenu li a.active {
+    text-decoration: underline;
+}

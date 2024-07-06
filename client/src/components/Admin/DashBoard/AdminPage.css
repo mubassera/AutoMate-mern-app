@@ -1,0 +1,14 @@
+/* src/components/AdminPage/AdminPage.css */
+.admin-page {
+    display: flex;
+    background-color: bisque;
+}
+
+.admin-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.admin-content h1{
+    color: rgb(14, 14, 83);;
+}

@@ -92,11 +92,12 @@ body {
     border-radius: 8px;
 }
 
-.qualityBox .icon {
-    font-size: 70px;
-    color: rgb(231, 152, 5);
-}
 
+
+.icons{
+    color: rgb(231, 152, 5);
+    font-size: 70px;
+}
 .qualityBox p {
     color: rgb(14, 14, 83);
     font-size: 18px;
@@ -110,6 +111,7 @@ body {
     gap: 20px;
     padding: 20px;
     margin-top: 50px;
+    background-color: #fff;
 }
 
 .imageContainer {
@@ -132,16 +134,19 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
 }
 
 
 .WhatWeDo {
     padding: 30px;
     text-align: center;
+    
 }
 
 .WhatWeDo h3 {
     font-size: 35px;
+    color: rgb(14, 14, 83);;
 }
 
 .workList {
@@ -201,22 +206,25 @@ body {
 .WhyChooseUs h1{
     font-size: 35px;
     padding: 20px;
+    color: rgb(14, 14, 83);;
 }
 
 .whyUsList ul{
     display: flex;
     flex-direction: column;
+    padding-left: 15%;
 
 
 }
 
-.whyUsList li {
-
+.bookNow2{
+    padding-left: 23%;
 }
 
 .contactUs{
     /* margin-right: 500px; */
     margin-top: 20px;
+    color:#e27909;
 }
 
 /* .socialHandles{

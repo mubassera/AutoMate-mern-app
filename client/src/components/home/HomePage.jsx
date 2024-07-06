@@ -8,14 +8,16 @@ import bikewashImage from '../Assets/bikewash.jpeg';
 import carserviceImage from '../Assets/carservice.jpeg';
 import carwashImage from '../Assets/carwash.jpeg';
 
+
+
 const HomePage = () => {
   return (
     <div className='homePage'>
       <Navbar />
       <div className='box1'>
         <h1>Vehicle Services</h1>
-        <p>Life is too short to spend at a repair shop</p>
-        <p>Your place | Your time | Your Vehicle</p>
+        <p>Your Reliable Partner for Vehicle Care</p>
+        <p>Your Vehicle | Our Expertise | Convenient Maintenance</p>
         
         <NavLink to="/book-now" className='bookNow'>
           <h3>BOOK NOW</h3>
@@ -23,21 +25,24 @@ const HomePage = () => {
         
         <div className='ourQuality'>
           <div className='qualityBox'>
-            <AiOutlineTool className='icon' />
+            <AiOutlineTool className='icons' />
             <p>Experienced Mechanics</p>
           </div>
           <div className="qualityBox">
-            <AiOutlineSafetyCertificate className="icon" />
+            <AiOutlineSafetyCertificate className="icons" />
             <p>Quality Service</p>
           </div>
           <div className="qualityBox">
-            <AiOutlineDollarCircle className="icon" />
+            <AiOutlineDollarCircle className="icons" />
             <p>Affordable Price</p>
           </div>
         </div>
       </div>
 
-      <div className='serviceImages'>
+      
+
+      <div className='box2'>
+        <div className='serviceImages'>
         <div className='imageContainer'>
           <img src={bikepartsImage} alt="Bike Parts" />
           <img src={bikewashImage} alt="Bike Wash" />
@@ -45,8 +50,6 @@ const HomePage = () => {
           <img src={carwashImage} alt="Car Wash" />
         </div>
       </div>
-
-      <div className='box2'>
         <div className='WhatWeDo'>
           <h3>What we do?</h3>
           <div className='workList'>
@@ -72,9 +75,11 @@ const HomePage = () => {
               <li>Customer-focused satisfaction</li>
             </ul>
           </div>
-          <NavLink to="/book-now" className='bookNow'>
+          <div className='bookNow2'>
+                      <NavLink to="/book-now" className='bookNow'>
             <h3>BOOK NOW</h3>
           </NavLink>
+          </div>
         </div>
       </div>
 
@@ -91,6 +96,14 @@ const HomePage = () => {
           </ul>
         </div> */}
       </div>
+
+
+          {/* admin ...change here */}
+      
+      
+
+
+
     </div>
   );
 };
