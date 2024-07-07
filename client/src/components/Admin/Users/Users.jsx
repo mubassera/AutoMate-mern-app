@@ -30,7 +30,7 @@ export const Users = () => {
   const fetchUsers = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("userData")).accessToken;
-      const response = await axios.get("http://localhost:5000/admin/AllUsers", {
+      const response = await axios.get("https://auto-mate-mern-app-glrn.vercel.app/admin/AllUsers", {
         headers: {
           Authorization: "Bearer " + token,
         },

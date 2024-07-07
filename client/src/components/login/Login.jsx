@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
+import { DoLogin,DoSignup } from "../../api";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -36,63 +37,26 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    //console.log(data);
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const response = await axios.post(
-        "http://localhost:5000/user/login/",
-        data,
-        config
-      );
-
-      //console.log("login: ", response);
-      if (response.data == "Invalid email or password") {
-        alert("Invalid email or password");
-      } else {
-        localStorage.setItem("userData", JSON.stringify(response.data));
-        navigate("/home");
-      }
-    } catch (error) {
-      alert("Some error has occured. Please try again later");
-      console.log(error);
-    }
+    DoLogin({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      vehicleType: data.vehicleType,
+      vehicleBrand: data.vehicleBrand,
+      vehicleModel: data.vehicleModel
+    });
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log(data);
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const response = await axios.post(
-        "http://localhost:5000/user/register/",
-        data,
-        config
-      );
-      //console.log(response);
-      if (response.data == "choose your vehicle") {
-        alert("Choose your vehicle");
-      } else if (response.data == "User already Exists") {
-        alert("User already Exists");
-      } else if (response.data == "Username already Exists") {
-        alert("Username already Exists");
-      } else {
-        localStorage.setItem("userData", JSON.stringify(response.data));
-        navigate("/home");
-      }
-    } catch (error) {
-      alert("Some error has occured. Please try again later");
-      console.log(error);
-    }
+    DoSignup({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      vehicleType: data.vehicleType,
+      vehicleBrand: data.vehicleBrand,
+      vehicleModel: data.vehicleModel
+    });
   };
 
   return (
