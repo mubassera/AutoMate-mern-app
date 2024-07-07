@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
 const userRoutes = require("./Routes/userRoutes");
+const adminRoutes = require("./Routes/adminRoutes");
 
 const app = express();
 dotenv.config();
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 
