@@ -20,6 +20,7 @@ const loginController = expressAsyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       refreshToken: generateRefreshToken(user._id),
+      accessToken: generateAccessToken(user._id),
     };
     //console.log(response);
     //console.log("user exists");
@@ -79,6 +80,7 @@ const registerController = expressAsyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       refreshToken: generateRefreshToken(user._id),
+      accessToken: generateAccessToken(user._id),
     });
   } else {
     res.status(400);
@@ -86,4 +88,9 @@ const registerController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { loginController, registerController };
+//logout controller for logging in
+const logoutController = expressAsyncHandler(async (req, res) => {
+  res.json({ message: "Logout successful" });
+});
+
+module.exports = { loginController, registerController, logoutController };
