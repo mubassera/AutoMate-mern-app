@@ -1,89 +1,87 @@
 .users {
-    display: flex;
-    background-color: bisque;
+  display: flex;
+  background-color: bisque;
 }
 
 .usersContents {
-    flex-grow: 1;
-    padding: 20px;
+  flex-grow: 1;
+  padding: 20px;
 }
 
 .usersContents h1 {
-    color: rgb(14, 14, 83);
-    padding-bottom: 20px;
+  color: rgb(14, 14, 83);
+  padding-bottom: 20px;
 }
 
 .UserSearch {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 .searchWrapper {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .searchInput {
-    width: 100%;
-    padding: 10px 10px 10px 40px;
-    
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .icon {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: #ccc;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #ccc;
 }
 
-.filterSelectButton{
-
+.filterSelectButton {
 }
 
-.filterSelect{
-
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+.filterSelect {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .usersTable table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .usersTable th,
 .usersTable td {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  color: black;
 }
 
 .usersTable th {
-    background-color: rgb(255, 136, 0);
+  background-color: rgb(255, 136, 0);
 }
 
-.button{
-    /* padding: 5px; */
-    /* margin: 10px; */
+.button {
+  /* padding: 5px; */
+  /* margin: 10px; */
 }
 
 .addUserButton button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: rgb(255, 136, 0);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: rgb(255, 136, 0);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .addUserButton button:hover {
-    background-color: rgb(255, 136, 0);
+  background-color: rgb(255, 136, 0);
 }
