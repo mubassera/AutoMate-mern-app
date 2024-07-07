@@ -15,6 +15,13 @@ export const Users = () => {
   const [newUserVehicle, setNewUserVehicle] = useState("");
   const [newUserBrand, setNewUserBrand] = useState("");
   const [newUserModel, setNewUserModel] = useState("");
+  const [editValues, setEditValues] = useState({
+    name: "",
+    email: "",
+    vehicleType: "",
+    vehicleBrand: "",
+    vehicleModel: "",
+  });
 
   useEffect(() => {
     fetchUsers();
@@ -38,29 +45,25 @@ export const Users = () => {
     setSelectedFilter(e.target.value);
   };
 
-  const handleEdit = (id) => {
-    setEditUserId(id);
+  const handleEdit = (user) => {
+    setEditUserId(user._id);
+    setEditValues({
+      name: user.name,
+      email: user.email,
+      vehicleType: user.vehicleType,
+      vehicleBrand: user.vehicleBrand,
+      vehicleModel: user.vehicleModel,
+    });
   };
 
-  const handleSave = async (
-    id,
-    name,
-    email,
-    vehicleType,
-    vehicleBrand,
-    vehicleModel
-  ) => {
+  const handleSave = async (id) => {
     try {
       const token = JSON.parse(localStorage.getItem("userData")).accessToken;
       const updatedUsers = users.map((user) => {
-        if (user.id === id) {
+        if (user._id === id) {
           return {
             ...user,
-            name: name,
-            email: email,
-            vehicleType: vehicleType,
-            vehicleBrand: vehicleBrand,
-            vehicleModel: vehicleModel,
+            ...editValues,
           };
         }
         return user;
@@ -70,13 +73,7 @@ export const Users = () => {
 
       await axios.put(
         `http://localhost:5000/admin/AllUsers/${id}`,
-        {
-          name: name,
-          email: email,
-          vehicleType: vehicleType,
-          vehicleBrand: vehicleBrand,
-          vehicleModel: vehicleModel,
-        },
+        editValues,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -92,7 +89,7 @@ export const Users = () => {
   const handleDelete = async (id) => {
     try {
       const token = JSON.parse(localStorage.getItem("userData")).accessToken;
-      const updatedUsers = users.filter((user) => user.id !== id);
+      const updatedUsers = users.filter((user) => user._id !== id);
       setUsers(updatedUsers);
 
       await axios.delete(`http://localhost:5000/admin/AllUsers/${id}`, {
@@ -107,31 +104,24 @@ export const Users = () => {
   };
 
   const handleAddUser = () => {
-    const newUser = {
-      name: "New User",
-      email: "newuser@gmail.com",
-      vehicleType: "Vehicle",
-      vehicleBrand: "Brand",
-      vehicleModel: "Model",
-    };
-    setEditingNewUserId(newUser.id);
+    setEditingNewUserId(users.length + 1);
+    setNewUserName("");
+    setNewUserEmail("");
+    setNewUserVehicle("");
+    setNewUserBrand("");
+    setNewUserModel("");
   };
 
-  const handleSaveNewUser = async (
-    newName,
-    newEmail,
-    newVehicle,
-    newBrand,
-    newModel
-  ) => {
+  const handleSaveNewUser = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("userData")).accessToken;
       const newUser = {
-        name: newName,
-        email: newEmail,
-        vehicleType: newVehicle,
-        vehicleBrand: newBrand,
-        vehicleModel: newModel,
+        id: users.length + 1,
+        name: newUserName,
+        email: newUserEmail,
+        vehicleType: newUserVehicle,
+        vehicleBrand: newUserBrand,
+        vehicleModel: newUserModel,
       };
       setUsers([...users, newUser]);
       setEditingNewUserId(null);
@@ -154,11 +144,11 @@ export const Users = () => {
       case "email":
         return user.email.toLowerCase().includes(searchLower);
       case "vehicle":
-        return user.vehicle.toLowerCase().includes(searchLower);
+        return user.vehicleType.toLowerCase().includes(searchLower);
       case "brand":
-        return user.brand.toLowerCase().includes(searchLower);
+        return user.vehicleBrand.toLowerCase().includes(searchLower);
       case "model":
-        return user.model.toLowerCase().includes(searchLower);
+        return user.vehicleModel.toLowerCase().includes(searchLower);
       default:
         return true;
     }
@@ -212,23 +202,15 @@ export const Users = () => {
             </thead>
             <tbody>
               {filteredUsers.map((user, index) => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td>{index + 1}</td>
-
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <input
                         type="text"
-                        value={user.name}
+                        value={editValues.name}
                         onChange={(e) =>
-                          handleSave(
-                            user.id,
-                            e.target.value,
-                            user.email,
-                            user.vehicleType,
-                            user.vehicleBrand,
-                            user.vehicleModel
-                          )
+                          setEditValues({ ...editValues, name: e.target.value })
                         }
                       />
                     ) : (
@@ -236,19 +218,15 @@ export const Users = () => {
                     )}
                   </td>
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <input
                         type="text"
-                        value={user.email}
+                        value={editValues.email}
                         onChange={(e) =>
-                          handleSave(
-                            user.id,
-                            user.name,
-                            e.target.value,
-                            user.vehicleType,
-                            user.vehicleBrand,
-                            user.vehicleModel
-                          )
+                          setEditValues({
+                            ...editValues,
+                            email: e.target.value,
+                          })
                         }
                       />
                     ) : (
@@ -256,19 +234,15 @@ export const Users = () => {
                     )}
                   </td>
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <input
                         type="text"
-                        value={user.vehicle}
+                        value={editValues.vehicleType}
                         onChange={(e) =>
-                          handleSave(
-                            user.id,
-                            user.name,
-                            user.email,
-                            e.target.value,
-                            user.vehicleBrand,
-                            user.vehicleModel
-                          )
+                          setEditValues({
+                            ...editValues,
+                            vehicleType: e.target.value,
+                          })
                         }
                       />
                     ) : (
@@ -276,19 +250,15 @@ export const Users = () => {
                     )}
                   </td>
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <input
                         type="text"
-                        value={user.brand}
+                        value={editValues.vehicleBrand}
                         onChange={(e) =>
-                          handleSave(
-                            user.id,
-                            user.name,
-                            user.email,
-                            user.vehicleType,
-                            e.target.value,
-                            user.vehicleModel
-                          )
+                          setEditValues({
+                            ...editValues,
+                            vehicleBrand: e.target.value,
+                          })
                         }
                       />
                     ) : (
@@ -296,47 +266,31 @@ export const Users = () => {
                     )}
                   </td>
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <input
                         type="text"
-                        value={user.model}
+                        value={editValues.vehicleModel}
                         onChange={(e) =>
-                          handleSave(
-                            user.id,
-                            user.name,
-                            user.email,
-                            user.vehicleType,
-                            user.vehicleBrand,
-                            e.target.value
-                          )
+                          setEditValues({
+                            ...editValues,
+                            vehicleModel: e.target.value,
+                          })
                         }
                       />
                     ) : (
                       user.vehicleModel
                     )}
                   </td>
-
                   <td>
-                    {editingNewUserId === user.id || editUserId === user.id ? (
+                    {editUserId === user._id ? (
                       <div className="button">
-                        <button
-                          onClick={() =>
-                            handleSave(
-                              user.id,
-                              user.name,
-                              user.email,
-                              user.vehicleType,
-                              user.vehicleBrand,
-                              user.vehicleModel
-                            )
-                          }
-                        >
+                        <button onClick={() => handleSave(user._id)}>
                           <FaSave />
                         </button>
                       </div>
                     ) : (
                       <div className="button">
-                        <button onClick={() => handleEdit(user.id)}>
+                        <button onClick={() => handleEdit(user)}>
                           <FaEdit />
                         </button>
                       </div>
@@ -344,7 +298,7 @@ export const Users = () => {
                   </td>
                   <td>
                     <div className="button">
-                      <button onClick={() => handleDelete(user.id)}>
+                      <button onClick={() => handleDelete(user._id)}>
                         <FaTrash />
                       </button>
                     </div>
@@ -358,6 +312,7 @@ export const Users = () => {
                     <input
                       type="text"
                       placeholder="Name"
+                      value={newUserName}
                       onChange={(e) => setNewUserName(e.target.value)}
                     />
                   </td>
@@ -365,6 +320,7 @@ export const Users = () => {
                     <input
                       type="text"
                       placeholder="Email"
+                      value={newUserEmail}
                       onChange={(e) => setNewUserEmail(e.target.value)}
                     />
                   </td>
@@ -372,6 +328,7 @@ export const Users = () => {
                     <input
                       type="text"
                       placeholder="Vehicle"
+                      value={newUserVehicle}
                       onChange={(e) => setNewUserVehicle(e.target.value)}
                     />
                   </td>
@@ -379,6 +336,7 @@ export const Users = () => {
                     <input
                       type="text"
                       placeholder="Brand"
+                      value={newUserBrand}
                       onChange={(e) => setNewUserBrand(e.target.value)}
                     />
                   </td>
@@ -386,21 +344,12 @@ export const Users = () => {
                     <input
                       type="text"
                       placeholder="Model"
+                      value={newUserModel}
                       onChange={(e) => setNewUserModel(e.target.value)}
                     />
                   </td>
                   <td>
-                    <button
-                      onClick={() =>
-                        handleSaveNewUser(
-                          newUserName,
-                          newUserEmail,
-                          newUserVehicle,
-                          newUserBrand,
-                          newUserModel
-                        )
-                      }
-                    >
+                    <button onClick={handleSaveNewUser}>
                       <FaSave />
                     </button>
                   </td>

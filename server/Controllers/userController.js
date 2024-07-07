@@ -88,4 +88,9 @@ const registerController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { loginController, registerController };
+//logout controller for logging in
+const logoutController = expressAsyncHandler(async (req, res) => {
+  res.json({ message: "Logout successful" });
+});
+
+module.exports = { loginController, registerController, logoutController };
