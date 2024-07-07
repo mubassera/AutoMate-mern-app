@@ -99,14 +99,14 @@ export const Login = () => {
     <div className="loginpage">
       <div className="leftContainer">
         <h1>AutoMate</h1>
-        <p>Amra gari bachai ..amra gari dhui</p>
+        <p>Your Reliable Partner for Vehicle Care</p>
       </div>
       <div className="container">
         {action === "Login" ? (
           <>
             <form onSubmit={handleLogin} className="inputs">
               <div className="input">
-                <span className="icon">
+                <span className="Icon">
                   <FaEnvelope />
                 </span>
                 <input
@@ -118,7 +118,7 @@ export const Login = () => {
                 />
               </div>
               <div className="input">
-                <span className="icon">
+                <span className="Icon">
                   <FaLock />
                 </span>
                 <input
@@ -159,7 +159,7 @@ export const Login = () => {
             <form onSubmit={handleSignUp}>
               <div className="inputs">
                 <div className="input">
-                  <span className="icon">
+                  <span className="Icon">
                     <FaUser />
                   </span>
                   <input
@@ -171,7 +171,7 @@ export const Login = () => {
                   />
                 </div>
                 <div className="input">
-                  <span className="icon">
+                  <span className="Icon">
                     <FaEnvelope />
                   </span>
                   <input
@@ -183,7 +183,7 @@ export const Login = () => {
                   />
                 </div>
                 <div className="input">
-                  <span className="icon">
+                  <span className="Icon">
                     <FaLock />
                   </span>
                   <input
@@ -223,7 +223,7 @@ export const Login = () => {
               </div>
 
               <div className="input">
-                <span className="icon">
+                <span className="Icon">
                   <FaCar />
                 </span>
                 <input
@@ -235,8 +235,10 @@ export const Login = () => {
                 />
               </div>
 
+              <br />
+
               <div className="input">
-                <span className="icon">
+                <span className="Icon">
                   <FaMotorcycle />
                 </span>
                 <input
@@ -269,6 +271,8 @@ export const Login = () => {
       <div className="footer">
         <p>&copy; 2024 AutoMate. All rights reserved.</p>
       </div>
+
+      
     </div>
   );
 };
