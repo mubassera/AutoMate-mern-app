@@ -26,8 +26,8 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: ["https://auto-mate-mern-app.vercel.app"],
-    methods: ["GET, POST, OPTIONS, PUT, PATCH, DELETE"],
+    origin: "https://auto-mate-mern-app.vercel.app",
+    methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
     credentials: true,
   })
 );
