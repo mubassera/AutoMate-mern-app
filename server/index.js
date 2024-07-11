@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
+const http = require("http");
 const userRoutes = require("./Routes/userRoutes");
 const adminRoutes = require("./Routes/adminRoutes");
 
@@ -9,7 +10,7 @@ const app = express();
 dotenv.config();
 
 // Middleware to set CORS headers
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://auto-mate-mern-app.vercel.app"
@@ -22,13 +23,13 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
-});
+});*/
 
 app.use(
   cors({
-    origin: "https://auto-mate-mern-app.vercel.app",
-    methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-    credentials: true,
+    //origin: "https://auto-mate-mern-app.vercel.app",
+    //methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+    //credentials: true,
   })
 );
 app.use(express.json());
@@ -53,5 +54,9 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 
 const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
 
-app.listen(PORT, console.log(`Server is running at http://localhost:${PORT}`));
+server.listen(
+  PORT,
+  console.log(`Server is running at http://localhost:${PORT}`)
+);
