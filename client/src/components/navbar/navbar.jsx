@@ -2,16 +2,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import axios from "axios";
+import { logoutUser } from "../../Api/auth";
 
 const Navbar = () => {
   const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/user/logout",
-        null,
-        {}
-      );
-      console.log(response.data);
+      await logoutUser();
+      alert("Logout successful");
       localStorage.removeItem("userData");
     } catch (error) {
       console.error("Logout failed:", error);
