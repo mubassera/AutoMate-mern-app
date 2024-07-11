@@ -271,8 +271,6 @@ export const Login = () => {
       <div className="footer">
         <p>&copy; 2024 AutoMate. All rights reserved.</p>
       </div>
-
-      
     </div>
   );
 };
