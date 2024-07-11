@@ -12,7 +12,7 @@ dotenv.config();
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://auto-mate-mern-app.vercel.app"
+    "http://auto-mate-mern-app.vercel.app"
   );
   // Add other headers as needed
   res.setHeader(
