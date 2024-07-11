@@ -45,7 +45,7 @@ export const Login = () => {
       };
 
       const response = await axios.post(
-        "https://auto-mate-mern-app-glrn.vercel.app/user/login/",
+        "http://auto-mate-mern-app-glrn.vercel.app/user/login/",
         data,
         config
       );
@@ -74,7 +74,7 @@ export const Login = () => {
       };
 
       const response = await axios.post(
-        "https://auto-mate-mern-app-glrn.vercel.app/user/register/",
+        "http://auto-mate-mern-app-glrn.vercel.app/user/register/",
         data,
         config
       );
