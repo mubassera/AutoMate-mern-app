@@ -43,3 +43,8 @@ export const logoutUser = async () => {
     throw new Error("Logout failed: " + error.response.data.message);
   }
 };
+
+//get token
+export const getToken = () => {
+  return JSON.parse(localStorage.getItem("userData")).accessToken;
+};
