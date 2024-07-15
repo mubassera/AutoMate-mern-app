@@ -1,8 +1,15 @@
+// src/components/Users.js
+
 import React, { useState, useEffect } from "react";
 import "./Users.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 import { FaSearch, FaEdit, FaTrash, FaSave } from "react-icons/fa";
-import axios from "axios";
+import {
+  fetchAllUsers,
+  updateUser,
+  deleteUser,
+  addUser,
+} from "../../../Api/adminPanel";
 
 export const Users = () => {
   const [search, setSearch] = useState("");
@@ -29,13 +36,8 @@ export const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem("userData")).accessToken;
-      const response = await axios.get("http://localhost:5000/admin/AllUsers", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      setUsers(response.data);
+      const data = await fetchAllUsers();
+      setUsers(data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -58,7 +60,7 @@ export const Users = () => {
 
   const handleSave = async (id) => {
     try {
-      const token = JSON.parse(localStorage.getItem("userData")).accessToken;
+      await updateUser(id, editValues);
       const updatedUsers = users.map((user) => {
         if (user._id === id) {
           return {
@@ -70,17 +72,6 @@ export const Users = () => {
       });
       setUsers(updatedUsers);
       setEditUserId(null);
-
-      await axios.put(
-        `http://localhost:5000/admin/AllUsers/${id}`,
-        editValues,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-          params: { id },
-        }
-      );
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -88,16 +79,9 @@ export const Users = () => {
 
   const handleDelete = async (id) => {
     try {
-      const token = JSON.parse(localStorage.getItem("userData")).accessToken;
+      await deleteUser(id);
       const updatedUsers = users.filter((user) => user._id !== id);
       setUsers(updatedUsers);
-
-      await axios.delete(`http://localhost:5000/admin/AllUsers/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-        params: { id },
-      });
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -114,7 +98,6 @@ export const Users = () => {
 
   const handleSaveNewUser = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem("userData")).accessToken;
       const newUser = {
         id: users.length + 1,
         name: newUserName,
@@ -123,14 +106,9 @@ export const Users = () => {
         vehicleBrand: newUserBrand,
         vehicleModel: newUserModel,
       };
+      await addUser(newUser);
       setUsers([...users, newUser]);
       setEditingNewUserId(null);
-
-      await axios.post(`http://localhost:5000/admin/AllUsers`, newUser, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
     } catch (error) {
       console.error("Error adding user:", error);
     }
@@ -210,7 +188,10 @@ export const Users = () => {
                         type="text"
                         value={editValues.name}
                         onChange={(e) =>
-                          setEditValues({ ...editValues, name: e.target.value })
+                          setEditValues({
+                            ...editValues,
+                            name: e.target.value,
+                          })
                         }
                       />
                     ) : (

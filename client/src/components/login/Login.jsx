@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { login, signup } from "../../Api/auth";
 import "./Login.css";
 
 export const Login = () => {
@@ -36,61 +37,36 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    //console.log(data);
     try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const response = await axios.post(
-        "https://auto-mate-mern-app-glrn.vercel.app/user/login/",
-        data,
-        config
-      );
-
-      //console.log("login: ", response);
-      if (response.data == "Invalid email or password") {
+      const response = await login(data);
+      if (response === "Invalid email or password") {
         alert("Invalid email or password");
       } else {
-        localStorage.setItem("userData", JSON.stringify(response.data));
+        localStorage.setItem("userData", JSON.stringify(response));
         navigate("/home");
       }
     } catch (error) {
-      alert("Some error has occured. Please try again later");
+      alert("Some error has occurred. Please try again later");
       console.log(error);
     }
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log(data);
     try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const response = await axios.post(
-        "https://auto-mate-mern-app-glrn.vercel.app/user/register/",
-        data,
-        config
-      );
-      //console.log(response);
-      if (response.data == "choose your vehicle") {
+      const response = await signup(data);
+      if (response === "choose your vehicle") {
         alert("Choose your vehicle");
-      } else if (response.data == "User already Exists") {
+      } else if (response === "User already Exists") {
         alert("User already Exists");
-      } else if (response.data == "Username already Exists") {
+      } else if (response === "Username already Exists") {
         alert("Username already Exists");
       } else {
-        localStorage.setItem("userData", JSON.stringify(response.data));
+        localStorage.setItem("userData", JSON.stringify(response));
         navigate("/home");
       }
     } catch (error) {
-      alert("Some error has occured. Please try again later");
+      alert("Some error has occurred. Please try again later");
       console.log(error);
     }
   };

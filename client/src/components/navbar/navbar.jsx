@@ -2,22 +2,23 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import axios from "axios";
+import { logoutUser } from "../../Api/auth";
 
 const Navbar = () => {
   const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/user/logout",
-        null,
-        {}
-      );
-      console.log(response.data);
+      await logoutUser();
+      alert("Logout successful");
       localStorage.removeItem("userData");
     } catch (error) {
       console.error("Logout failed:", error);
       alert(error.toString());
     }
   };
+
+  // Assuming userData contains the role and is stored in localStorage
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const isAdmin = userData ? userData.isAdmin : false;
 
   return (
     <div className="navbar">
@@ -67,14 +68,16 @@ const Navbar = () => {
             Purchase & Booking History
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/admin-page"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            Admin
-          </NavLink>
-        </li>
+        {isAdmin && (
+          <li>
+            <NavLink
+              to="/admin-page"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Admin
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink
             to="/"
