@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { login, signup } from "../../Api/auth";
 import "./Login.css";
-import { DoLogin,DoSignup } from "../../api";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -38,16 +37,6 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    DoLogin({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      vehicleType: data.vehicleType,
-      vehicleBrand: data.vehicleBrand,
-      vehicleModel: data.vehicleModel
-    });
-=======
     try {
       const response = await login(data);
       if (response === "Invalid email or password") {
@@ -60,21 +49,10 @@ export const Login = () => {
       alert("Some error has occurred. Please try again later");
       console.log(error);
     }
->>>>>>> e9e8f91896c0f80e7606f67013692ee29f48c114
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    DoSignup({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      vehicleType: data.vehicleType,
-      vehicleBrand: data.vehicleBrand,
-      vehicleModel: data.vehicleModel
-    });
-=======
     try {
       const response = await signup(data);
       if (response === "choose your vehicle") {
@@ -91,7 +69,6 @@ export const Login = () => {
       alert("Some error has occurred. Please try again later");
       console.log(error);
     }
->>>>>>> e9e8f91896c0f80e7606f67013692ee29f48c114
   };
 
   return (

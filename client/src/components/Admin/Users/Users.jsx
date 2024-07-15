@@ -36,18 +36,8 @@ export const Users = () => {
 
   const fetchUsers = async () => {
     try {
-<<<<<<< HEAD
-      const token = JSON.parse(localStorage.getItem("userData")).accessToken;
-      const response = await axios.get("https://auto-mate-mern-app-glrn.vercel.app/admin/AllUsers", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      setUsers(response.data);
-=======
       const data = await fetchAllUsers();
       setUsers(data);
->>>>>>> e9e8f91896c0f80e7606f67013692ee29f48c114
     } catch (error) {
       console.error("Error fetching users:", error);
     }
