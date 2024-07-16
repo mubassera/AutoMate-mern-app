@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { login, signup } from "../../Api/auth";
+import { login, signup } from "../../api/auth";
 import "./Login.css";
 
 export const Login = () => {
