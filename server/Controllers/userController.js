@@ -5,6 +5,7 @@ const {
   generateRefreshToken,
   generateAccessToken,
 } = require("../Config/generateToken");
+const PartsModel = require("../models/partsModel");
 
 //login controller for logging in
 const loginController = expressAsyncHandler(async (req, res) => {
@@ -93,4 +94,40 @@ const logoutController = expressAsyncHandler(async (req, res) => {
   res.json({ message: "Logout successful" });
 });
 
-module.exports = { loginController, registerController, logoutController };
+//get the parts
+const partsController = expressAsyncHandler(async (req, res) => {
+  const {
+    name,
+    vehicleType,
+    vehicleBrand,
+    vehicleModel,
+    page = 1,
+    limit = 10,
+  } = req.query;
+  const query = {};
+  if (name) query.name = new RegExp(name, "i");
+  if (vehicleType) query.vehicleType = new RegExp(vehicleType, "i");
+  if (vehicleBrand) query.vehicleBrand = new RegExp(vehicleBrand, "i");
+  if (vehicleModel) query.vehicleModel = new RegExp(vehicleModel, "i");
+
+  try {
+    const parts = await PartsModel.find(query)
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit));
+    const totalParts = await PartsModel.countDocuments(query);
+    res.json({
+      parts,
+      totalPages: Math.ceil(totalParts / limit),
+      currentPage: parseInt(page),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = {
+  loginController,
+  registerController,
+  logoutController,
+  partsController,
+};

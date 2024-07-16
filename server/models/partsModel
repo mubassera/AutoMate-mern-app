@@ -4,8 +4,8 @@ const partsSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     vehicleType: { type: String, required: true },
-    brand: { type: String, required: true },
-    model: { type: String, required: true },
+    vehicleBrand: { type: String, required: true },
+    vehicleModel: { type: String, required: true },
     quantity: { type: Number, required: true },
     isAvailable: { type: Boolean, required: true },
     shortDescription: { type: String, required: true },
@@ -16,5 +16,5 @@ const partsSchema = new mongoose.Schema(
   }
 );
 
-const Item = mongoose.model("parts", partsSchema);
-module.exports = Item;
+const PartsModel = mongoose.model("parts", partsSchema);
+module.exports = PartsModel;
