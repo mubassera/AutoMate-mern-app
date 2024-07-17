@@ -23,8 +23,8 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navLogo">
-        <h2>LOGO</h2>
-        <p>Automate</p>
+        {/* <h2>AM</h2> */}
+        <h2>AutoMate</h2>
       </div>
 
       <ul className="navMenu">
