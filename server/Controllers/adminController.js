@@ -3,19 +3,8 @@ const User = require("../models/userModel");
 
 const fetchAllUsersController = expressAsyncHandler(async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Default to page 1
-    const limit = parseInt(req.query.limit) || 10; // Default to 10 users per page
-    const skip = (page - 1) * limit; // Calculate how many records to skip
-
-    const totalUsers = await User.countDocuments(); // Total number of users
-    const users = await User.find().select("-password").skip(skip).limit(limit);
-
-    res.json({
-      users,
-      currentPage: page,
-      totalPages: Math.ceil(totalUsers / limit),
-      totalUsers,
-    });
+    const users = await User.find().select("-password");
+    res.json(users);
   } catch (err) {
     res.status(500).json({ error: "Server error" });
   }
