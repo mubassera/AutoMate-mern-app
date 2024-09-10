@@ -1,5 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const PartsModel = require("../models/partsModel");
 
 const fetchAllUsersController = expressAsyncHandler(async (req, res) => {
   try {
@@ -76,9 +77,30 @@ const deleteUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//post new part details
+const postNewPartController = expressAsyncHandler(async (req, res) => {
+  try {
+    const savedPart = await PartsModel.create({
+      name: req.body.name,
+      vehicleType: req.body.vehicleType,
+      vehicleBrand: req.body.vehicleBrand,
+      vehicleModel: req.body.vehicleModel,
+      quantity: req.body.quantity,
+      isAvailable: true,
+      shortDescription: req.body.shortDescription,
+      longDescription: req.body.longDescription,
+    });
+    res.status(201).json(savedPart);
+  } catch (err) {
+    console.error("Error adding user:", err);
+    res.status(500).json({ error: "Failed to add user" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
   editUserController,
   deleteUserController,
+  postNewPartController,
 };
