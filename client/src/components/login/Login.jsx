@@ -8,8 +8,8 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { login, signup } from "../../Api/auth";
 import "./Login.css";
-import { DoLogin,DoSignup } from "../../api";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -37,26 +37,38 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    DoLogin({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      vehicleType: data.vehicleType,
-      vehicleBrand: data.vehicleBrand,
-      vehicleModel: data.vehicleModel
-    });
+    try {
+      const response = await login(data);
+      if (response === "Invalid email or password") {
+        alert("Invalid email or password");
+      } else {
+        localStorage.setItem("userData", JSON.stringify(response));
+        navigate("/home");
+      }
+    } catch (error) {
+      alert("Some error has occurred. Please try again later");
+      console.log(error);
+    }
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    DoSignup({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      vehicleType: data.vehicleType,
-      vehicleBrand: data.vehicleBrand,
-      vehicleModel: data.vehicleModel
-    });
+    try {
+      const response = await signup(data);
+      if (response === "choose your vehicle") {
+        alert("Choose your vehicle");
+      } else if (response === "User already Exists") {
+        alert("User already Exists");
+      } else if (response === "Username already Exists") {
+        alert("Username already Exists");
+      } else {
+        localStorage.setItem("userData", JSON.stringify(response));
+        navigate("/home");
+      }
+    } catch (error) {
+      alert("Some error has occurred. Please try again later");
+      console.log(error);
+    }
   };
 
   return (
@@ -235,8 +247,6 @@ export const Login = () => {
       <div className="footer">
         <p>&copy; 2024 AutoMate. All rights reserved.</p>
       </div>
-
-      
     </div>
   );
 };

@@ -1,58 +1,86 @@
+/* Base Styles */
 .navbar {
-    display: flex;
-    justify-content: space-around;
-    padding: 16px;
-    box-shadow: 0 1px 3px -2px black;
-    width: 100%;
-    height: 150px;
-    background: rgb(7, 7, 57);
-
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  box-shadow: 0 1px 3px -2px black;
+  width: 100vw;
+  height: 150px;
+  background: rgb(7, 7, 57);
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .navLogo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
 }
 
 .navLogo p {
-    color: rgb(231, 152, 5);
-    font-size: 38px;
-    font-weight: 600;
+  color: rgb(231, 152, 5);
+  font-size: 38px;
+  font-weight: 600;
 }
 
 .navMenu {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 50px;
-    color: #ec8383;
-    font-size: 20px;
-    font-weight: 500;
-
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 50px;
+  color: #ec8383;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .navMenu li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    cursor: pointer;
-    color: bisque;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  color: bisque;
+}
 
-
-.navbar li a{
-    
-            color: white;
-            /* Set text color to white */
-            text-decoration: none;
-            /* Remove underline */
-        
+.navbar li a {
+  color: white;
+  text-decoration: none;
 }
 
 .navMenu li a.active {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+
+  .navMenu {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .navMenu li {
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .navLogo p {
+    font-size: 28px;
+  }
+
+  .navMenu {
+    gap: 10px;
+    font-size: 18px;
+  }
 }

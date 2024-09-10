@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "proxy": "https://auto-mate-mern-app-glrn.vercel.app",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +17,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
+    "http": "^0.0.1-security",
+    "http-server": "^14.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.3"
