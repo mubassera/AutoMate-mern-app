@@ -1,5 +1,3 @@
-// src/components/Users.js
-
 import React, { useState, useEffect } from "react";
 import "./Users.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
