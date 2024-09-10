@@ -87,10 +87,21 @@ const postNewPartController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//fetch all parts
+const fetchAllPartsController = expressAsyncHandler(async (req, res) => {
+  try {
+    const parts = await PartsModel.find();
+    res.json(parts);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
   editUserController,
   deleteUserController,
   postNewPartController,
+  fetchAllPartsController,
 };
