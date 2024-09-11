@@ -7,7 +7,7 @@ import {
   updateUser,
   deleteUser,
   addUser,
-} from "../../../api/adminPanel";
+} from "../../../Api/adminPanel";
 
 export const Users = () => {
   const [search, setSearch] = useState("");
