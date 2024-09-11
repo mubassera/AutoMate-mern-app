@@ -1,0 +1,78 @@
+.admin-parts {
+    display: flex;
+    background-color: bisque;
+}
+
+.adminPartsContents {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.adminPartsContents h1 {
+    color: rgb(14, 14, 83);
+}
+
+.search-filters {
+    margin-bottom: 20px;
+}
+
+.search-filters input,
+.search-filters select,
+.search-filters button {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.parts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.part-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.part-box img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.part-box button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.part-box button:hover {
+    background-color: #218838;
+}
+
+.add-part-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-part-button button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-part-button button:hover {
+    background-color: #0056b3;
+}
