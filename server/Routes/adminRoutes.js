@@ -18,8 +18,8 @@ adminRouter.put(`/AllUsers/:id`, verifyJWT, editUserController);
 adminRouter.delete(`/AllUsers/:id`, verifyJWT, deleteUserController);
 
 //for posting new parts details
-adminRouter.post(`/NewParts`, verifyJWT, postNewPartController);
+adminRouter.post(`/NewParts`, /* verifyJWT,*/ postNewPartController);
 //for fetching all the parts
-adminRouter.get(`/AllParts`, verifyJWT, fetchAllPartsController);
+adminRouter.get(`/AllParts`,/* verifyJWT,*/ fetchAllPartsController);
 
 module.exports = adminRouter;
