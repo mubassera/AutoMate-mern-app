@@ -6,6 +6,7 @@ const {
   editUserController,
   deleteUserController,
   postNewPartController,
+  fetchAllPartsController,
 } = require("../Controllers/adminController");
 
 const adminRouter = express.Router();
@@ -17,6 +18,8 @@ adminRouter.put(`/AllUsers/:id`, verifyJWT, editUserController);
 adminRouter.delete(`/AllUsers/:id`, verifyJWT, deleteUserController);
 
 //for posting new parts details
-adminRouter.post(`/parts`, /*verifyJWT,*/ postNewPartController);
+adminRouter.post(`/NewParts`, verifyJWT, postNewPartController);
+//for fetching all the parts
+adminRouter.get(`/AllParts`, verifyJWT, fetchAllPartsController);
 
 module.exports = adminRouter;
