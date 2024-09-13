@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const adminURL = "https://auto-mate-mern-app-glrn.vercel.app/admin";
-const adminURL2 = "https://localhost:5000/admin";
+const adminURL2 = "http://localhost:5000/admin";
 
 export const fetchAllUsers = async () => {
   const token = getToken();
