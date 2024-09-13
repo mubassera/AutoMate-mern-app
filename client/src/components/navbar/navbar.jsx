@@ -9,7 +9,7 @@ const Navbar = () => {
     try {
       await logoutUser();
       alert("Logout successful");
-      localStorage.removeItem("userData");
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout failed:", error);
       alert(error.toString());

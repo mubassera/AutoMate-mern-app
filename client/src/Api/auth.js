@@ -29,6 +29,7 @@ export const login = async (data) => {
 //logout user
 export const logoutUser = async () => {
   try {
+    localStorage.removeItem("userData");
     const response = await axios.post(
       `${baseURL}/user/logout`,
       {},
