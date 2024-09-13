@@ -1,13 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminParts.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
-import { PartsContext } from "../PartsContext";
-import { deletePart, fetchAllParts } from "../../../Api/adminPanel";
+import { fetchAllParts, deletePart } from "../../../Api/adminPanel";
 
 export const AdminParts = () => {
   const navigate = useNavigate();
-  //const { parts, setParts } = useContext(PartsContext);
 
   const [parts, setParts] = useState([]);
   const [filteredParts, setFilteredParts] = useState([]);
@@ -24,16 +22,45 @@ export const AdminParts = () => {
     try {
       const data = await fetchAllParts();
       setParts(data);
+      setFilteredParts(data); // Initialize filteredParts with all parts
     } catch (error) {
       console.error("Error fetching parts:", error);
     }
   };
 
-  ///Incomplete
   const handleSearch = () => {
-    console.log("Search for:", searchQuery, vehicleType, brand, availability);
+    const filtered = parts.filter((part) => {
+      // Filter by search query (name of part)
+      const matchesSearchQuery = part.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      // Filter by vehicle type
+      const matchesVehicleType = vehicleType
+        ? part.vehicleType === vehicleType
+        : true;
+
+      // Filter by vehicle brand
+      const matchesVehicleBrand = vehicleBrand
+        ? part.vehicleBrand === vehicleBrand
+        : true;
+
+      // Filter by availability
+      const matchesAvailability = isAvailabile
+        ? part.isAvailable.toLowerCase() === isAvailabile.toLowerCase()
+        : true;
+
+      // Return true if all conditions match
+      return (
+        matchesSearchQuery &&
+        matchesVehicleType &&
+        matchesVehicleBrand &&
+        matchesAvailability
+      );
+    });
+
+    setFilteredParts(filtered);
   };
-  //to this point
 
   const handleEdit = (part) => {
     navigate("/adminParts/details", { state: { part } });
@@ -46,6 +73,7 @@ export const AdminParts = () => {
         await deletePart(id);
         const prevParts = parts.filter((part) => part._id !== id);
         setParts(prevParts);
+        setFilteredParts(prevParts); // Also update the filtered parts
       } catch (error) {
         console.error("Error deleting part:", error);
       }
@@ -95,24 +123,28 @@ export const AdminParts = () => {
         </div>
 
         <div className="parts-list">
-          {parts.map((part) => (
-            <div key={part._id} className="part-box">
-              <img src={part.image} alt={part.name} />
-              <h3>{part.name}</h3>
-              <p>Vehicle Type: {part.vehicleType}</p>
-              <p>Brand: {part.vehicleBrand}</p>
-              <p>Price: ${part.price}</p>
-              <p>Available: {part.isAvailable}</p>
-              <p>{part.shortDescription}</p>
-              <button onClick={() => handleEdit(part)}>Edit</button>
-              <button
-                onClick={() => handleDelete(part._id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          ))}
+          {filteredParts.length > 0 ? (
+            filteredParts.map((part) => (
+              <div key={part._id} className="part-box">
+                <img src={part.image} alt={part.name} />
+                <h3>{part.name}</h3>
+                <p>Vehicle Type: {part.vehicleType}</p>
+                <p>Brand: {part.vehicleBrand}</p>
+                <p>Price: ${part.price}</p>
+                <p>Available: {part.isAvailable}</p>
+                <p>{part.shortDescription}</p>
+                <button onClick={() => handleEdit(part)}>Edit</button>
+                <button
+                  onClick={() => handleDelete(part._id)}
+                  className="delete-button"
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No parts found</p>
+          )}
         </div>
 
         <div className="add-part-button">
