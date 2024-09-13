@@ -61,6 +61,7 @@ export const deletePart = async (id) => {
 //Add new part
 export const addPart = async (formData) => {
   try {
+    const token = getToken();
     const response = await axios.post(`${adminURL2}/AllParts`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -77,6 +78,7 @@ export const addPart = async (formData) => {
 // update a part
 export const updatePart = async (partId, formData) => {
   try {
+    const token = getToken();
     const response = await axios.put(
       `${adminURL2}/AllParts/${partId}`,
       formData,
