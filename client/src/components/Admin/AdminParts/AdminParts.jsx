@@ -1,18 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminParts.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 import { PartsContext } from "../PartsContext";
-import { deletePart } from "../../../Api/adminPanel";
+import { deletePart, fetchAllParts } from "../../../Api/adminPanel";
 
 export const AdminParts = () => {
   const navigate = useNavigate();
-  const { parts, setParts } = useContext(PartsContext);
+  //const { parts, setParts } = useContext(PartsContext);
 
+  const [parts, setParts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleBrand, setVehicleBrand] = useState("");
   const [isAvailabile, setIsAvailabile] = useState("");
+
+  useEffect(() => {
+    fetchParts();
+  }, []);
+
+  const fetchParts = async () => {
+    try {
+      const data = await fetchAllParts();
+      setParts(data);
+    } catch (error) {
+      console.error("Error fetching parts:", error);
+    }
+  };
 
   ///Incomplete
   const handleSearch = () => {

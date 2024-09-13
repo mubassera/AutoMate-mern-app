@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import "./AdminPartDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PartsContext } from "../PartsContext";
-import axios from "axios";
+import { addPart, updatePart } from "../../../Api/adminPanel";
 
 export const AdminPartDetails = () => {
-  const { addPart, parts, setParts } = useContext(PartsContext);
+  const { parts, setParts } = useContext(PartsContext);
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -50,21 +50,9 @@ export const AdminPartDetails = () => {
 
     try {
       if (editingPart) {
-        await axios.put(
-          `http://localhost:5000/admin/parts/${editingPart._id}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await updatePart(editingPart._id, formData);
       } else {
-        await axios.post("http://localhost:5000/admin/NewParts", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await addPart(formData);
       }
       navigate("/adminParts");
     } catch (err) {
