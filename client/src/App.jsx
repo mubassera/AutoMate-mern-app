@@ -7,6 +7,7 @@ import { AdminPage } from './components/Admin/DashBoard/AdminPage.jsx';
 import { AboutUs } from './components/AboutUs/AboutUs.jsx';
 import { Users } from './components/Admin/Users/Users.jsx';
 import SearchParts from './components/SearchItems';
+import PartDetails from './components/SearchItems/PartDetails.jsx';
 import { AdminParts } from './components/Admin/AdminParts/AdminParts.jsx';
 import { AdminPartDetails } from './components/Admin/AdminParts/AdminPartDetails.jsx';
 import { PartsProvider } from './components/Admin/PartsContext';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/parts" element={<SearchParts />} />
+          <Route path="/parts/:id" element={<PartDetails />} />
           <Route path="/adminParts" element={<AdminParts />} />
           <Route path="/adminParts/details" element={<AdminPartDetails />} />
         </Routes>
