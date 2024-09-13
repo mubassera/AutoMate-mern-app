@@ -10,6 +10,7 @@ export const AdminParts = () => {
   //const { parts, setParts } = useContext(PartsContext);
 
   const [parts, setParts] = useState([]);
+  const [filteredParts, setFilteredParts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleBrand, setVehicleBrand] = useState("");
@@ -43,7 +44,8 @@ export const AdminParts = () => {
     if (window.confirm("Are you sure you want to delete this part?")) {
       try {
         await deletePart(id);
-        setParts((prevParts) => prevParts.filter((part) => part.id !== id));
+        const prevParts = parts.filter((part) => part._id !== id);
+        setParts(prevParts);
       } catch (error) {
         console.error("Error deleting part:", error);
       }
