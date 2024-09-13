@@ -1,4 +1,6 @@
 /* src/components/AdminPage/AdminPage.css */
+
+
 .admin-page {
     display: flex;
     background-color: bisque;
@@ -7,6 +9,7 @@
 .admin-content {
     flex-grow: 1;
     padding: 20px;
+    padding-left: 270px;
 }
 
 .admin-content h1{

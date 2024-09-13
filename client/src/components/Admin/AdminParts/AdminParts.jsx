@@ -12,7 +12,7 @@ export const AdminParts = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleBrand, setVehicleBrand] = useState("");
-  const [isAvailabile, setIsAvailabile] = useState("");
+  const [isAvailable, setIsAvailable] = useState("");
 
   useEffect(() => {
     fetchParts();
@@ -46,8 +46,8 @@ export const AdminParts = () => {
         : true;
 
       // Filter by availability
-      const matchesAvailability = isAvailabile
-        ? part.isAvailable.toLowerCase() === isAvailabile.toLowerCase()
+      const matchesAvailability = isAvailable
+        ? part.isAvailable.toLowerCase() === isAvailable.toLowerCase()
         : true;
 
       // Return true if all conditions match
@@ -112,8 +112,8 @@ export const AdminParts = () => {
             <option value="bmw">BMW</option>
           </select>
           <select
-            value={isAvailabile}
-            onChange={(e) => setIsAvailabile(e.target.value)}
+            value={isAvailable}
+            onChange={(e) => setIsAvailable(e.target.value)}
           >
             <option value="">Select Availability</option>
             <option value="Yes">Available</option>
@@ -127,19 +127,18 @@ export const AdminParts = () => {
             filteredParts.map((part) => (
               <div key={part._id} className="part-box">
                 <img src={part.image} alt={part.name} />
-                <h3>{part.name}</h3>
-                <p>Vehicle Type: {part.vehicleType}</p>
-                <p>Brand: {part.vehicleBrand}</p>
-                <p>Price: ${part.price}</p>
-                <p>Available: {part.isAvailable}</p>
-                <p>{part.shortDescription}</p>
-                <button onClick={() => handleEdit(part)}>Edit</button>
-                <button
-                  onClick={() => handleDelete(part._id)}
-                  className="delete-button"
-                >
-                  Delete
-                </button>
+                <div className="content">
+                  <h3>{part.name}</h3>
+                  <p>Vehicle Type: {part.vehicleType}</p>
+                  <p>Brand: {part.vehicleBrand}</p>
+                  <p>Price: ${part.price}</p>
+                  <p>Available: {part.isAvailable}</p>
+                  <p>{part.shortDescription}</p>
+                </div>
+                <div className="buttons">
+                  <button onClick={() => handleEdit(part)} className="edit-button">Edit</button>
+                  <button onClick={() => handleDelete(part._id)} className="delete-button">Delete</button>
+                </div>
               </div>
             ))
           ) : (
