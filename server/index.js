@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
 const http = require("http");
+const path = require("path");
 const userRoutes = require("./Routes/userRoutes");
 const adminRoutes = require("./Routes/adminRoutes");
 
@@ -33,6 +34,8 @@ app.use(
   })
 );
 app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //connecting mongodb
 const connectDb = async () => {

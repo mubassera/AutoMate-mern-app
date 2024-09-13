@@ -1,30 +1,38 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './AdminParts.css';
-import { AdminSidebar } from '../AdminSidebar/AdminSidebar';
-import { PartsContext } from '../PartsContext';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AdminParts.css";
+import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
+import { PartsContext } from "../PartsContext";
+import { deletePart } from "../../../Api/adminPanel";
 
 export const AdminParts = () => {
   const navigate = useNavigate();
   const { parts, setParts } = useContext(PartsContext);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [vehicleType, setVehicleType] = useState('');
-  const [brand, setBrand] = useState('');
-  const [availability, setAvailability] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [vehicleBrand, setVehicleBrand] = useState("");
+  const [isAvailabile, setIsAvailabile] = useState("");
 
+  ///Incomplete
   const handleSearch = () => {
-    console.log('Search for:', searchQuery, vehicleType, brand, availability);
+    console.log("Search for:", searchQuery, vehicleType, brand, availability);
   };
+  //to this point
 
   const handleEdit = (part) => {
-    navigate('/adminParts/details', { state: { part } });
+    navigate("/adminParts/details", { state: { part } });
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     // Confirm before deleting
-    if (window.confirm('Are you sure you want to delete this part?')) {
-      setParts((prevParts) => prevParts.filter((part) => part.id !== id));
+    if (window.confirm("Are you sure you want to delete this part?")) {
+      try {
+        await deletePart(id);
+        setParts((prevParts) => prevParts.filter((part) => part.id !== id));
+      } catch (error) {
+        console.error("Error deleting part:", error);
+      }
     }
   };
 
@@ -41,42 +49,60 @@ export const AdminParts = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
+          <select
+            value={vehicleType}
+            onChange={(e) => setVehicleType(e.target.value)}
+          >
             <option value="">Select Vehicle Type</option>
             <option value="car">Car</option>
             <option value="bike">Bike</option>
             <option value="truck">Truck</option>
           </select>
-          <select value={brand} onChange={(e) => setBrand(e.target.value)}>
+          <select
+            value={vehicleBrand}
+            onChange={(e) => setVehicleBrand(e.target.value)}
+          >
             <option value="">Select Brand</option>
             <option value="toyota">Toyota</option>
             <option value="honda">Honda</option>
             <option value="bmw">BMW</option>
           </select>
-          <select value={availability} onChange={(e) => setAvailability(e.target.value)}>
+          <select
+            value={isAvailabile}
+            onChange={(e) => setIsAvailabile(e.target.value)}
+          >
             <option value="">Select Availability</option>
-            <option value="available">Available</option>
-            <option value="unavailable">Unavailable</option>
+            <option value="Yes">Available</option>
+            <option value="No">Unavailable</option>
           </select>
           <button onClick={handleSearch}>Search</button>
         </div>
 
         <div className="parts-list">
           {parts.map((part) => (
-            <div key={part.id} className="part-box">
-              <img src={part.image} alt={part.partName} />
-              <h3>{part.partName}</h3>
+            <div key={part._id} className="part-box">
+              <img src={part.image} alt={part.name} />
+              <h3>{part.name}</h3>
+              <p>Vehicle Type: {part.vehicleType}</p>
+              <p>Brand: {part.vehicleBrand}</p>
               <p>Price: ${part.price}</p>
-              <p>Available: {part.availability === 'available' ? 'Yes' : 'No'}</p>
+              <p>Available: {part.isAvailable}</p>
               <p>{part.shortDescription}</p>
               <button onClick={() => handleEdit(part)}>Edit</button>
-              <button onClick={() => handleDelete(part.id)} className="delete-button">Delete</button>
+              <button
+                onClick={() => handleDelete(part.id)}
+                className="delete-button"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
 
         <div className="add-part-button">
-          <button onClick={() => navigate('/adminParts/details')}>Add Part</button>
+          <button onClick={() => navigate("/adminParts/details")}>
+            Add Part
+          </button>
         </div>
       </div>
     </div>

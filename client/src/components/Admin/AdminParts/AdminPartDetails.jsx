@@ -1,89 +1,136 @@
-import React, { useState, useContext, useEffect } from 'react';
-import './AdminPartDetails.css';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { PartsContext } from '../PartsContext';
+import React, { useState, useContext, useEffect } from "react";
+import "./AdminPartDetails.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import { PartsContext } from "../PartsContext";
+import axios from "axios";
 
 export const AdminPartDetails = () => {
   const { addPart, parts, setParts } = useContext(PartsContext);
-  const [partName, setPartName] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [availability, setAvailability] = useState('');
-  const [bigDescription, setBigDescription] = useState('');
+  const [name, setName] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [vehicleBrand, setVehicleBrand] = useState("");
+  const [isAvailable, setIsAvailable] = useState("");
+  const [longDescription, setLongDescription] = useState("");
   const [partImage, setPartImage] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const editingPart = location.state?.part; // Get the part data passed during edit
+  const editingPart = location.state?.part;
 
   useEffect(() => {
     if (editingPart) {
-      setPartName(editingPart.partName);
+      setName(editingPart.name);
+      setVehicleType(editingPart.vehicleType);
+      setVehicleBrand(editingPart.vehicleBrand);
       setShortDescription(editingPart.shortDescription);
       setPrice(editingPart.price);
-      setAvailability(editingPart.availability);
-      setBigDescription(editingPart.bigDescription);
+      setQuantity(editingPart.quantity);
+      setIsAvailable(editingPart.isAvailable);
+      setLongDescription(editingPart.longDescription);
       setPartImage(editingPart.image);
     }
   }, [editingPart]);
 
-  const handleSave = () => {
-    if (editingPart) {
-      // Update existing part
-      setParts((prevParts) =>
-        prevParts.map((part) =>
-          part.id === editingPart.id
-            ? { ...part, partName, shortDescription, price, availability, bigDescription, image: partImage }
-            : part
-        )
-      );
-    } else {
-      // Add new part
-      const newPart = {
-        id: Date.now(),
-        partName,
-        shortDescription,
-        price,
-        availability,
-        bigDescription,
-        image: partImage,
-      };
-      addPart(newPart);
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("vehicleType", vehicleType);
+    formData.append("vehicleBrand", vehicleBrand);
+    formData.append("shortDescription", shortDescription);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("isAvailable", isAvailable);
+    formData.append("longDescription", longDescription);
+    if (partImage) {
+      formData.append("image", partImage);
     }
 
-    navigate('/adminParts');
+    try {
+      if (editingPart) {
+        await axios.put(
+          `http://localhost:5000/admin/parts/${editingPart._id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      } else {
+        await axios.post("http://localhost:5000/admin/NewParts", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+      navigate("/adminParts");
+    } catch (err) {
+      console.error("Error saving part:", err);
+    }
   };
 
   const handleCancel = () => {
-    navigate('/adminParts');
+    navigate("/adminParts");
   };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setPartImage(URL.createObjectURL(file));
+      setPartImage(file);
     }
   };
 
   return (
     <div className="part-details">
-      <div className="image-upload-box" onClick={() => document.getElementById('partImageInput').click()}>
-        {partImage ? <img src={partImage} alt="Part Preview" /> : <span className="plus-sign">+</span>}
+      <div
+        className="image-upload-box"
+        onClick={() => document.getElementById("partImageInput").click()}
+      >
+        {partImage ? (
+          <img
+            src={
+              typeof partImage === "string"
+                ? partImage
+                : URL.createObjectURL(partImage)
+            }
+            alt="Part Preview"
+          />
+        ) : (
+          <span className="plus-sign">+</span>
+        )}
       </div>
       <input
         id="partImageInput"
         type="file"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         accept="image/*"
         onChange={handleImageUpload}
       />
 
       <input
         type="text"
-        placeholder="Part Name"
-        value={partName}
-        onChange={(e) => setPartName(e.target.value)}
+        placeholder="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
+      <select
+        value={vehicleType}
+        onChange={(e) => setVehicleType(e.target.value)}
+      >
+        <option value="">Select Vehicle Type</option>
+        <option value="car">Car</option>
+        <option value="bike">Bike</option>
+      </select>
+      <input
+        type="text"
+        placeholder="Vehicle Brand"
+        value={vehicleBrand}
+        onChange={(e) => setVehicleBrand(e.target.value)}
+      />
+
       <input
         type="text"
         placeholder="Short Description"
@@ -91,25 +138,36 @@ export const AdminPartDetails = () => {
         onChange={(e) => setShortDescription(e.target.value)}
       />
       <input
-        type="number"
+        type="text"
         placeholder="Price"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <select value={availability} onChange={(e) => setAvailability(e.target.value)}>
+      <input
+        type="text"
+        placeholder="quantity"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+      />
+      <select
+        value={isAvailable}
+        onChange={(e) => setIsAvailable(e.target.value)}
+      >
         <option value="">Select Availability</option>
-        <option value="available">Available</option>
-        <option value="unavailable">Unavailable</option>
+        <option value="Yes">Available</option>
+        <option value="No">Unavailable</option>
       </select>
       <textarea
-        placeholder="Big Description"
-        value={bigDescription}
-        onChange={(e) => setBigDescription(e.target.value)}
+        placeholder="Long Description"
+        value={longDescription}
+        onChange={(e) => setLongDescription(e.target.value)}
       />
 
       <div className="button-group">
         <button onClick={handleSave}>Save</button>
-        <button className="cancel-button" onClick={handleCancel}>Cancel</button>
+        <button className="cancel-button" onClick={handleCancel}>
+          Cancel
+        </button>
       </div>
     </div>
   );
