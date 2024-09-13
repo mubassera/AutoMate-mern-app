@@ -104,7 +104,7 @@ export const AdminParts = () => {
               <p>{part.shortDescription}</p>
               <button onClick={() => handleEdit(part)}>Edit</button>
               <button
-                onClick={() => handleDelete(part.id)}
+                onClick={() => handleDelete(part._id)}
                 className="delete-button"
               >
                 Delete
