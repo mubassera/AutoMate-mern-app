@@ -87,7 +87,7 @@ export const updatePart = async (partId, formData) => {
           "Content-Type": "multipart/form-data",
           Authorization: "Bearer " + token,
         },
-        params: { id },
+        params: { partId },
       }
     );
     return response.data;
