@@ -32,7 +32,7 @@ export const fetchAllPartsForUser = async (params) => {
   } catch (error) {
     // Handle unauthorized access or expired token
     if (error.response && error.response.status === 403) {
-      newToken = await refreshAccessToken(); // Refresh token and retry request
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         const response = await axios.get(`${userURL}/parts`, {
           headers: {
