@@ -19,6 +19,7 @@ export const Login = () => {
   console.log(userData);
 
   if (userData) {
+    console.log(userData);
     window.location.href = "/home";
   }
 

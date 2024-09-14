@@ -4,6 +4,7 @@ const {
   registerController,
   logoutController,
   partsController,
+  refreshTokenController,
 } = require("../Controllers/userController");
 const verifyJWT = require("../middlewares/verifyJWT");
 
@@ -13,5 +14,6 @@ Router.post(`/login`, loginController);
 Router.post(`/register`, registerController);
 Router.post(`/logout`, logoutController);
 Router.get(`/parts`, verifyJWT, partsController);
+Router.post(`/refresh`, refreshTokenController);
 
 module.exports = Router;

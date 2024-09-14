@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./AdminPartDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PartsContext } from "../PartsContext";
+//import { PartsContext } from "../PartsContext";
 import { addPart, updatePart } from "../../../Api/adminPanel";
 
 export const AdminPartDetails = () => {
-  const { parts, setParts } = useContext(PartsContext);
+  //const { parts, setParts } = useContext(PartsContext);
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [price, setPrice] = useState("");

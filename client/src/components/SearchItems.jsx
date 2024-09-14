@@ -39,18 +39,6 @@ const SearchParts = () => {
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching items:", error);
-
-      if (error.response && error.response.status === 401) {
-        alert("Unauthorized. Please log in again.");
-        await logoutUser();
-      } else if (error.response && error.response.status === 403) {
-        alert("Access denied. Session expired. Please log in again.");
-        await logoutUser();
-      } else {
-        alert(
-          "An error occurred while fetching items. Please try again later."
-        );
-      }
     }
   };
 

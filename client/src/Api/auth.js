@@ -52,3 +52,12 @@ export const getToken = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   return userData.accessToken;
 };
+export const getRefreshToken = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  return userData.refreshToken;
+};
+export const setAccessToken = (newAccessToken) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  userData.accessToken = newAccessToken;
+  localStorage.setItem("userData", JSON.stringify(userData));
+};

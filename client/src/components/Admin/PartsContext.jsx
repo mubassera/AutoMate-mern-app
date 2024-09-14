@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+/*import React, { createContext, useState, useEffect } from "react";
 import { fetchAllParts } from "../../Api/adminPanel";
 import axios from "axios";
 
@@ -47,3 +47,4 @@ export const PartsProvider = ({ children }) => {
     </PartsContext.Provider>
   );
 };
+*/
