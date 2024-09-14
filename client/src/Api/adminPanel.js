@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const adminURL = "https://auto-mate-mern-app-glrn.vercel.app/admin";
-const adminURL2 = "http://localhost:5000/admin";
+//const adminURL2 = "http://localhost:5000/admin";
 
 export const fetchAllUsers = async () => {
   const token = getToken();
@@ -49,7 +49,7 @@ export const addUser = async (newUser) => {
 //delete part
 export const deletePart = async (id) => {
   const token = getToken();
-  const response = await axios.delete(`${adminURL2}/AllParts/${id}`, {
+  const response = await axios.delete(`${adminURL}/AllParts/${id}`, {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -62,7 +62,7 @@ export const deletePart = async (id) => {
 export const addPart = async (formData) => {
   try {
     const token = getToken();
-    const response = await axios.post(`${adminURL2}/AllParts`, formData, {
+    const response = await axios.post(`${adminURL}/AllParts`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
@@ -80,7 +80,7 @@ export const updatePart = async (partId, formData) => {
   try {
     const token = getToken();
     const response = await axios.put(
-      `${adminURL2}/AllParts/${partId}`,
+      `${adminURL}/AllParts/${partId}`,
       formData,
       {
         headers: {
@@ -100,7 +100,7 @@ export const updatePart = async (partId, formData) => {
 //fetch all parts
 export const fetchAllParts = async () => {
   const token = getToken();
-  const response = await axios.get(`${adminURL2}/AllParts`, {
+  const response = await axios.get(`${adminURL}/AllParts`, {
     headers: {
       Authorization: "Bearer " + token,
     },

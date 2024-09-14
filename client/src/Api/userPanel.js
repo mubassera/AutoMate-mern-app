@@ -2,12 +2,12 @@ import axios from "axios";
 import { getToken, getRefreshToken, setAccessToken, logoutUser } from "./auth";
 
 const userURL = "https://auto-mate-mern-app-glrn.vercel.app/user";
-const userURL2 = "http://localhost:5000/user";
+//const userURL2 = "http://localhost:5000/user";
 
 const refreshAccessToken = async () => {
   const refreshToken = getRefreshToken();
   try {
-    const response = await axios.post(`${userURL2}/refresh`, { refreshToken });
+    const response = await axios.post(`${userURL}/refresh`, { refreshToken });
     const { accessToken } = response.data;
     setAccessToken(accessToken);
     return accessToken;
@@ -21,7 +21,7 @@ export const fetchAllPartsForUser = async (params) => {
   try {
     const token = getToken();
 
-    const response = await axios.get(`${userURL2}/parts`, {
+    const response = await axios.get(`${userURL}/parts`, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -34,7 +34,7 @@ export const fetchAllPartsForUser = async (params) => {
     if (error.response && error.response.status === 403) {
       newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        const response = await axios.get(`${userURL2}/parts`, {
+        const response = await axios.get(`${userURL}/parts`, {
           headers: {
             Authorization: "Bearer " + newToken,
           },
