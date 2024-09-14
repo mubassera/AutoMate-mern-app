@@ -39,6 +39,8 @@ export const logoutUser = async () => {
         },
       }
     );
+    alert("Logout successful");
+    window.location.href = "/";
     return response.data;
   } catch (error) {
     throw new Error("Logout failed: " + error.response.data.message);
@@ -47,5 +49,6 @@ export const logoutUser = async () => {
 
 //get token
 export const getToken = () => {
-  return JSON.parse(localStorage.getItem("userData")).accessToken;
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  return userData.accessToken;
 };

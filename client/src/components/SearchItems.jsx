@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-import '../components/SearchItems/SearchItems.css';
-import Navbar from './navbar/navbar.jsx';
+import { useNavigate } from "react-router-dom";
+import "../components/SearchItems/SearchItems.css";
+import Navbar from "./navbar/navbar.jsx";
+import { fetchAllPartsForUser } from "../Api/userPanel.js";
+import { logoutUser } from "../Api/auth.js";
 
 const SearchParts = () => {
   const [name, setName] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleBrand, setVehicleBrand] = useState("");
-  const [vehicleModel, setVehicleModel] = useState("");
-  const [availability, setAvailability] = useState(""); 
+  const [isAvailable, setIsAvailable] = useState("");
   const [parts, setParts] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
-  const navigate = useNavigate(); // Use navigate to move to the details page
+  const navigate = useNavigate();
 
   useEffect(() => {
     searchParts();
@@ -22,21 +23,34 @@ const SearchParts = () => {
 
   const searchParts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/user/parts", {
-        params: {
-          name: name || undefined,
-          vehicleType: vehicleType || undefined,
-          vehicleBrand: vehicleBrand || undefined,
-          vehicleModel: vehicleModel || undefined,
-          availability: availability || undefined,
-          page,
-          limit,
-        },
-      });
-      setParts(response.data.parts);
-      setTotalPages(response.data.totalPages);
+      const params = {
+        name: name || undefined,
+        vehicleType: vehicleType || undefined,
+        vehicleBrand: vehicleBrand || undefined,
+        isAvailable: isAvailable || undefined,
+        page,
+        limit,
+      };
+
+      const data = await fetchAllPartsForUser(params);
+
+      // Update state with fetched parts
+      setParts(data.parts);
+      setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching items:", error);
+
+      if (error.response && error.response.status === 401) {
+        alert("Unauthorized. Please log in again.");
+        await logoutUser();
+      } else if (error.response && error.response.status === 403) {
+        alert("Access denied. Session expired. Please log in again.");
+        await logoutUser();
+      } else {
+        alert(
+          "An error occurred while fetching items. Please try again later."
+        );
+      }
     }
   };
 
@@ -46,8 +60,8 @@ const SearchParts = () => {
     searchParts();
   };
 
-  const handleCardClick = (partId) => {
-    navigate(`/parts/${partId}`); // Navigate to the details page
+  const handleCardClick = (part) => {
+    navigate(`/parts/${part._id}`, { state: { part } }); // Navigate to the details page
   };
 
   const handlePageChange = (newPage) => {
@@ -98,23 +112,14 @@ const SearchParts = () => {
             </div>
 
             <div>
-              <label>Model: </label>
-              <input
-                type="text"
-                value={vehicleModel}
-                onChange={(e) => setVehicleModel(e.target.value)}
-              />
-            </div>
-
-            <div>
               <label>Availability: </label>
               <select
-                value={availability}
-                onChange={(e) => setAvailability(e.target.value)}
+                value={isAvailable}
+                onChange={(e) => setIsAvailable(e.target.value)}
               >
                 <option value="">Select Availability</option>
-                <option value="available">Available</option>
-                <option value="not-available">Not Available</option>
+                <option value="Yes">Available</option>
+                <option value="No">Unavailable</option>
               </select>
             </div>
 
@@ -126,27 +131,43 @@ const SearchParts = () => {
           <h2>Results</h2>
 
           <div className="cards-container">
-            {parts.map((part) => (
-              <div
-                key={part._id}
-                className="card"
-                onClick={() => handleCardClick(part._id)}
-              >
-                <img src={part.imageUrl} alt={part.name} className="part-image" />
-                <div className="texts">
-                <h3>{part.name}</h3>
-                <p>Price: ${part.price}</p>
-                <p>Availability: {part.availability ? "Available" : "Not Available"}</p>
-                <p>{part.description}</p>
+            {parts && parts.length > 0 ? (
+              parts.map((part) => (
+                <div
+                  key={part._id}
+                  className="card"
+                  onClick={() => handleCardClick(part)}
+                >
+                  <img
+                    src={part.image}
+                    alt={part.name}
+                    className="part-image"
+                  />
+                  <div className="texts">
+                    <h3>{part.name}</h3>
+                    <p>Price: ${part.price}</p>
+                    <p>Type: {part.vehicleType}</p>
+                    <p>Brand: {part.vehicleBrand}</p>
+
+                    <p>
+                      Availability:{" "}
+                      {part.isAvailable === "Yes" ? "Available" : "Unavailable"}
+                    </p>
+                    <p>{part.shortDescription}</p>
+                  </div>
+                  <button>Buy</button>
                 </div>
-                <button>Buy</button>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No parts found.</p>
+            )}
           </div>
 
           <div>
             {page > 1 && (
-              <button onClick={() => handlePageChange(page - 1)}>Previous</button>
+              <button onClick={() => handlePageChange(page - 1)}>
+                Previous
+              </button>
             )}
             {page < totalPages && (
               <button onClick={() => handlePageChange(page + 1)}>Next</button>

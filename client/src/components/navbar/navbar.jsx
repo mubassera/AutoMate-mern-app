@@ -8,8 +8,6 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logoutUser();
-      alert("Logout successful");
-      window.location.href = "/";
     } catch (error) {
       console.error("Logout failed:", error);
       alert(error.toString());

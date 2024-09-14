@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import './PartDetails.css';
+import { useParams, useLocation } from "react-router-dom";
+import "./PartDetails.css";
 
 const PartDetails = () => {
-  const { partId } = useParams(); // Get partId from URL
-  const [part, setPart] = useState(null);
+  const location = useLocation();
+  const viewingPart = location.state?.part;
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchPartDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/user/parts/${partId}`);
@@ -18,18 +18,32 @@ const PartDetails = () => {
     };
 
     fetchPartDetails();
-  }, [partId]);
+  }, [partId]);*/
 
-  if (!part) return <p>Loading...</p>;
+  if (!viewingPart) return <p>Loading...</p>;
 
   return (
     <div className="part-details">
-      <img src={part.imageUrl} alt={part.name} className="part-image" />
-      <h1>{part.name}</h1>
-      <p><strong>Price:</strong> ${part.price}</p>
-      <p><strong>Availability:</strong> {part.availability ? "Available" : "Not Available"}</p>
-      <p><strong>Description:</strong> {part.description}</p>
-      <p><strong>Long Description:</strong> {part.longDescription}</p>
+      <img
+        src={viewingPart.image}
+        alt={viewingPart.name}
+        className="part-image"
+      />
+      <h1>{viewingPart.name}</h1>
+      <p>
+        <strong>Price:</strong> ${viewingPart.price}
+      </p>
+      <p>
+        <strong>Availability:</strong>{" "}
+        {viewingPart.isAvailable === "Yes" ? "Available" : "Not Available"}
+      </p>
+      <p>
+        <strong>Description:</strong> {viewingPart.shortDescription}
+      </p>
+      <p>
+        <strong>Long Description:</strong> {viewingPart.longDescription}
+      </p>
+      <button>Buy</button>
     </div>
   );
 };
