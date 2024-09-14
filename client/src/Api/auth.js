@@ -29,6 +29,7 @@ export const login = async (data) => {
 //logout user
 export const logoutUser = async () => {
   try {
+    localStorage.removeItem("userData");
     const response = await axios.post(
       `${baseURL}/user/logout`,
       {},
@@ -38,6 +39,8 @@ export const logoutUser = async () => {
         },
       }
     );
+    alert("Logout successful");
+    window.location.href = "/";
     return response.data;
   } catch (error) {
     throw new Error("Logout failed: " + error.response.data.message);
@@ -46,5 +49,15 @@ export const logoutUser = async () => {
 
 //get token
 export const getToken = () => {
-  return JSON.parse(localStorage.getItem("userData")).accessToken;
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  return userData.accessToken;
+};
+export const getRefreshToken = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  return userData.refreshToken;
+};
+export const setAccessToken = (newAccessToken) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  userData.accessToken = newAccessToken;
+  localStorage.setItem("userData", JSON.stringify(userData));
 };

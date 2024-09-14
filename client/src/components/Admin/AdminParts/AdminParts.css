@@ -1,0 +1,121 @@
+.admin-parts {
+  display: flex;
+  background-color: bisque;
+}
+
+.adminPartsContents {
+  flex-grow: 1;
+  padding: 20px;
+  padding-left: 270px;
+  /* Adjust if needed */
+}
+
+.adminPartsContents h1 {
+  color: rgb(14, 14, 83);
+}
+
+.search-filters {
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 40px;
+}
+
+.search-filters input,
+.search-filters select,
+.search-filters button {
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.parts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.part-box {
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  height: 250px;
+}
+
+.part-box img {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.part-box .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.part-box .content h3 {
+  font-size: 18px;
+  color: black;
+  margin: 10px 0;
+}
+
+.part-box .content p {
+  font-size: 14px;
+  color: gray;
+  margin: 5px 0;
+}
+
+.part-box .buttons {
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  /* Adjust spacing from content as needed */
+}
+
+.part-box .buttons button {
+
+  margin-top: 60px;
+  padding: 10px 20px;
+  background-color: rgb(255, 136, 0);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.part-box .buttons button:hover {
+  background-color: rgb(255, 115, 0);
+}
+
+.add-part-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.add-part-button button {
+  padding: 10px 20px;
+  background-color: rgb(255, 136, 0);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-part-button button:hover {
+  background-color: rgb(255, 115, 0);
+}

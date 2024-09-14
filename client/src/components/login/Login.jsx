@@ -13,13 +13,15 @@ import "./Login.css";
 
 export const Login = () => {
   const navigate = useNavigate();
+
   //pre-loggedIn check
-  /*const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   console.log(userData);
-  
+
   if (userData) {
-    navigate("/home");
-  }*/
+    console.log(userData);
+    window.location.href = "/home";
+  }
 
   const [action, setAction] = useState("Login");
   const [data, setData] = useState({

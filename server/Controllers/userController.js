@@ -5,6 +5,7 @@ const {
   generateRefreshToken,
   generateAccessToken,
 } = require("../Config/generateToken");
+const jwt = require("jsonwebtoken");
 const PartsModel = require("../models/partsModel");
 
 //login controller for logging in
@@ -23,7 +24,7 @@ const loginController = expressAsyncHandler(async (req, res) => {
       refreshToken: generateRefreshToken(user._id),
       accessToken: generateAccessToken(user._id),
     };
-    //console.log(response);
+    console.log(response);
     //console.log("user exists");
     res.json(response);
   } else {
@@ -100,7 +101,7 @@ const partsController = expressAsyncHandler(async (req, res) => {
     name,
     vehicleType,
     vehicleBrand,
-    vehicleModel,
+    isAvailable,
     page = 1,
     limit = 10,
   } = req.query;
@@ -108,7 +109,7 @@ const partsController = expressAsyncHandler(async (req, res) => {
   if (name) query.name = new RegExp(name, "i");
   if (vehicleType) query.vehicleType = new RegExp(vehicleType, "i");
   if (vehicleBrand) query.vehicleBrand = new RegExp(vehicleBrand, "i");
-  if (vehicleModel) query.vehicleModel = new RegExp(vehicleModel, "i");
+  if (isAvailable) query.isAvailable = new RegExp(isAvailable, "i");
 
   try {
     const parts = await PartsModel.find(query)
@@ -125,9 +126,29 @@ const partsController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const refreshTokenController = expressAsyncHandler(async (req, res) => {
+  const { refreshToken } = req.body;
+  console.log(refreshToken);
+
+  if (!refreshToken) {
+    return res.status(403).json({ message: "Refresh token required" });
+  }
+
+  jwt.verify(refreshToken, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      console.error("Invalid refresh token:", err);
+      return res.status(403).json({ message: "Invalid refresh token" });
+    }
+
+    const accessToken = generateAccessToken(user._id);
+    res.json({ accessToken });
+  });
+});
+
 module.exports = {
   loginController,
   registerController,
   logoutController,
   partsController,
+  refreshTokenController,
 };

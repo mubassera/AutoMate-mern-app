@@ -1,17 +1,11 @@
-/* src/components/AdminSidebar/AdminSidebar.css */
 .admin-sidebar {
     width: 250px;
     background-color: rgb(7, 7, 57);
     color: white;
-    /* padding: 20px; */
     height: 100vh;
+    position: fixed;
+    
 }
-
-
-/* .admin-sidebar ul {
-    list-style-type: none;
-    padding: 20px;
-} */
 
 .admin-sidebar ul li {
     margin: 20px 0;
@@ -22,32 +16,32 @@
 
 .admin-sidebar ul li a {
     color: white;
-    /* Set text color to white */
     text-decoration: none;
-    /* Remove underline */
-    
 }
 
 .admin-sidebar ul li a.active {
     color: bisque;
-    /* Set text color to white */
-    text-decoration: solid;
-    
-    
-
 }
 
-.logo{
-    padding-left: 20px;
-    padding-top: 20px;
+.logo-link {
+    text-decoration: none;
+    /* Remove underline from the AutoMate link */
 }
-.name{
-    color:rgb(231, 152, 5);
+
+.name {
+    color: rgb(255, 136, 0);
     padding: 20px;
-    padding-top: 0px;
+    padding-top: 40px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.underline{
+.name:hover {
+    color: rgb(223, 88, 30);
+    /* Change to a light color on hover */
+}
+
+.underline {
     color: rgb(43, 43, 136);
     margin-left: 0px;
     margin-right: 0px;
