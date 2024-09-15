@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getToken, getRefreshToken, setAccessToken, logoutUser } from "./auth";
 
-const userURL = "https://auto-mate-mern-app-glrn.vercel.app/user";
-//const userURL2 = "http://localhost:5000/user";
+//const userURL = "https://auto-mate-mern-app-glrn.vercel.app/user";
+const userURL = "http://localhost:5000/user";
 
-const refreshAccessToken = async () => {
+export const refreshAccessToken = async () => {
   const refreshToken = getRefreshToken();
   try {
     const response = await axios.post(`${userURL}/refresh`, { refreshToken });
