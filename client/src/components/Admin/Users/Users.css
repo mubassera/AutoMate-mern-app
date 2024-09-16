@@ -28,9 +28,9 @@
 .searchInput {
   width: 100%;
   padding: 10px 10px 10px 40px;
-
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .icon {
@@ -41,8 +41,7 @@
   color: #ccc;
 }
 
-.filterSelectButton {
-}
+/* .filterSelectButton {} */
 
 .filterSelect {
   padding: 10px;
@@ -68,10 +67,19 @@
   background-color: rgb(255, 136, 0);
 }
 
-.button {
-  /* padding: 5px; */
-  /* margin: 10px; */
+.usersTable input {
+  max-width: 70px;
+  /* Adjust this value as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+
+/* .button {
+  padding: 5px;
+  margin: 10px;
+} */
 
 .addUserButton button {
   margin-top: 10px;
@@ -84,5 +92,20 @@
 }
 
 .addUserButton button:hover {
-    background-color: rgb(255, 115, 0);
+  background-color: rgb(255, 115, 0);
+}
+
+.addUserCancelButton button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: red;
+  /* Red color for cancel button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addUserCancelButton button:hover {
+  background-color: darkred;
 }

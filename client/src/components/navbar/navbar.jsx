@@ -21,8 +21,8 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navLogo">
-        <h2>LOGO</h2>
-        <p>Automate</p>
+        {/* <h2>LOGO</h2> */}
+        <h2>Automate</h2>
       </div>
 
       <ul className="navMenu">

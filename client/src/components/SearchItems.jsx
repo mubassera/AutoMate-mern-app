@@ -132,7 +132,7 @@ const SearchParts = () => {
                   <img
                     src={part.image}
                     alt={part.name}
-                    className="part-image"
+                    className="part-image-small"
                   />
                   <div className="texts">
                     <h3>{part.name}</h3>
