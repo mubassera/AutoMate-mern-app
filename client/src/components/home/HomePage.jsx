@@ -23,7 +23,7 @@ const HomePage = () => {
         <p>Your Reliable Partner for Vehicle Care</p>
         <p>Your Vehicle | Our Expertise | Your Comfort</p>
 
-        <NavLink to="/book-now" className="bookNow">
+        <NavLink to="/services" className="bookNow">
           <h3>BOOK NOW</h3>
         </NavLink>
 
@@ -78,7 +78,7 @@ const HomePage = () => {
             </ul>
           </div>
           <div className="bookNow2">
-            <NavLink to="/book-now" className="bookNow">
+            <NavLink to="/services" className="bookNow">
               <h3>BOOK NOW</h3>
             </NavLink>
           </div>

@@ -10,6 +10,7 @@ const {
   updatePartController,
   deletePartController,
   fetchAllOrdersController,
+  postNewServiceController,
 } = require("../Controllers/adminController");
 
 //storage related
@@ -42,5 +43,6 @@ adminRouter.put(
 adminRouter.delete(`/AllParts/:id`, /* verifyJWT,*/ deletePartController);
 adminRouter.get(`/orders`, /* verifyJWT,*/ fetchAllOrdersController);
 adminRouter.post("/update-payment", /*verifyJWT,*/ updatePaymentStatus);
+adminRouter.post("/new-service", /*verifyJWT,*/ postNewServiceController);
 
 module.exports = adminRouter;

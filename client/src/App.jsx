@@ -13,6 +13,7 @@ import { AdminPartDetails } from "./components/Admin/AdminParts/AdminPartDetails
 import PurchasePart from "./components/purchaseParts/PurchasePart.jsx";
 import AdminOrderManagement from "./components/Admin/AdminOrderManagement/AdminOrderManagement.jsx";
 import OrderHistory from "./components/orderHistory/OrderHistory.jsx";
+import Services from "./components/Services/Services.jsx";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           element={<AdminOrderManagement />}
         />
         <Route path="/OrderHistory" element={<OrderHistory />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
     </Router>
   );

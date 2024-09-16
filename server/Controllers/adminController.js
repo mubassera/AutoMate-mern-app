@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 //const multer = require("multer");
 const path = require("path");
 const orderModel = require("../models/orderModel");
+const Service = require("../models/serviceModel");
 
 // Setup multer for file uploads
 /*const storage = multer.diskStorage({
@@ -153,6 +154,21 @@ const fetchAllOrdersController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//post new service
+const postNewServiceController = expressAsyncHandler(async (req, res) => {
+  try {
+    const newService = await Service.create({
+      name: req.body.name,
+      type: req.body.type,
+      cost: req.body.cost,
+    });
+    res.status(201).json(newService);
+  } catch (err) {
+    console.error("Error adding service:", err);
+    res.status(500).json({ error: "Failed to add service" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
@@ -163,4 +179,5 @@ module.exports = {
   updatePartController,
   deletePartController,
   fetchAllOrdersController,
+  postNewServiceController,
 };

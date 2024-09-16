@@ -7,6 +7,7 @@ const {
 } = require("../Config/generateToken");
 const jwt = require("jsonwebtoken");
 const PartsModel = require("../models/partsModel");
+const ServiceRequest = require("../models/serviceRequestModel");
 
 //login controller for logging in
 const loginController = expressAsyncHandler(async (req, res) => {
@@ -145,10 +146,47 @@ const refreshTokenController = expressAsyncHandler(async (req, res) => {
   });
 });
 
+//user making service request
+const makeServiceRequestController = expressAsyncHandler(async (req, res) => {
+  try {
+    const {
+      customerName,
+      customerEmail,
+      customerPhone,
+      selectedServices,
+      totalCost,
+      comments,
+    } = req.body;
+
+    // Create a new service request
+    const serviceRequest = new ServiceRequest({
+      customerName,
+      customerEmail,
+      customerPhone,
+      selectedServices,
+      totalCost,
+      comments,
+    });
+
+    // Save the service request to the database
+    await serviceRequest.save();
+
+    res
+      .status(201)
+      .json({ message: "making request successful!", serviceRequest });
+  } catch (error) {
+    console.error("Error processing making request:", error);
+    res
+      .status(500)
+      .json({ message: "There was an error processing your request." });
+  }
+});
+
 module.exports = {
   loginController,
   registerController,
   logoutController,
   partsController,
   refreshTokenController,
+  makeServiceRequestController,
 };

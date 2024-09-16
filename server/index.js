@@ -7,6 +7,8 @@ const path = require("path");
 const userRoutes = require("./Routes/userRoutes");
 const adminRoutes = require("./Routes/adminRoutes");
 const orderRoutes = require("./Routes/orderRoutes");
+const Service = require("./models/serviceModel");
+const serviceRouter = require("./Routes/serviceRoutes");
 
 const app = express();
 dotenv.config();
@@ -49,6 +51,29 @@ const connectDb = async () => {
 };
 connectDb();
 
+/*
+const services = [
+  { name: "Oil Change", type: "Car", cost: 50 },
+  { name: "Tire Rotation", type: "Car", cost: 30 },
+  { name: "Brake Inspection", type: "Car", cost: 100 },
+  { name: "Battery Replacement", type: "Car", cost: 150 },
+  { name: "Wheel Alignment", type: "Car", cost: 75 },
+  { name: "Basic Tune-Up", type: "Bike", cost: 70 },
+  { name: "Brake Adjustment", type: "Bike", cost: 30 },
+  { name: "Chain Lubrication", type: "Bike", cost: 20 },
+  { name: "Wheel Truing", type: "Bike", cost: 50 },
+  { name: "Tire Replacement", type: "Bike", cost: 40 },
+];
+
+const seedServices = async () => {
+  await Service.deleteMany({});
+  await Service.insertMany(services);
+  console.log("Services added to the database.");
+  mongoose.connection.close();
+};
+
+seedServices();*/
+
 //mock
 app.get("/", (req, res) => {
   res.send("API is running123");
@@ -57,6 +82,7 @@ app.get("/", (req, res) => {
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/order", orderRoutes);
+app.use("/", serviceRouter);
 
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
