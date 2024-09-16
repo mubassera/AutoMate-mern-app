@@ -1,0 +1,63 @@
+/* General page layout */
+.order-history-page {
+    background-color: bisque;
+    min-height: 100vh;
+    /* padding-top: 80px; */
+    /* Adding padding to accommodate the navbar */
+}
+
+/* Container for order history */
+.order-history-container {
+    padding: 20px;
+    background-color: bisque;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Header styling */
+.order-history-container h2 {
+    color: rgb(7, 7, 57);
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+    padding: 20px;
+}
+
+/* Order list container */
+.order-history-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Individual order card */
+.order-card {
+    background-color: #fff;
+    color: #444;
+    padding: 15px;
+    margin-bottom: -1px;
+    /* border-radius: 10px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    /* gap: 20px; */
+    border: 1px solid ;
+}
+
+/* Part image styling */
+.part-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Order details */
+.order-details p {
+    margin: 5px 0;
+}
+
+.order-details p span {
+    font-weight: bold;
+    color: #333;
+}

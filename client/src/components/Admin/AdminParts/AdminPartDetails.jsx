@@ -72,7 +72,7 @@ export const AdminPartDetails = () => {
   };
 
   return (
-    <div className="part-details">
+    <div className="admin-part-details">
       <div
         className="image-upload-box"
         onClick={() => document.getElementById("partImageInput").click()}
