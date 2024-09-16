@@ -108,12 +108,12 @@ export const Login = () => {
                 />
               </div>
 
-              <div className="checkboxInput">
+              {/* <div className="checkboxInput">
                 <input type="checkbox" id="checkbox" />
                 <label htmlFor="checkbox" id="rememberMe">
                   Remember me
                 </label>
-              </div>
+              </div> */}
 
               <div className="submit-container">
                 <button type="submit" className="submit">
@@ -122,9 +122,9 @@ export const Login = () => {
               </div>
             </form>
 
-            <div className="forgot-password">
+            {/* <div className="forgot-password">
               Forgot Password? <span>Click Here!</span>
-            </div>
+            </div> */}
             <div className="underline"></div>
             <div className="submit-container">
               <div className="submit" onClick={() => setAction("Sign Up")}>

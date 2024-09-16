@@ -4,7 +4,6 @@
   justify-content: space-between;
   padding: 16px;
   box-shadow: 0 1px 3px -2px black;
-  /* width: 100vw; */
   height: 150px;
   background: rgb(7, 7, 57);
   align-items: center;
@@ -18,15 +17,12 @@
   color: white;
 }
 
-.navLogo h2{
+.navLogo h2 {
   color: rgb(255, 136, 0);
   font-size: 48px;
-  /* font-weight: 600; */
-  padding: 20px;
- 
+  margin: 0;
+  /* Reset margin for consistency */
 }
-
-
 
 .navMenu {
   display: flex;
@@ -36,10 +32,11 @@
   color: #ec8383;
   font-size: 20px;
   font-weight: 500;
-  padding-right: 30px;
+  padding: 0;
+  /* Reset padding */
+  margin: 0;
+  /* Reset margin */
 }
-
-
 
 .navMenu li {
   display: flex;
@@ -48,17 +45,15 @@
   justify-content: center;
   gap: 3px;
   cursor: pointer;
-  color: bisque;
-  
 }
 
-.navMenu li a:hover{
-    color: bisque;
-}
-
-.navbar li a {
+.navMenu li a {
   color: white;
   text-decoration: none;
+}
+
+.navMenu li a:hover {
+  color: bisque;
 }
 
 .navMenu li a.active {
@@ -66,11 +61,31 @@
 }
 
 /* Responsive Styles */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 12px;
+  }
+
+  .navLogo h2 {
+    font-size: 40px;
+  }
+
+  .navMenu {
+    gap: 40px;
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
+  }
+
+  .navLogo {
+    width: 100%;
+    justify-content: center;
   }
 
   .navMenu {
@@ -82,17 +97,21 @@
 
   .navMenu li {
     width: 100%;
-    align-items: flex-start;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .navLogo p {
+  .navLogo h2 {
     font-size: 28px;
   }
 
   .navMenu {
     gap: 10px;
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  .navbar {
+    padding: 8px;
   }
 }

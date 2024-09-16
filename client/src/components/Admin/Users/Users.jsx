@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Users.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 import { FaSearch, FaEdit, FaTrash, FaSave } from "react-icons/fa";
-import {
-  fetchAllUsers,
-  updateUser,
-  deleteUser,
-  addUser,
-} from "../../../Api/adminPanel";
+import { fetchAllUsers, updateUser, deleteUser, addUser } from "../../../Api/adminPanel";
 
 export const Users = () => {
   const [search, setSearch] = useState("");
@@ -110,6 +105,10 @@ export const Users = () => {
     } catch (error) {
       console.error("Error adding user:", error);
     }
+  };
+
+  const handleCancelAddUser = () => {
+    setEditingNewUserId(null);
   };
 
   const filteredUsers = users.filter((user) => {
@@ -327,23 +326,25 @@ export const Users = () => {
                       onChange={(e) => setNewUserModel(e.target.value)}
                     />
                   </td>
-                  <td>
+                  <td className="button">
                     <button onClick={handleSaveNewUser}>
                       <FaSave />
                     </button>
                   </td>
-                  <td></td>
+                  <td className="addUserCancelButton">
+                    <button onClick={handleCancelAddUser}>Cancel</button>
+                  </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
         <div className="addUserButton">
-          <button onClick={handleAddUser}>+ Add User</button>
+          {!editingNewUserId && (
+            <button onClick={handleAddUser}>+ Add User</button>
+          )}
         </div>
       </div>
     </div>
   );
 };
-
-export default Users;

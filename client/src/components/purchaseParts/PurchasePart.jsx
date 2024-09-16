@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { getToken } from "../../Api/auth";
+import { getToken } from "../../Api/auth"; // Assuming getToken exists for auth token
 import { useLocation } from "react-router-dom";
+import './PurchasePart.css';
 
 const PurchasePart = () => {
   const location = useLocation();
-  const viewingPart = location.state?.part;
-  //const [parts, setParts] = useState([]);
-  //const [selectedPart, setSelectedPart] = useState(null);
+  const viewingPart = location.state?.part; // Access part data passed from PartDetails
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
-
-  useEffect(() => {}, []);
+  const [paymentOption, setPaymentOption] = useState("");
+  const [note, setNote] = useState("");
 
   const handleOrder = async () => {
     try {
@@ -28,13 +27,13 @@ const PurchasePart = () => {
           partId: viewingPart._id,
           quantity,
           userId: JSON.parse(localStorage.getItem("userData"))._id,
+          paymentOption,
+          note,
         },
         config
       );
 
       const { paymentStatus } = response.data;
-      console.log(response.data);
-
       setMessage(`Order placed successfully. Payment Status: ${paymentStatus}`);
     } catch (error) {
       setMessage("Failed to place order");
@@ -42,20 +41,55 @@ const PurchasePart = () => {
   };
 
   return (
-    <div>
-      <h2 style={{ color: "black" }}>Purchase Part</h2>
-      <p style={{ color: "black" }}>
-        {viewingPart.name} -{viewingPart.vehicleType} -{" "}
-        {viewingPart.vehicleBrand}-{viewingPart.price}
-      </p>
-      <input
-        type="number"
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
-        min="1"
-      />
-      <button onClick={handleOrder}>Place Order</button>
-      {message && <p style={{ color: "black" }}>{message}</p>}
+    <div className="purchase-part-container">
+      <div className="image-section">
+        <img src={viewingPart.imageUrl} alt={viewingPart.name} className="part-image" />
+      </div>
+      <div className="details-section">
+        <h2>Purchase Part</h2>
+        <p className="part-details">
+          <div><strong>{viewingPart.name}</strong></div>
+          <div>Type: {viewingPart.vehicleType}</div>
+          <div>Brand: {viewingPart.vehicleBrand}</div>
+          <div>Price: ${viewingPart.price}</div>
+        </p>
+        <div>
+          Quantity: 
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            min="1"
+            className="quantity-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="payment-option">Choose Payment Option:</label>
+          <select 
+            id="payment-option" 
+            value={paymentOption} 
+            onChange={(e) => setPaymentOption(e.target.value)}
+            className="payment-dropdown"
+          >
+            <option value="">Select Payment Option</option>
+            <option value="credit-card">Cash On Delivary</option>
+            
+          </select>
+        </div>
+        <div>
+          <label htmlFor="note">Add Note:</label>
+          <textarea
+            id="note"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="note-textarea"
+            rows="4"
+            placeholder="Add any special instructions or notes here..."
+          />
+        </div>
+        <button onClick={handleOrder} className="order-button">Place Order</button>
+        {message && <p className="order-message">{message}</p>}
+      </div>
     </div>
   );
 };
