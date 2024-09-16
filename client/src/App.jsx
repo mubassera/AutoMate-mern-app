@@ -10,6 +10,9 @@ import SearchParts from "./components/SearchItems";
 import PartDetails from "./components/SearchItems/PartDetails.jsx";
 import { AdminParts } from "./components/Admin/AdminParts/AdminParts.jsx";
 import { AdminPartDetails } from "./components/Admin/AdminParts/AdminPartDetails.jsx";
+import PurchasePart from "./components/purchaseParts/PurchasePart.jsx";
+import AdminOrderManagement from "./components/Admin/AdminOrderManagement/AdminOrderManagement.jsx";
+import OrderHistory from "./components/orderHistory/OrderHistory.jsx";
 
 function App() {
   return (
@@ -24,6 +27,12 @@ function App() {
         <Route path="/parts/:id" element={<PartDetails />} />
         <Route path="/adminParts" element={<AdminParts />} />
         <Route path="/adminParts/details" element={<AdminPartDetails />} />
+        <Route path="/PurchasePart" element={<PurchasePart />} />
+        <Route
+          path="/AdminOrderManagement"
+          element={<AdminOrderManagement />}
+        />
+        <Route path="/OrderHistory" element={<OrderHistory />} />
       </Routes>
     </Router>
   );

@@ -6,6 +6,7 @@ const http = require("http");
 const path = require("path");
 const userRoutes = require("./Routes/userRoutes");
 const adminRoutes = require("./Routes/adminRoutes");
+const orderRoutes = require("./Routes/orderRoutes");
 
 const app = express();
 dotenv.config();
@@ -55,6 +56,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
+app.use("/order", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);

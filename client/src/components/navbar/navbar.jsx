@@ -60,7 +60,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/history"
+            to="/OrderHistory"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Purchase & Booking History

@@ -6,6 +6,7 @@ const { storage } = require("../firebaseConfig");
 const { v4: uuidv4 } = require("uuid");
 //const multer = require("multer");
 const path = require("path");
+const orderModel = require("../models/orderModel");
 
 // Setup multer for file uploads
 /*const storage = multer.diskStorage({
@@ -142,6 +143,16 @@ const deletePartController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//fetch orders
+const fetchAllOrdersController = expressAsyncHandler(async (req, res) => {
+  try {
+    const orders = await orderModel.find();
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
@@ -151,4 +162,5 @@ module.exports = {
   fetchAllPartsController,
   updatePartController,
   deletePartController,
+  fetchAllOrdersController,
 };

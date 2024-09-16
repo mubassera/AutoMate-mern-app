@@ -51,6 +51,9 @@ const SearchParts = () => {
   const handleCardClick = (part) => {
     navigate(`/parts/${part._id}`, { state: { part } }); // Navigate to the details page
   };
+  const handlePartPurchase = (part) => {
+    navigate(`/PurchasePart`, { state: { part } }); // Navigate to the details page
+  };
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -143,7 +146,14 @@ const SearchParts = () => {
                     </p>
                     <p>{part.shortDescription}</p>
                   </div>
-                  <button>Buy</button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePartPurchase(part);
+                    }}
+                  >
+                    Buy
+                  </button>
                 </div>
               ))
             ) : (
