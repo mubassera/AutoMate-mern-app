@@ -53,6 +53,15 @@ export const AdminSidebar = () => {
         <div className="underline"></div>
         <li>
           <NavLink
+            to="/admin/service-request-management"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Admin Service Request Management
+          </NavLink>
+        </li>
+        <div className="underline"></div>
+        <li>
+          <NavLink
             to="/settings"
             className={({ isActive }) => (isActive ? "active" : "")}
           >

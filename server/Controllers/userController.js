@@ -165,6 +165,7 @@ const makeServiceRequestController = expressAsyncHandler(async (req, res) => {
       customerPhone,
       selectedServices,
       totalCost,
+      paymentStatus: "Pending",
       comments,
     });
 

@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const orderModel = require("../models/orderModel");
 const Service = require("../models/serviceModel");
+const ServiceRequest = require("../models/serviceRequestModel");
 
 // Setup multer for file uploads
 /*const storage = multer.diskStorage({
@@ -169,6 +170,40 @@ const postNewServiceController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//update payment status and status of service request
+const updateServiceRequestController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { status, paymentStatus } = req.body;
+    const serviceRequest = await ServiceRequest.findByIdAndUpdate(
+      req.params.id,
+      { status, paymentStatus },
+      { new: true }
+    );
+
+    if (!serviceRequest) {
+      return res.status(404).send({ message: "Service request not found" });
+    }
+
+    res.send({ message: "Service status updated", serviceRequest });
+  } catch (error) {
+    console.error("Error updating service status:", error);
+    res.status(500).send({ message: "Error updating service status" });
+  }
+});
+
+//fetch all service requests
+const fetchAllServiceRequestController = expressAsyncHandler(
+  async (req, res) => {
+    try {
+      const serviceRequests = await ServiceRequest.find();
+      res.send(serviceRequests);
+    } catch (error) {
+      console.error("Error fetching service requests:", error);
+      res.status(500).send({ message: "Error fetching service requests" });
+    }
+  }
+);
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
@@ -180,4 +215,6 @@ module.exports = {
   deletePartController,
   fetchAllOrdersController,
   postNewServiceController,
+  updateServiceRequestController,
+  fetchAllServiceRequestController,
 };

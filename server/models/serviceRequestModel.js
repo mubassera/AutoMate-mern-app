@@ -35,6 +35,11 @@ const serviceRequestSchema = new mongoose.Schema({
     enum: ["Pending", "Accepted", "Completed", "Declined"],
     default: "Pending",
   },
+  paymentStatus: {
+    type: String,
+    enum: ["Pending", "Completed", "Canceled"],
+    default: "Pending",
+  },
   comments: {
     type: String,
     trim: true,
