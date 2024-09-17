@@ -51,18 +51,17 @@ const connectDb = async () => {
 };
 connectDb();
 
-/*
-const services = [
-  { name: "Oil Change", type: "Car", cost: 50 },
-  { name: "Tire Rotation", type: "Car", cost: 30 },
-  { name: "Brake Inspection", type: "Car", cost: 100 },
-  { name: "Battery Replacement", type: "Car", cost: 150 },
-  { name: "Wheel Alignment", type: "Car", cost: 75 },
-  { name: "Basic Tune-Up", type: "Bike", cost: 70 },
-  { name: "Brake Adjustment", type: "Bike", cost: 30 },
-  { name: "Chain Lubrication", type: "Bike", cost: 20 },
-  { name: "Wheel Truing", type: "Bike", cost: 50 },
-  { name: "Tire Replacement", type: "Bike", cost: 40 },
+/*const services = [
+  { name: "Oil Change", vehicleType: "Car", cost: 50 },
+  { name: "Tire Rotation", vehicleType: "Car", cost: 30 },
+  { name: "Brake Inspection", vehicleType: "Car", cost: 100 },
+  { name: "Battery Replacement", vehicleType: "Car", cost: 150 },
+  { name: "Wheel Alignment", vehicleType: "Car", cost: 75 },
+  { name: "Basic Tune-Up", vehicleType: "Bike", cost: 70 },
+  { name: "Brake Adjustment", vehicleType: "Bike", cost: 30 },
+  { name: "Chain Lubrication", vehicleType: "Bike", cost: 20 },
+  { name: "Wheel Truing", vehicleType: "Bike", cost: 50 },
+  { name: "Tire Replacement", vehicleType: "Bike", cost: 40 },
 ];
 
 const seedServices = async () => {

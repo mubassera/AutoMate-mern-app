@@ -14,8 +14,12 @@ function Services() {
       try {
         const response = await axios.get("http://localhost:5000/all-services");
         const services = response.data;
-        setCarServices(services.filter((service) => service.type === "Car"));
-        setBikeServices(services.filter((service) => service.type === "Bike"));
+        setCarServices(
+          services.filter((service) => service.vehicleType === "Car")
+        );
+        setBikeServices(
+          services.filter((service) => service.vehicleType === "Bike")
+        );
       } catch (error) {
         console.error("Error fetching services:", error);
       }

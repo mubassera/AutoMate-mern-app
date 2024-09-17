@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
+  vehicleType: {
     type: String,
     enum: ["Car", "Bike"],
     required: true,

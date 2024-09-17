@@ -18,6 +18,7 @@ const serviceRequestSchema = new mongoose.Schema({
   selectedServices: [
     {
       name: String,
+      vehicleType: String,
       cost: Number,
     },
   ],
