@@ -128,7 +128,7 @@ const partsController = expressAsyncHandler(async (req, res) => {
 });
 
 const refreshTokenController = expressAsyncHandler(async (req, res) => {
-  const { refreshToken } = req.body;
+  const { refreshToken, _id } = req.body;
   console.log(refreshToken);
 
   if (!refreshToken) {
@@ -141,7 +141,7 @@ const refreshTokenController = expressAsyncHandler(async (req, res) => {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
 
-    const accessToken = generateAccessToken(user._id);
+    const accessToken = generateAccessToken(_id);
     res.json({ accessToken });
   });
 });
@@ -183,6 +183,59 @@ const makeServiceRequestController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//update user data
+const updateUserDataController = expressAsyncHandler(async (req, res) => {
+  const user = await userModel.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.mobileNumber = req.body.mobileNumber || user.mobileNumber;
+    user.address = req.body.address || user.address;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      mobileNumber: updatedUser.mobileNumber,
+      address: updatedUser.address,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+//fetch user data
+const fetchUserDataController = async (req, res) => {
+  try {
+    // Find user by ID (from the auth middleware)
+    const user = await userModel.findById(req.user._id);
+    console.log("id:" + req.user._id);
+
+    if (user) {
+      // Return user data (excluding the password)
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        mobileNumber: user.mobileNumber,
+        address: user.address,
+        vehicleType: user.vehicleType,
+        vehicleBrand: user.vehicleBrand,
+        vehicleModel: user.vehicleModel,
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   loginController,
   registerController,
@@ -190,4 +243,6 @@ module.exports = {
   partsController,
   refreshTokenController,
   makeServiceRequestController,
+  updateUserDataController,
+  fetchUserDataController,
 };

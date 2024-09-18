@@ -62,10 +62,10 @@ export const AdminSidebar = () => {
         <div className="underline"></div>
         <li>
           <NavLink
-            to="/settings"
+            to="/admin/service-management"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            Settings
+            Admin Service Management
           </NavLink>
         </li>
         <div className="underline"></div>

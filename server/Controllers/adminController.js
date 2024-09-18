@@ -160,7 +160,7 @@ const postNewServiceController = expressAsyncHandler(async (req, res) => {
   try {
     const newService = await Service.create({
       name: req.body.name,
-      type: req.body.type,
+      vehicleType: req.body.vehicleType,
       cost: req.body.cost,
     });
     res.status(201).json(newService);
@@ -204,6 +204,55 @@ const fetchAllServiceRequestController = expressAsyncHandler(
   }
 );
 
+//update cost of a service
+const updateServiceCostController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { cost } = req.body;
+    const service = await Service.findByIdAndUpdate(
+      req.params.id,
+      { cost },
+      { new: true }
+    );
+
+    if (!service) {
+      return res.status(404).send({ message: "Service not found" });
+    }
+
+    res.send({ message: "Service updated", service });
+  } catch (error) {
+    console.error("Error updating service:", error);
+    res.status(500).send({ message: "Error updating service" });
+  }
+});
+
+//delete a service
+const deleteServiceController = expressAsyncHandler(async (req, res) => {
+  try {
+    const service = await Service.findByIdAndDelete(req.params.id);
+
+    if (!service) {
+      return res.status(404).send({ message: "Service not found" });
+    }
+
+    res.send({ message: "Service deleted", service });
+  } catch (error) {
+    console.error("Error deleting service:", error);
+    res.status(500).send({ message: "Error deleting service" });
+  }
+});
+
+//get vehicletype count
+const vehicleTypeCountController = expressAsyncHandler(async (req, res) => {
+  try {
+    const carCount = await User.countDocuments({ vehicleType: "Car" });
+    const bikeCount = await User.countDocuments({ vehicleType: "Bike" });
+
+    res.json({ car: carCount, bike: bikeCount });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching vehicleType data" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
@@ -217,4 +266,7 @@ module.exports = {
   postNewServiceController,
   updateServiceRequestController,
   fetchAllServiceRequestController,
+  updateServiceCostController,
+  deleteServiceController,
+  vehicleTypeCountController,
 };

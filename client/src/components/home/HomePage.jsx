@@ -4,6 +4,7 @@ import {
   AiOutlineTool,
   AiOutlineSafetyCertificate,
   AiOutlineDollarCircle,
+  AiOutlineUser, // Import the profile icon
 } from "react-icons/ai";
 import "./HomePage.css";
 import { NavLink } from "react-router-dom";
@@ -15,9 +16,28 @@ import carwashImage from "../Assets/carwash.jpeg";
 const HomePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   console.log(userData);
+
   return (
     <div className="homePage">
       <Navbar />
+
+      {/* Add profile icon with NavLink to profile */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          backgroundColor: "white",
+        }}
+      >
+        <NavLink to="/profile" className="profileIcon">
+          <AiOutlineUser
+            size={30}
+            style={{ color: "black", cursor: "pointer" }}
+          />
+        </NavLink>
+      </div>
+
       <div className="box1">
         <h1>Vehicle Services</h1>
         <p>Your Reliable Partner for Vehicle Care</p>
@@ -88,18 +108,9 @@ const HomePage = () => {
       <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
-          <p>123, ABC Street,Dhaka-1000,Bangladesh</p>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
         </div>
-
-        {/* <div className='socialHandles'>
-          <ul>
-            <li>instagram</li>
-            <li>facebook</li>
-          </ul>
-        </div> */}
       </div>
-
-      {/* admin ...change here */}
     </div>
   );
 };

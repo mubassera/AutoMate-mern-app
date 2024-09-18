@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema(
     vehicleModel: {
       type: String,
     },
+    mobileNumber: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
   },
   {
     timeStamp: true,

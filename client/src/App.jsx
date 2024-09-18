@@ -15,6 +15,8 @@ import AdminOrderManagement from "./components/Admin/AdminOrderManagement/AdminO
 import OrderHistory from "./components/orderHistory/OrderHistory.jsx";
 import Services from "./components/Services/Services.jsx";
 import AdminServiceRequestManagement from "./components/Admin/AdminServiceRequestManagement/AdminServiceRequestManagement.jsx";
+import AdminServiceManagement from "./components/Admin/AdminServiceManagement/AdminServiceManagement.jsx";
+import Profile from "./components/UserProfile/UserProfile.jsx";
 
 function App() {
   return (
@@ -40,6 +42,11 @@ function App() {
           path="/admin/service-request-management"
           element={<AdminServiceRequestManagement />}
         />
+        <Route
+          path="/admin/service-management"
+          element={<AdminServiceManagement />}
+        />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

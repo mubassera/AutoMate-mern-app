@@ -6,6 +6,8 @@ const {
   partsController,
   refreshTokenController,
   makeServiceRequestController,
+  fetchUserDataController,
+  updateUserDataController,
 } = require("../Controllers/userController");
 const verifyJWT = require("../middlewares/verifyJWT");
 
@@ -17,5 +19,7 @@ Router.post(`/logout`, logoutController);
 Router.get(`/parts`, verifyJWT, partsController);
 Router.post(`/refresh`, refreshTokenController);
 Router.post(`/make-service-request`, makeServiceRequestController);
+Router.put(`/profile`, updateUserDataController);
+Router.get(`/profile`, verifyJWT, fetchUserDataController);
 
 module.exports = Router;

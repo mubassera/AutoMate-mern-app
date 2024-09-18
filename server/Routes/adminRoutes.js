@@ -13,6 +13,9 @@ const {
   postNewServiceController,
   updateServiceRequestController,
   fetchAllServiceRequestController,
+  updateServiceCostController,
+  deleteServiceController,
+  vehicleTypeCountController,
 } = require("../Controllers/adminController");
 
 //storage related
@@ -48,5 +51,8 @@ adminRouter.post("/update-payment", /*verifyJWT,*/ updatePaymentStatus);
 adminRouter.post("/new-service", /*verifyJWT,*/ postNewServiceController);
 adminRouter.put("/update-service-status/:id", updateServiceRequestController);
 adminRouter.get("/service-requests", fetchAllServiceRequestController);
+adminRouter.put("/services/:id", updateServiceCostController);
+adminRouter.put("/services/:id", deleteServiceController);
+adminRouter.get("/vehicle-type-count", vehicleTypeCountController);
 
 module.exports = adminRouter;
