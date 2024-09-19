@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { fetchProfileData } from "../../Api/userPanel";
+import { fetchProfileData, updateProfileData } from "../../Api/userPanel";
 
 function Profile() {
   const [userData, setUserData] = useState({
@@ -18,13 +17,13 @@ function Profile() {
     const fetchUserProfile = async () => {
       const data = await fetchProfileData();
       setUserData({
-        name: data.name || "",
-        email: data.email || "",
-        mobileNumber: data.mobileNumber || "",
-        address: data.address || "",
-        vehicleType: data.vehicleType || "",
-        vehicleBrand: data.vehicleBrand || "",
-        vehicleModel: data.vehicleModel || "",
+        name: data?.name || "",
+        email: data?.email || "",
+        mobileNumber: data?.mobileNumber || "",
+        address: data?.address || "",
+        vehicleType: data?.vehicleType || "",
+        vehicleBrand: data?.vehicleBrand || "",
+        vehicleModel: data?.vehicleModel || "",
       });
     };
 
@@ -42,22 +41,11 @@ function Profile() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = JSON.parse(
-        localStorage.getItem("userData")
-      ).accessToken;
-      const { data } = await axios.put(
-        `http://localhost:5000/user/profile`,
-        userData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const data = await updateProfileData(userData);
       setMessage("Profile updated successfully");
       setUserData(data); // Update state with the updated user info
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error updating profile data:", error);
       setMessage("Error updating profile");
     }
   };
@@ -93,7 +81,7 @@ function Profile() {
         <div style={{ marginBottom: "15px" }}>
           <label>Vehicle Type:</label>
           <input
-            type="vehicleType"
+            type="text"
             name="vehicleType"
             value={userData.vehicleType}
             onChange={handleInputChange}
@@ -105,7 +93,7 @@ function Profile() {
         <div style={{ marginBottom: "15px" }}>
           <label>Vehicle Brand:</label>
           <input
-            type="vehicleBrand"
+            type="text"
             name="vehicleBrand"
             value={userData.vehicleBrand}
             onChange={handleInputChange}
@@ -117,7 +105,7 @@ function Profile() {
         <div style={{ marginBottom: "15px" }}>
           <label>Vehicle Model:</label>
           <input
-            type="vehicleModel"
+            type="text"
             name="vehicleModel"
             value={userData.vehicleModel}
             onChange={handleInputChange}

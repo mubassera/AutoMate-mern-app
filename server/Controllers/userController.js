@@ -192,6 +192,9 @@ const updateUserDataController = expressAsyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.mobileNumber = req.body.mobileNumber || user.mobileNumber;
     user.address = req.body.address || user.address;
+    user.vehicleType = req.body.vehicleType || user.vehicleType;
+    user.vehicleBrand = req.body.vehicleBrand || user.vehicleBrand;
+    user.vehicleModel = req.body.vehicleModel || user.vehicleModel;
 
     const updatedUser = await user.save();
 
@@ -201,6 +204,9 @@ const updateUserDataController = expressAsyncHandler(async (req, res) => {
       email: updatedUser.email,
       mobileNumber: updatedUser.mobileNumber,
       address: updatedUser.address,
+      vehicleType: updatedUser.vehicleType,
+      vehicleBrand: updatedUser.vehicleBrand,
+      vehicleModel: updatedUser.vehicleModel,
     });
   } else {
     res.status(404);

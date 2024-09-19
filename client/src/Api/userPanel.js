@@ -85,3 +85,41 @@ export const fetchProfileData = async () => {
     console.error("Error fetching profile:", error);
   }
 };
+
+export const updateProfileData = async (userData) => {
+  try {
+    const accessToken = JSON.parse(
+      localStorage.getItem("userData")
+    ).accessToken;
+    const response = await axios.put(
+      `http://localhost:5000/user/profile`,
+      userData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const accessToken = JSON.parse(
+          localStorage.getItem("userData")
+        ).accessToken;
+        const response = await axios.put(
+          `http://localhost:5000/user/profile`,
+          userData,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        return response.data;
+      }
+    }
+    console.error("Error updating profile:", error);
+  }
+};
