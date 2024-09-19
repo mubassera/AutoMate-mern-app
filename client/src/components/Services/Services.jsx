@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./Services.css";
+import Navbar from "../navbar/navbar";
 
 function Services() {
   const [carServices, setCarServices] = useState([]);
   const [bikeServices, setBikeServices] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [message, setMessage] = useState("");
-  const [customerPhone, setCustomerPhone] = useState(""); // State for mobile number
-  const [comments, setComments] = useState(""); // New state for comments
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [comments, setComments] = useState("");
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -49,10 +51,10 @@ function Services() {
         {
           customerName: userData.name,
           customerEmail: userData.email,
-          customerPhone, // Include the mobile number
+          customerPhone,
           selectedServices,
           totalCost,
-          comments, // Include the comments
+          comments,
         }
       );
 
@@ -64,105 +66,87 @@ function Services() {
   };
 
   return (
-    <div style={{ padding: "20px", color: "black" }}>
-      <h1>Car and Bike Services</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "50px",
-        }}
-      >
-        <div>
-          <h2>Car Services</h2>
-          <ul>
-            {carServices.map((service) => (
-              <li key={service.name}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedServices.includes(service)}
-                    onChange={() => handleServiceSelect(service)}
-                  />
-                  {`${service.name} - $${service.cost}`}
-                </label>
-              </li>
-            ))}
-          </ul>
+    <div className="services-page">
+      <Navbar />
+      <div className="services-container">
+        <h1>Car and Bike Services</h1>
+        <div className="service-cards">
+          <div className="service-card">
+            <h2>Car Services</h2>
+            <ul>
+              {carServices.map((service) => (
+                <li key={service.name}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedServices.includes(service)}
+                      onChange={() => handleServiceSelect(service)}
+                    />
+                    {`${service.name} - $${service.cost}`}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h2>Bike Services</h2>
+            <ul>
+              {bikeServices.map((service) => (
+                <li key={service.name}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedServices.includes(service)}
+                      onChange={() => handleServiceSelect(service)}
+                    />
+                    {`${service.name} - $${service.cost}`}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <h2>Bike Services</h2>
-          <ul>
-            {bikeServices.map((service) => (
-              <li key={service.name}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedServices.includes(service)}
-                    onChange={() => handleServiceSelect(service)}
-                  />
-                  {`${service.name} - $${service.cost}`}
-                </label>
-              </li>
-            ))}
-          </ul>
+        <div className="total-cost">
+          <h2>Total Cost: ${totalCost}</h2>
         </div>
+
+        <div className="phone-input">
+          <label>
+            Mobile Number:
+            <br />
+            <input
+              type="tel"
+              value={customerPhone}
+              onChange={(e) => setCustomerPhone(e.target.value)}
+              placeholder="Enter your mobile number"
+            />
+          </label>
+        </div>
+
+        <div className="comments-section">
+          <label>
+            Comments:
+            <br />
+            <textarea
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+              placeholder="Enter your comments"
+            />
+          </label>
+        </div>
+
+        <button
+          className="booking-button"
+          onClick={handleBookingRequest}
+          disabled={selectedServices.length === 0 || !customerPhone}
+        >
+          Request Booking
+        </button>
+
+        {message && <p className="message">{message}</p>}
       </div>
-
-      <div style={{ marginTop: "20px" }}>
-        <h2>Total Cost: ${totalCost}</h2>
-      </div>
-
-      <div style={{ marginTop: "20px" }}>
-        <label>
-          Mobile Number:
-          <input
-            type="tel"
-            value={customerPhone}
-            onChange={(e) => setCustomerPhone(e.target.value)}
-            placeholder="Enter your mobile number"
-            style={{ marginLeft: "10px", padding: "5px" }}
-          />
-        </label>
-      </div>
-
-      <div style={{ marginTop: "20px" }}>
-        <label>
-          Comments:
-          <textarea
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-            placeholder="Enter your comments"
-            style={{
-              marginLeft: "10px",
-              padding: "5px",
-              width: "100%",
-              height: "100px",
-            }}
-          />
-        </label>
-      </div>
-
-      <button
-        onClick={handleBookingRequest}
-        disabled={selectedServices.length === 0 || !customerPhone}
-        style={{
-          backgroundColor:
-            selectedServices.length > 0 && customerPhone ? "blue" : "gray",
-          color: "white",
-          padding: "10px 20px",
-          cursor:
-            selectedServices.length > 0 && customerPhone
-              ? "pointer"
-              : "not-allowed",
-          marginTop: "20px",
-        }}
-      >
-        Request Booking
-      </button>
-
-      {message && <p>{message}</p>}
     </div>
   );
 }

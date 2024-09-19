@@ -20,8 +20,7 @@
 .navLogo h2 {
   color: rgb(255, 136, 0);
   font-size: 48px;
-  margin: 0;
-  /* Reset margin for consistency */
+  padding: 20px;
 }
 
 .navMenu {
@@ -32,10 +31,7 @@
   color: #ec8383;
   font-size: 20px;
   font-weight: 500;
-  padding: 0;
-  /* Reset padding */
-  margin: 0;
-  /* Reset margin */
+  padding-right: 30px;
 }
 
 .navMenu li {
@@ -45,15 +41,16 @@
   justify-content: center;
   gap: 3px;
   cursor: pointer;
-}
-
-.navMenu li a {
-  color: white;
-  text-decoration: none;
+  color: bisque;
 }
 
 .navMenu li a:hover {
   color: bisque;
+}
+
+.navbar li a {
+  color: white;
+  text-decoration: none;
 }
 
 .navMenu li a.active {
@@ -73,6 +70,7 @@
   .navMenu {
     gap: 40px;
     font-size: 18px;
+    padding-right: 20px;
   }
 }
 
@@ -93,6 +91,7 @@
     gap: 20px;
     width: 100%;
     align-items: flex-start;
+    padding-right: 0;
   }
 
   .navMenu li {
