@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchProfileData, updateProfileData } from "../../Api/userPanel";
+import "./UserProfile.css"; // Import the CSS file
 
 function Profile() {
   const [userData, setUserData] = useState({
@@ -12,6 +13,7 @@ function Profile() {
     vehicleModel: "",
   });
   const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -43,17 +45,38 @@ function Profile() {
     try {
       const data = await updateProfileData(userData);
       setMessage("Profile updated successfully");
+      setIsError(false);
       setUserData(data); // Update state with the updated user info
     } catch (error) {
       console.error("Error updating profile data:", error);
       setMessage("Error updating profile");
+      setIsError(true);
     }
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
+    <div className="UP-profile-container">
       <h1>User Profile</h1>
       <form onSubmit={handleProfileUpdate}>
+        {Object.entries(userData).map(([key, value]) => (
+          <div className="UP-form-group" key={key}>
+            <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+            <input
+              type={
+                key === "mobileNumber"
+                  ? "tel"
+                  : key === "email"
+                  ? "email"
+                  : "text"
+              }
+              name={key}
+              value={value}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+        ))}
+        <button type="submit">Update Profile</button>
         <div style={{ marginBottom: "15px" }}>
           <label>Name:</label>
           <input
@@ -152,8 +175,9 @@ function Profile() {
           Update Profile
         </button>
       </form>
-
-      {message && <p>{message}</p>}
+      {message && (
+        <p className={`UP-message ${isError ? "error" : ""}`}>{message}</p>
+      )}
     </div>
   );
 }

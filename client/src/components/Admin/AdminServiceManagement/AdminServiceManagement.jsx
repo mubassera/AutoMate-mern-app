@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import './AdminServiceManagement.css'; // Import the CSS file
+import { AdminSidebar } from "../AdminSidebar/AdminSidebar"; // Import the AdminSidebar component
 
 function AdminServiceManagement() {
   const [services, setServices] = useState([]);
@@ -47,7 +49,6 @@ function AdminServiceManagement() {
       await axios.post("http://localhost:5000/admin/new-service", newService);
       setNewService({ name: "", vehicleType: "Car", cost: 0 });
       alert("New service added");
-      // Fetch the updated list of services
       const response = await axios.get("http://localhost:5000/admin/services");
       setServices(response.data);
     } catch (error) {
@@ -56,78 +57,81 @@ function AdminServiceManagement() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Manage Services</h1>
+    <div className="admin-container">
+      <AdminSidebar />
+      <div className="admin-service-container">
+        {/* <h1>Manage Services</h1> */}
 
-      <h2>Existing Services</h2>
-      <table border="1" cellPadding="10">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Cost</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {services.map((service) => (
-            <tr key={service._id}>
-              <td>{service.name}</td>
-              <td>{service.type}</td>
-              <td>
-                <input
-                  type="number"
-                  value={service.cost}
-                  onChange={(e) =>
-                    handleServiceCostChange(service._id, e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <button onClick={() => updateServiceCost(service._id)}>
-                  Update Cost
-                </button>
-              </td>
+        <h1>Existing Services</h1>
+        <table className="service-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Cost</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {services.map((service) => (
+              <tr key={service._id}>
+                <td>{service.name}</td>
+                <td>{service.type}</td>
+                <td>
+                  <input
+                    type="number"
+                    value={service.cost}
+                    onChange={(e) =>
+                      handleServiceCostChange(service._id, e.target.value)
+                    }
+                  />
+                </td>
+                <td>
+                  <button onClick={() => updateServiceCost(service._id)}>
+                    Update Cost
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <h2>Add New Service</h2>
-      <div>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={newService.name}
-            onChange={(e) =>
-              setNewService({ ...newService, name: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          Type:
-          <select
-            value={newService.vehicleType}
-            onChange={(e) =>
-              setNewService({ ...newService, vehicleType: e.target.value })
-            }
-          >
-            <option value="Car">Car</option>
-            <option value="Bike">Bike</option>
-          </select>
-        </label>
-        <label>
-          Cost:
-          <input
-            type="number"
-            value={newService.cost}
-            onChange={(e) =>
-              setNewService({ ...newService, cost: e.target.value })
-            }
-          />
-        </label>
-        <button onClick={addNewService}>Add Service</button>
+        <h2>Add New Service</h2>
+        <div className="new-service-form">
+          <label>
+            Name:
+            <input
+              type="text"
+              value={newService.name}
+              onChange={(e) =>
+                setNewService({ ...newService, name: e.target.value })
+              }
+            />
+          </label>
+          <label>
+            Type:
+            <select
+              value={newService.vehicleType}
+              onChange={(e) =>
+                setNewService({ ...newService, vehicleType: e.target.value })
+              }
+            >
+              <option value="Car">Car</option>
+              <option value="Bike">Bike</option>
+            </select>
+          </label>
+          <label>
+            Cost:
+            <input
+              type="number"
+              value={newService.cost}
+              onChange={(e) =>
+                setNewService({ ...newService, cost: e.target.value })
+              }
+            />
+          </label>
+          <button onClick={addNewService}>Add Service</button>
+        </div>
       </div>
     </div>
   );
