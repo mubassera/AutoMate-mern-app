@@ -29,6 +29,12 @@ const orderSchema = mongoose.Schema(
       type: String,
       default: "Pending", // Payment status: 'Pending', 'Completed', 'Failed'
     },
+    paymentOption: {
+      type: String,
+    },
+    note: {
+      type: String,
+    },
   },
   {
     timestamps: true,

@@ -1,88 +1,169 @@
+// AdminOrderManagement.jsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { getToken } from "../../../Api/auth";
-import './AdminOrderManagement.css';
-import { AdminSidebar } from "../AdminSidebar/AdminSidebar"; // Import the AdminSidebar component
+import { fetchOrders, updateOrder } from "../../../Api/adminPanel"; // Import API functions
+import "./AdminOrderManagement.css";
+import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 
 const AdminOrderManagement = () => {
   const [orders, setOrders] = useState([]);
-  const [paymentStatus, setPaymentStatus] = useState("Pending");
+  const [paymentStatusFilter, setPaymentStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 5; // Number of orders per page
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const token = getToken();
-      const config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
+    fetchOrderData();
+  }, [paymentStatusFilter, statusFilter, page]);
 
-      const response = await axios.get(
-        "http://localhost:5000/admin/orders",
-        config
-      );
-      setOrders(response.data);
-    };
-
-    fetchOrders();
-  }, []);
-
-  const handleUpdatePaymentStatus = async (order) => {
+  const fetchOrderData = async () => {
     try {
-      const token = getToken();
-      const config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-
-      await axios.post(
-        "http://localhost:5000/admin/update-payment",
-        { orderId: order._id, paymentStatus: order.paymentStatus },
-        config
+      const data = await fetchOrders(
+        page,
+        limit,
+        paymentStatusFilter,
+        statusFilter
       );
-
-      alert("Payment status updated");
+      setOrders(data.orders);
+      setTotalPages(data.totalPages);
     } catch (error) {
-      alert("Failed to update payment status");
+      console.error("Error fetching orders:", error);
     }
   };
 
-  const handlePaymentStatusChange = (order, e) => {
-    const updatedOrders = orders.map((o) =>
-      o._id === order._id ? { ...o, paymentStatus: e.target.value } : o
+  const handleStatusChange = (orderId, newStatus) => {
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId ? { ...order, status: newStatus } : order
+      )
     );
-    setOrders(updatedOrders);
+  };
+
+  const handlePaymentStatusChange = (orderId, newPaymentStatus) => {
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId
+          ? { ...order, paymentStatus: newPaymentStatus }
+          : order
+      )
+    );
+  };
+
+  const handleUpdateOrder = async (order) => {
+    try {
+      await updateOrder(order._id, order.paymentStatus, order.status);
+      alert("Order updated");
+      fetchOrderData(); // Refresh orders after update
+    } catch (error) {
+      console.error("Failed to update order:", error);
+      alert("Failed to update order");
+    }
+  };
+
+  const handleFilterChange = (e) => {
+    setPaymentStatusFilter(e.target.value);
+    setPage(1); // Reset to first page when filtering
+  };
+
+  const handleStatusFilterChange = (e) => {
+    setStatusFilter(e.target.value);
+    setPage(1); // Reset to first page when filtering
   };
 
   return (
     <div className="admin-container">
       <AdminSidebar />
       <div className="admin-order-container">
-        <h1>Admin Order Management</h1>
+        <div className="top-navigation">
+          <h1>Admin Order Management</h1>
+          <form>
+            <label>Payment Status: </label>
+            <select value={paymentStatusFilter} onChange={handleFilterChange}>
+              <option value="">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Failed">Failed</option>
+            </select>
+
+            <label>Status: </label>
+            <select value={statusFilter} onChange={handleStatusFilterChange}>
+              <option value="">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </form>
+        </div>
 
         {orders.map((order) => (
           <div key={order._id} className="admin-order-item">
-            <img src={order.partImage} alt={`Part ${order.partId}`} />
             <div className="details">
-              <p><span id="info1">Order Id: </span>{order._id}</p>
-              <p><span id="info1">Part Id: </span>{order.partId}</p>
-              <p><span id="info1">Total Price: </span>{order.totalPrice}</p>
-              <p><span id="info1">Payment Status: </span>{order.paymentStatus}</p>
+              <p>
+                <span id="info1">Order Id: </span>
+                {order._id}
+              </p>
+              <p>
+                <span id="info1">User email: </span>
+                {order.userId.email}
+              </p>
+              <p>
+                <span id="info1">Username: </span>
+                {order.userId.name}
+              </p>
+
+              <p>
+                <span id="info1">Part name: </span>
+                {order.partId.name}
+              </p>
+              <p>
+                <span id="info1">Part quantity: </span>
+                {order.quantity}
+              </p>
+              <p>
+                <span id="info1">Total Price: </span>
+                {order.totalPrice}
+              </p>
+
+              <p>
+                <span id="info1">Payment Status: </span>
+              </p>
               <select
                 value={order.paymentStatus}
-                onChange={(e) => handlePaymentStatusChange(order, e)}
+                onChange={(e) =>
+                  handlePaymentStatusChange(order._id, e.target.value)
+                }
               >
                 <option value="Pending">Pending</option>
                 <option value="Completed">Completed</option>
                 <option value="Failed">Failed</option>
               </select>
-              <button onClick={() => handleUpdatePaymentStatus(order)}>
-                Update Payment Status
+
+              <p>
+                <span id="info1">Status: </span>
+              </p>
+              <select
+                value={order.status}
+                onChange={(e) => handleStatusChange(order._id, e.target.value)}
+              >
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <button onClick={() => handleUpdateOrder(order)}>
+                Update Order
               </button>
             </div>
           </div>
         ))}
+
+        <div className="pagination">
+          {page > 1 && (
+            <button onClick={() => setPage(page - 1)}>Previous</button>
+          )}
+          {page < totalPages && (
+            <button onClick={() => setPage(page + 1)}>Next</button>
+          )}
+        </div>
       </div>
     </div>
   );

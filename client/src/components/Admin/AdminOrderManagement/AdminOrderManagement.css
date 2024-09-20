@@ -1,74 +1,74 @@
 .admin-order-container {
-    padding: 20px;
-    background-color: bisque;
-    width: calc(100% - 250px);
-    /* Adjust width to account for the sidebar */
-    margin-left: 250px;
-    /* Offset for the sidebar */
-    box-sizing: border-box;
-    min-height: 100vh;
-    /* Ensure container takes full height */
+  padding: 20px;
+  background-color: bisque;
+  width: calc(100% - 250px);
+  /* Adjust width to account for the sidebar */
+  margin-left: 250px;
+  /* Offset for the sidebar */
+  box-sizing: border-box;
+  min-height: 100vh;
+  /* Ensure container takes full height */
 }
 
 .admin-order-container h1 {
-    color: rgb(14, 14, 83);
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    font-size: 28px;
-    /* Space below the heading */
+  color: rgb(14, 14, 83);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 28px;
+  /* Space below the heading */
 }
 
 .admin-order-item {
-    background-color: #fff;
-    color: #444;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
+  background-color: #fff;
+  color: #444;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 .admin-order-item img {
-    width: 100px;
-    /* Adjust width as needed */
-    height: auto;
-    margin-right: 20px;
-    /* Space between image and text */
+  width: 100px;
+  /* Adjust width as needed */
+  height: auto;
+  margin-right: 20px;
+  /* Space between image and text */
 }
 
 .admin-order-item .details {
-    flex: 1;
+  flex: 1;
 }
 
 .admin-order-item .details p {
-    margin: 0;
-    font-size: 16px;
+  margin: 0;
+  font-size: 16px;
 }
 
 .admin-order-item select {
-    padding: 10px;
-    margin-top: 10px;
-    /* Space above the select element */
-    margin-right: 20px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  /* Space above the select element */
+  margin-right: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .admin-order-item button {
-    background-color: #ff8c00;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #ff8c00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .admin-order-item button:hover {
-    background-color: #e67e00;
+  background-color: #e67e00;
 }
 
-#info1{
-    font-weight: bold;
+#info1 {
+  font-weight: bold;
 }

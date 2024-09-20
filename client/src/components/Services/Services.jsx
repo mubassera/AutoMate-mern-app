@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Services.css";
 import Navbar from "../navbar/navbar";
+import { fetchAllServices, makeServiceRequest } from "../../Api/userPanel";
 
 function Services() {
   const [carServices, setCarServices] = useState([]);
@@ -10,12 +11,14 @@ function Services() {
   const [message, setMessage] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [comments, setComments] = useState("");
+  const [bookingDate, setBookingDate] = useState(""); // State for booking date
 
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/all-services");
-        const services = response.data;
+        const data = await fetchAllServices(); // Await here
+        console.log(data);
+        const services = data;
         setCarServices(
           services.filter((service) => service.vehicleType === "Car")
         );
@@ -46,19 +49,18 @@ function Services() {
   const handleBookingRequest = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem("userData"));
-      const response = await axios.post(
-        "http://localhost:5000/user/make-service-request",
-        {
-          customerName: userData.name,
-          customerEmail: userData.email,
-          customerPhone,
-          selectedServices,
-          totalCost,
-          comments,
-        }
-      );
+      const params = {
+        customerId: userData._id,
+        customerEmail: userData.email,
+        customerPhone,
+        selectedServices,
+        totalCost,
+        bookingDate, // Send booking date to the server
+        comments,
+      };
+      const data = await makeServiceRequest(params);
 
-      setMessage(response.data.message);
+      setMessage(data.message);
     } catch (error) {
       console.error("Error booking services:", error);
       setMessage("There was an error sending the booking request.");
@@ -112,6 +114,18 @@ function Services() {
           <h2>Total Cost: ${totalCost}</h2>
         </div>
 
+        <div className="date-input">
+          <label>
+            Booking Date:
+            <br />
+            <input
+              type="date"
+              value={bookingDate}
+              onChange={(e) => setBookingDate(e.target.value)}
+            />
+          </label>
+        </div>
+
         <div className="phone-input">
           <label>
             Mobile Number:
@@ -140,7 +154,9 @@ function Services() {
         <button
           className="booking-button"
           onClick={handleBookingRequest}
-          disabled={selectedServices.length === 0 || !customerPhone}
+          disabled={
+            selectedServices.length === 0 || !customerPhone || !bookingDate
+          } // Ensure date is selected
         >
           Request Booking
         </button>

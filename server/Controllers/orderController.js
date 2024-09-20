@@ -13,7 +13,7 @@ const processPayment = async (totalPrice) => {
 // Place a new order
 const placeOrder = expressAsyncHandler(async (req, res) => {
   try {
-    const { partId, quantity, userId } = req.body;
+    const { partId, quantity, userId, paymentOption, note } = req.body;
 
     const part = await Part.findById(partId);
 
@@ -32,6 +32,8 @@ const placeOrder = expressAsyncHandler(async (req, res) => {
       partId,
       quantity,
       totalPrice,
+      paymentOption,
+      note,
       paymentStatus: "Pending",
     });
 

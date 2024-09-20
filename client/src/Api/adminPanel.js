@@ -196,3 +196,255 @@ export const fetchAllParts = async () => {
     throw error;
   }
 };
+
+const adminOrdersUrl = "http://localhost:5000/admin";
+
+// Function to fetch orders with filters and pagination
+export const fetchOrders = async (page, limit, paymentStatus, status) => {
+  try {
+    const token = getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `http://localhost:5000/admin/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
+      config
+    );
+    return response.data; // Return the fetched data
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+        };
+
+        const response = await axios.get(
+          `http://localhost:5000/admin/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
+          config
+        );
+        return response.data;
+      }
+    }
+    console.error("Error fetching orders:", error);
+    throw error; // Rethrow for error handling
+  }
+};
+
+// Function to update order details
+export const updateOrder = async (orderId, paymentStatus, status) => {
+  try {
+    const token = getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await axios.post(
+      `http://localhost:5000/admin/update-order`,
+      { orderId, paymentStatus, status },
+      config
+    );
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+        };
+
+        await axios.post(
+          `http://localhost:5000/admin/update-order`,
+          { orderId, paymentStatus, status },
+          config
+        );
+      }
+    }
+    console.error("Error updating order:", error);
+    throw error; // Rethrow for error handling
+  }
+};
+
+// Fetch all services
+export const fetchAllServices = async () => {
+  try {
+    const token = getToken();
+    const response = await axios.get("http://localhost:5000/all-services", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const response = await axios.get("http://localhost:5000/all-services", {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        return response.data;
+      }
+    }
+    throw error;
+  }
+};
+
+// Update service cost
+export const updateServiceCostApi = async (id, cost) => {
+  try {
+    const token = getToken();
+    await axios.put(
+      `http://localhost:5000/admin/services/${id}`,
+      { cost },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        await axios.put(
+          `http://localhost:5000/admin/services/${id}`,
+          { cost },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${newToken}`,
+            },
+          }
+        );
+      }
+    }
+    throw error;
+  }
+};
+
+// Add new service
+export const addNewServiceApi = async (serviceData) => {
+  const token = getToken();
+  try {
+    await axios.post("http://localhost:5000/admin/new-service", serviceData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        await axios.post(
+          "http://localhost:5000/admin/new-service",
+          serviceData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${newToken}`,
+            },
+          }
+        );
+      }
+    }
+    throw error;
+  }
+};
+
+// Fetch service requests with search and pagination
+export const fetchServiceRequestsApi = async (params) => {
+  try {
+    const token = getToken();
+    const response = await axios.get(
+      "http://localhost:5000/admin/service-requests",
+      { params },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const response = await axios.get(
+          "http://localhost:5000/admin/service-requests",
+          { params },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        return response.data;
+      }
+    }
+
+    throw error;
+  }
+};
+
+//update service requests
+export const updateServiceRequestStatusApi = async (
+  id,
+  status,
+  paymentStatus
+) => {
+  try {
+    const token = getToken();
+    const response = await axios.put(
+      `http://localhost:5000/admin/update-service-status/${id}`,
+      {
+        status,
+        paymentStatus,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const response = await axios.put(
+          `http://localhost:5000/admin/update-service-status/${id}`,
+          {
+            status,
+            paymentStatus,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        return response.data;
+      }
+    }
+
+    throw error;
+  }
+};

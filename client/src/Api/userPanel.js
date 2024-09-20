@@ -71,12 +71,9 @@ export const fetchProfileData = async () => {
     if (error.response && error.response.status === 403) {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        const accessToken = JSON.parse(
-          localStorage.getItem("userData")
-        ).accessToken;
         const response = await axios.get(`${userURL}/profile`, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${newToken}`,
           },
         });
         return response.data;
@@ -105,15 +102,12 @@ export const updateProfileData = async (userData) => {
     if (error.response && error.response.status === 403) {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        const accessToken = JSON.parse(
-          localStorage.getItem("userData")
-        ).accessToken;
         const response = await axios.put(
           `http://localhost:5000/user/profile`,
           userData,
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${newToken}`,
             },
           }
         );
@@ -121,5 +115,205 @@ export const updateProfileData = async (userData) => {
       }
     }
     console.error("Error updating profile:", error);
+  }
+};
+
+export const fetchAllServices = async () => {
+  try {
+    const accessToken = JSON.parse(
+      localStorage.getItem("userData")
+    ).accessToken;
+    const response = await axios.get(
+      `http://localhost:5000/all-services`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const response = await axios.get(
+          `http://localhost:5000/all-services`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+            },
+          }
+        );
+        return response.data;
+      }
+    }
+    console.error("Error fetching all services:", error);
+  }
+};
+
+export const makeServiceRequest = async (params) => {
+  try {
+    const accessToken = JSON.parse(
+      localStorage.getItem("userData")
+    ).accessToken;
+
+    // Correct structure for the request
+    const response = await axios.post(
+      `http://localhost:5000/user/make-service-request`,
+      params, // Send params as the request body
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const response = await axios.post(
+          `http://localhost:5000/user/make-service-request`,
+          params, // Send params as the request body again
+          {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+            },
+          }
+        );
+        return response.data;
+      }
+    }
+    console.error("Error booking services:", error);
+    throw error; // Rethrow the error for further handling if needed
+  }
+};
+
+//fetch order history
+export const fetchOrderHistory = async (userId) => {
+  try {
+    const token = getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `http://localhost:5000/order/history?userId=${userId}`,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const token = getToken();
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await axios.get(
+          `http://localhost:5000/order/history?userId=${userId}`,
+          config
+        );
+        return response.data;
+      }
+    }
+    console.error("Error fetching order history:", error);
+    throw error; // Rethrow the error for handling in the component
+  }
+};
+
+//place order
+export const placeOrder = async (
+  partId,
+  quantity,
+  userId,
+  paymentOption,
+  note
+) => {
+  try {
+    const token = getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.post(
+      `http://localhost:5000/order/place-order`,
+      {
+        partId,
+        quantity,
+        userId,
+        paymentOption,
+        note,
+      },
+      config
+    );
+
+    return response.data; // Return the response data for further use
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+        };
+
+        const response = await axios.get(
+          `http://localhost:5000/order/history?userId=${userId}`,
+          config
+        );
+        return response.data;
+      }
+    }
+    console.error("Error placing order:", error);
+    throw error; // Rethrow the error for handling in the component
+  }
+};
+
+// get all service history
+export const fetchServiceHistory = async (userId) => {
+  try {
+    const token = getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `http://localhost:5000/user/service-history/${userId}`,
+      config
+    );
+    return response.data; // Return the response data
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+        };
+
+        const response = await axios.get(
+          `http://localhost:5000/user/service-history/${userId}`,
+          config
+        );
+        return response.data;
+      }
+    }
+    console.error("Error fetching service history:", error);
+    throw error; // Rethrow the error for handling in the component
   }
 };

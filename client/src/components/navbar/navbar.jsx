@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
-import axios from "axios";
 import { logoutUser } from "../../Api/auth";
 
 const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -14,14 +15,16 @@ const Navbar = () => {
     }
   };
 
-  // Assuming userData contains the role and is stored in localStorage
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   const userData = JSON.parse(localStorage.getItem("userData"));
   const isAdmin = userData ? userData.isAdmin : false;
 
   return (
     <div className="navbar">
       <div className="navLogo">
-        {/* <h2>LOGO</h2> */}
         <h2>Automate</h2>
       </div>
 
@@ -58,14 +61,32 @@ const Navbar = () => {
             About Us
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/OrderHistory"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            Purchase & Booking History
-          </NavLink>
+
+        {/* Dropdown for History */}
+        <li className="dropdown" onClick={toggleDropdown}>
+          <span className="dropdown-toggle">Purchase & Booking History</span>
+          {dropdownOpen && (
+            <ul className="dropdown-menu">
+              <li>
+                <NavLink
+                  to="/OrderHistory"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  Order History
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/service-history"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  Service History
+                </NavLink>
+              </li>
+            </ul>
+          )}
         </li>
+
         {isAdmin && (
           <li>
             <NavLink
@@ -76,6 +97,7 @@ const Navbar = () => {
             </NavLink>
           </li>
         )}
+
         <li>
           <NavLink
             to="/"

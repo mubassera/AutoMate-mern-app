@@ -8,6 +8,7 @@ const {
 const jwt = require("jsonwebtoken");
 const PartsModel = require("../models/partsModel");
 const ServiceRequest = require("../models/serviceRequestModel");
+const mongoose = require("mongoose");
 
 //login controller for logging in
 const loginController = expressAsyncHandler(async (req, res) => {
@@ -150,21 +151,23 @@ const refreshTokenController = expressAsyncHandler(async (req, res) => {
 const makeServiceRequestController = expressAsyncHandler(async (req, res) => {
   try {
     const {
-      customerName,
+      customerId,
       customerEmail,
       customerPhone,
       selectedServices,
       totalCost,
+      bookingDate,
       comments,
     } = req.body;
 
     // Create a new service request
     const serviceRequest = new ServiceRequest({
-      customerName,
+      customerId,
       customerEmail,
       customerPhone,
       selectedServices,
       totalCost,
+      bookingDate,
       paymentStatus: "Pending",
       comments,
     });
@@ -242,6 +245,19 @@ const fetchUserDataController = async (req, res) => {
   }
 };
 
+const getServiceHistoryController = expressAsyncHandler(async (req, res) => {
+  try {
+    const serviceRequests = await ServiceRequest.find({
+      customerId: new mongoose.Types.ObjectId(req.params.id),
+    }).populate("customerId");
+    console.log(serviceRequests);
+    res.json(serviceRequests);
+  } catch (error) {
+    console.log("error fetching service history in server", error);
+    res.status(500).json({ message: "Error fetching order history" });
+  }
+});
+
 module.exports = {
   loginController,
   registerController,
@@ -251,4 +267,5 @@ module.exports = {
   makeServiceRequestController,
   updateUserDataController,
   fetchUserDataController,
+  getServiceHistoryController,
 };

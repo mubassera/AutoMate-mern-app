@@ -6,9 +6,9 @@
 }
 
 .asrm-content {
-  margin-left: 250px; /* Aligns content next to the sidebar */
+  margin-left: 0;
   padding: 20px;
-  width: calc(100% - 250px);
+  width: 100%;
 }
 
 .asrm-title {
@@ -30,6 +30,7 @@
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
+  color: black; /* Set text color to black */
 }
 
 .asrm-table th {
@@ -65,6 +66,73 @@
 
 .asrm-button:hover {
   background-color: #e87700;
+}
+
+/* Styles for the search form */
+.top-navigation {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.top-navigation h1 {
+  margin: 0;
+  color: #073753;
+  font-size: 24px;
+}
+
+.top-navigation form {
+  display: flex;
+  gap: 15px; /* Space between select elements and button */
+  align-items: center; /* Align items vertically */
+}
+
+.top-navigation label {
+  font-size: 16px;
+  color: #073753; /* Label color */
+}
+
+.top-navigation select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333; /* Text color in select */
+}
+
+.top-navigation button {
+  background-color: #ff8800;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.top-navigation button:hover {
+  background-color: #e87700; /* Change color on hover */
+}
+
+/* Styles for pagination */
+.pagination {
+  margin-top: 20px; /* Space above the pagination */
+  display: flex;
+  justify-content: center; /* Center pagination buttons */
+  gap: 10px; /* Space between buttons */
+}
+
+.pagination button {
+  background-color: #ff8800;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #e87700; /* Change color on hover */
 }
 
 /* Media Queries for responsiveness */

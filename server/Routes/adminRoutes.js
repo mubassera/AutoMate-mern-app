@@ -16,11 +16,11 @@ const {
   updateServiceCostController,
   deleteServiceController,
   vehicleTypeCountController,
+  updateOrderController,
 } = require("../Controllers/adminController");
 
 //storage related
 const multer = require("multer");
-const { updatePaymentStatus } = require("../Controllers/orderController");
 const storage = multer.memoryStorage(); // Store file in memory for Firebase upload
 const upload = multer({ storage });
 
@@ -47,7 +47,7 @@ adminRouter.put(
 );
 adminRouter.delete(`/AllParts/:id`, /* verifyJWT,*/ deletePartController);
 adminRouter.get(`/orders`, /* verifyJWT,*/ fetchAllOrdersController);
-adminRouter.post("/update-payment", /*verifyJWT,*/ updatePaymentStatus);
+adminRouter.post("/update-order", /*verifyJWT,*/ updateOrderController);
 adminRouter.post("/new-service", /*verifyJWT,*/ postNewServiceController);
 adminRouter.put("/update-service-status/:id", updateServiceRequestController);
 adminRouter.get("/service-requests", fetchAllServiceRequestController);

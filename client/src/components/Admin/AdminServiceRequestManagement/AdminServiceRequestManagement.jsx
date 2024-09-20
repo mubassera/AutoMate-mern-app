@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { AdminSidebar } from "../AdminSidebar/AdminSidebar"; // Import the unchanged sidebar
-import "./AdminServiceRequestManagement.css"; // Import the updated CSS
+import {
+  fetchServiceRequestsApi,
+  updateServiceRequestStatusApi,
+} from "../../../Api/adminPanel";
+import "./AdminServiceRequestManagement.css";
 
 function AdminServiceRequestManagement() {
   const [serviceRequests, setServiceRequests] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState({});
+  const [selectedStatusForSearch, setSelectedStatusForSearch] = useState("");
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState({});
+  const [selectedPaymentStatusForSearch, setSelectedPaymentStatusForSearch] =
+    useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const fetchServiceRequests = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/admin/service-requests"
-        );
-        setServiceRequests(response.data);
-      } catch (error) {
-        console.error("Error fetching service requests:", error);
-      }
+    fetchServiceRequests();
+  }, [page]);
+
+  const fetchServiceRequests = async () => {
+    const params = {
+      ...(selectedStatusForSearch && { status: selectedStatusForSearch }),
+      ...(selectedPaymentStatusForSearch && {
+        paymentStatus: selectedPaymentStatusForSearch,
+      }),
+      page,
+      limit,
     };
 
-    fetchServiceRequests();
-  }, []);
+    try {
+      const data = await fetchServiceRequestsApi(params);
+      setServiceRequests(data.serviceRequests);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error("Error fetching service requests:", error);
+    }
+  };
 
   const handleStatusChange = (id, status) => {
     setSelectedStatus((prevStatus) => ({
@@ -39,21 +55,60 @@ function AdminServiceRequestManagement() {
 
   const updateStatus = async (id) => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/admin/update-service-status/${id}`,
-        { status: selectedStatus[id], paymentStatus: selectedPaymentStatus[id] }
+      const response = await updateServiceRequestStatusApi(
+        id,
+        selectedStatus[id],
+        selectedPaymentStatus[id]
       );
-      alert(response.data.message);
+      alert(response.message);
     } catch (error) {
       console.error("Error updating service status:", error);
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+    fetchServiceRequests();
+  };
+
   return (
     <div className="asrm-container">
-      <AdminSidebar />
+      <div className="top-navigation">
+        <h1>Service Request Management</h1>
+        <form onSubmit={handleSearch}>
+          <div>
+            <label>Status: </label>
+            <select
+              value={selectedStatusForSearch}
+              onChange={(e) => setSelectedStatusForSearch(e.target.value)}
+            >
+              <option value="">Select Request Status</option>
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Completed">Completed</option>
+              <option value="Declined">Declined</option>
+            </select>
+          </div>
+          <div>
+            <label>Payment Status: </label>
+            <select
+              value={selectedPaymentStatusForSearch}
+              onChange={(e) =>
+                setSelectedPaymentStatusForSearch(e.target.value)
+              }
+            >
+              <option value="">Select Payment Status</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Canceled">Canceled</option>
+            </select>
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
       <div className="asrm-content">
-        <h1 className="asrm-title">Service Request Management</h1>
         <table className="asrm-table">
           <thead>
             <tr>
@@ -98,7 +153,8 @@ function AdminServiceRequestManagement() {
                 <td>
                   <select
                     value={
-                      selectedPaymentStatus[request._id] || request.paymentStatus
+                      selectedPaymentStatus[request._id] ||
+                      request.paymentStatus
                     }
                     onChange={(e) =>
                       handlePaymentStatusChange(request._id, e.target.value)
@@ -122,6 +178,14 @@ function AdminServiceRequestManagement() {
             ))}
           </tbody>
         </table>
+        <div className="pagination">
+          {page > 1 && (
+            <button onClick={() => setPage(page - 1)}>Previous</button>
+          )}
+          {page < totalPages && (
+            <button onClick={() => setPage(page + 1)}>Next</button>
+          )}
+        </div>
       </div>
     </div>
   );

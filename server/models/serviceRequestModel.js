@@ -2,8 +2,9 @@
 const mongoose = require("mongoose");
 
 const serviceRequestSchema = new mongoose.Schema({
-  customerName: {
-    type: String,
+  customerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
     required: true,
   },
   customerEmail: {
@@ -28,7 +29,7 @@ const serviceRequestSchema = new mongoose.Schema({
   },
   bookingDate: {
     type: Date,
-    default: Date.now,
+    required: true,
   },
   status: {
     type: String,

@@ -17,6 +17,7 @@ import Services from "./components/Services/Services.jsx";
 import AdminServiceRequestManagement from "./components/Admin/AdminServiceRequestManagement/AdminServiceRequestManagement.jsx";
 import AdminServiceManagement from "./components/Admin/AdminServiceManagement/AdminServiceManagement.jsx";
 import Profile from "./components/UserProfile/UserProfile.jsx";
+import ServiceHistory from "./components/ServiceHistory/ServiceHistory.jsx";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           element={<AdminServiceManagement />}
         />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/service-history" element={<ServiceHistory />} />
       </Routes>
     </Router>
   );

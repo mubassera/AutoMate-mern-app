@@ -148,10 +148,37 @@ const deletePartController = expressAsyncHandler(async (req, res) => {
 //fetch orders
 const fetchAllOrdersController = expressAsyncHandler(async (req, res) => {
   try {
-    const orders = await orderModel.find();
-    res.json(orders);
-  } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    const { page = 1, limit = 5, paymentStatus, status } = req.query;
+
+    const query = {};
+    if (paymentStatus) {
+      query.paymentStatus = paymentStatus; // Filter by payment status
+    }
+    if (status) {
+      query.status = status; // Filter by order status
+    }
+
+    // Paginate and filter orders
+    const orders = await orderModel
+      .find(query)
+      .populate("partId")
+      .populate("userId") // Populate partId if necessary
+      .limit(limit * 1) // Convert limit to a number
+      .skip((page - 1) * limit)
+      .exec();
+
+    // Get total count for pagination
+    const count = await orderModel.countDocuments(query);
+
+    // Return the orders and the total count
+    res.json({
+      orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: parseInt(page),
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).send("Server Error");
   }
 });
 
@@ -167,6 +194,28 @@ const postNewServiceController = expressAsyncHandler(async (req, res) => {
   } catch (err) {
     console.error("Error adding service:", err);
     res.status(500).json({ error: "Failed to add service" });
+  }
+});
+
+//update order controller
+const updateOrderController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { orderId, status, paymentStatus } = req.body;
+    const order = await orderModel.findById(orderId);
+
+    if (!order) {
+      res.status(404).json({ message: "Order not found" });
+      throw new Error("Order not found");
+    }
+
+    order.paymentStatus = paymentStatus;
+    order.status = status;
+    await order.save();
+
+    res.json(order);
+  } catch (error) {
+    console.error("Error updating service status:", error);
+    res.status(500).send({ message: "Error updating service status" });
   }
 });
 
@@ -195,11 +244,34 @@ const updateServiceRequestController = expressAsyncHandler(async (req, res) => {
 const fetchAllServiceRequestController = expressAsyncHandler(
   async (req, res) => {
     try {
-      const serviceRequests = await ServiceRequest.find();
-      res.send(serviceRequests);
+      const { page = 1, limit = 5, status, paymentStatus } = req.query;
+
+      const query = {};
+      if (status) {
+        query.status = status;
+      }
+      if (paymentStatus) {
+        query.paymentStatus = paymentStatus;
+      }
+
+      // Paginate and filter service requests
+      const serviceRequests = await ServiceRequest.find(query)
+        .limit(limit * 1) // Convert to number
+        .skip((page - 1) * limit)
+        .exec();
+
+      // Get total count for pagination
+      const count = await ServiceRequest.countDocuments(query);
+
+      // Return the service requests and the total count
+      res.json({
+        serviceRequests,
+        totalPages: Math.ceil(count / limit),
+        currentPage: parseInt(page),
+      });
     } catch (error) {
       console.error("Error fetching service requests:", error);
-      res.status(500).send({ message: "Error fetching service requests" });
+      res.status(500).send("Server Error");
     }
   }
 );
@@ -263,6 +335,7 @@ module.exports = {
   updatePartController,
   deletePartController,
   fetchAllOrdersController,
+  updateOrderController,
   postNewServiceController,
   updateServiceRequestController,
   fetchAllServiceRequestController,

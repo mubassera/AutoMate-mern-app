@@ -1,8 +1,8 @@
+// OrderHistory.jsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { getToken } from "../../Api/auth";
-import Navbar from "../navbar/navbar"; // Assuming you have a Navbar component
-import './OrderHistory.css';
+import { fetchOrderHistory } from "../../Api/userPanel"; // Import the new API function
+import Navbar from "../navbar/navbar";
+import "./OrderHistory.css";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -10,21 +10,11 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = getToken();
-        const config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-
         const userId = JSON.parse(localStorage.getItem("userData"))._id;
-        const response = await axios.get(
-          `http://localhost:5000/order/history?userId=${userId}`,
-          config
-        );
-        setOrders(response.data);
+        const ordersData = await fetchOrderHistory(userId);
+        setOrders(ordersData);
       } catch (error) {
-        console.log("error fetching history", error);
+        console.log("Error fetching history", error);
       }
     };
 
@@ -33,7 +23,7 @@ const OrderHistory = () => {
 
   return (
     <div className="order-history-page">
-      <Navbar /> {/* Navbar at the top of the page */}
+      <Navbar />
       <div className="order-history-container">
         <h2>Your Orders</h2>
         <ul className="order-history-list">
@@ -45,11 +35,21 @@ const OrderHistory = () => {
                 className="part-image"
               />
               <div className="order-details">
-                <p><span>Part Name:</span> {order.partId.name}</p>
-                <p><span>Quantity:</span> {order.quantity} units</p>
-                <p><span>Total Price:</span> ${order.totalPrice}</p>
-                <p><span>Status:</span> {order.status}</p>
-                <p><span>Payment Status:</span> {order.paymentStatus}</p>
+                <p>
+                  <span>Part Name:</span> {order.partId.name}
+                </p>
+                <p>
+                  <span>Quantity:</span> {order.quantity} units
+                </p>
+                <p>
+                  <span>Total Price:</span> ${order.totalPrice}
+                </p>
+                <p>
+                  <span>Status:</span> {order.status}
+                </p>
+                <p>
+                  <span>Payment Status:</span> {order.paymentStatus}
+                </p>
               </div>
             </li>
           ))}

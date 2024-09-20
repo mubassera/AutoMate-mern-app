@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import './AdminServiceManagement.css'; // Import the CSS file
-import { AdminSidebar } from "../AdminSidebar/AdminSidebar"; // Import the AdminSidebar component
+import {
+  fetchAllServices,
+  updateServiceCostApi,
+  addNewServiceApi,
+} from "../../../Api/adminPanel";
+import "./AdminServiceManagement.css";
+import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 
 function AdminServiceManagement() {
   const [services, setServices] = useState([]);
@@ -12,16 +16,16 @@ function AdminServiceManagement() {
   });
 
   useEffect(() => {
-    const fetchServices = async () => {
+    const loadServices = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/all-services");
-        setServices(response.data);
+        const servicesData = await fetchAllServices();
+        setServices(servicesData);
       } catch (error) {
         console.error("Error fetching services:", error);
       }
     };
 
-    fetchServices();
+    loadServices();
   }, []);
 
   const handleServiceCostChange = (id, cost) => {
@@ -35,9 +39,7 @@ function AdminServiceManagement() {
   const updateServiceCost = async (id) => {
     try {
       const serviceToUpdate = services.find((service) => service._id === id);
-      await axios.put(`http://localhost:5000/admin/services/${id}`, {
-        cost: serviceToUpdate.cost,
-      });
+      await updateServiceCostApi(id, serviceToUpdate.cost);
       alert("Service cost updated");
     } catch (error) {
       console.error("Error updating service cost:", error);
@@ -46,11 +48,11 @@ function AdminServiceManagement() {
 
   const addNewService = async () => {
     try {
-      await axios.post("http://localhost:5000/admin/new-service", newService);
+      await addNewServiceApi(newService);
       setNewService({ name: "", vehicleType: "Car", cost: 0 });
       alert("New service added");
-      const response = await axios.get("http://localhost:5000/admin/services");
-      setServices(response.data);
+      const servicesData = await fetchAllServices();
+      setServices(servicesData);
     } catch (error) {
       console.error("Error adding new service:", error);
     }
@@ -60,8 +62,6 @@ function AdminServiceManagement() {
     <div className="admin-container">
       <AdminSidebar />
       <div className="admin-service-container">
-        {/* <h1>Manage Services</h1> */}
-
         <h1>Existing Services</h1>
         <table className="service-table">
           <thead>
