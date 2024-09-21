@@ -1,8 +1,8 @@
 import axios from "axios";
 import { getToken, getRefreshToken, setAccessToken, logoutUser } from "./auth";
 
-//const userURL = "https://auto-mate-mern-app-glrn.vercel.app/user";
-const userURL = "http://localhost:5000/user";
+const userURL = "https://auto-mate-mern-app-glrn.vercel.app/user";
+//const userURL = "http://localhost:5000/user";
 
 export const refreshAccessToken = async () => {
   const refreshToken = getRefreshToken();
@@ -88,29 +88,21 @@ export const updateProfileData = async (userData) => {
     const accessToken = JSON.parse(
       localStorage.getItem("userData")
     ).accessToken;
-    const response = await axios.put(
-      `http://localhost:5000/user/profile`,
-      userData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await axios.put(`${userURL}/profile`, userData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 403) {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        const response = await axios.put(
-          `http://localhost:5000/user/profile`,
-          userData,
-          {
-            headers: {
-              Authorization: `Bearer ${newToken}`,
-            },
-          }
-        );
+        const response = await axios.put(`${userURL}/profile`, userData, {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+          },
+        });
         return response.data;
       }
     }
@@ -124,7 +116,7 @@ export const fetchAllServices = async () => {
       localStorage.getItem("userData")
     ).accessToken;
     const response = await axios.get(
-      `http://localhost:5000/all-services`,
+      `https://auto-mate-mern-app-glrn.vercel.app/all-services`,
 
       {
         headers: {
@@ -139,7 +131,7 @@ export const fetchAllServices = async () => {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         const response = await axios.get(
-          `http://localhost:5000/all-services`,
+          `https://auto-mate-mern-app-glrn.vercel.app/all-services`,
 
           {
             headers: {
@@ -162,7 +154,7 @@ export const makeServiceRequest = async (params) => {
 
     // Correct structure for the request
     const response = await axios.post(
-      `http://localhost:5000/user/make-service-request`,
+      `${userURL}/make-service-request`,
       params, // Send params as the request body
       {
         headers: {
@@ -176,7 +168,7 @@ export const makeServiceRequest = async (params) => {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         const response = await axios.post(
-          `http://localhost:5000/user/make-service-request`,
+          `${userURL}/make-service-request`,
           params, // Send params as the request body again
           {
             headers: {
@@ -203,7 +195,7 @@ export const fetchOrderHistory = async (userId) => {
     };
 
     const response = await axios.get(
-      `http://localhost:5000/order/history?userId=${userId}`,
+      `https://auto-mate-mern-app-glrn.vercel.app/order/history?userId=${userId}`,
       config
     );
     return response.data;
@@ -219,7 +211,7 @@ export const fetchOrderHistory = async (userId) => {
         };
 
         const response = await axios.get(
-          `http://localhost:5000/order/history?userId=${userId}`,
+          `https://auto-mate-mern-app-glrn.vercel.app/order/history?userId=${userId}`,
           config
         );
         return response.data;
@@ -247,7 +239,7 @@ export const placeOrder = async (
     };
 
     const response = await axios.post(
-      `http://localhost:5000/order/place-order`,
+      `https://auto-mate-mern-app-glrn.vercel.app/order/place-order`,
       {
         partId,
         quantity,
@@ -270,7 +262,7 @@ export const placeOrder = async (
         };
 
         const response = await axios.get(
-          `http://localhost:5000/order/history?userId=${userId}`,
+          `https://auto-mate-mern-app-glrn.vercel.app/order/history?userId=${userId}`,
           config
         );
         return response.data;
@@ -292,7 +284,7 @@ export const fetchServiceHistory = async (userId) => {
     };
 
     const response = await axios.get(
-      `http://localhost:5000/user/service-history/${userId}`,
+      `${userURL}/service-history/${userId}`,
       config
     );
     return response.data; // Return the response data
@@ -307,7 +299,7 @@ export const fetchServiceHistory = async (userId) => {
         };
 
         const response = await axios.get(
-          `http://localhost:5000/user/service-history/${userId}`,
+          `${userURL}/service-history/${userId}`,
           config
         );
         return response.data;

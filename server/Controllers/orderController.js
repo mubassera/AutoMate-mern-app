@@ -48,7 +48,8 @@ const getOrderHistory = expressAsyncHandler(async (req, res) => {
   try {
     const orders = await orderModel
       .find({ userId: new mongoose.Types.ObjectId(req.query.userId) })
-      .populate("partId");
+      .populate("partId")
+      .sort({ _id: -1 });
     res.json(orders);
   } catch (error) {
     console.log("error fetching order history in server", error);

@@ -75,8 +75,8 @@ function AdminServiceManagement() {
           <tbody>
             {services.map((service) => (
               <tr key={service._id}>
-                <td>{service.name}</td>
-                <td>{service.type}</td>
+                <td style={{ color: "black" }}>{service.name}</td>
+                <td style={{ color: "black" }}>{service.vehicleType}</td>
                 <td>
                   <input
                     type="number"

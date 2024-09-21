@@ -129,12 +129,12 @@ function AdminServiceRequestManagement() {
             <tbody>
               {serviceRequests.map((request) => (
                 <tr key={request._id}>
-                  <td>{request.customerName}</td>
+                  <td>{request.customerId.name}</td>
                   <td>
                     <ul>
                       {request.selectedServices.map((service) => (
-                        <li key={service.serviceId}>
-                          {service.serviceName} - {service.price} BDT
+                        <li key={service._id}>
+                          {service.name} - {service.cost} BDT
                         </li>
                       ))}
                     </ul>

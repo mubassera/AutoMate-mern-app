@@ -59,54 +59,53 @@ function Profile() {
     <div className="UPP">
       <Navbar />
       <div className="UP-profile-container">
-      <h1>User Profile</h1>
-      <form onSubmit={handleProfileUpdate}>
-        {Object.entries(userData).map(([key, value]) => (
-          <div className="UP-form-group" key={key}>
-            <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-            <input
-              type={
-                key === "mobileNumber"
-                  ? "tel"
-                  : key === "email"
-                  ? "email"
-                  : "text"
-              }
-              name={key}
-              value={value}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        ))}
+        <h1>User Profile</h1>
+        <form onSubmit={handleProfileUpdate}>
+          {Object.entries(userData).map(([key, value]) => (
+            <div style={{ color: "black" }} className="UP-form-group" key={key}>
+              <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+              <input
+                style={{ color: "black" }}
+                type={
+                  key === "mobileNumber"
+                    ? "tel"
+                    : key === "email"
+                    ? "email"
+                    : "text"
+                }
+                name={key}
+                value={value}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          ))}
 
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "blue",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-          }}
-        >
-          Update Profile
-        </button>
-      </form>
-      {message && (
-        <p className={`UP-message ${isError ? "error" : ""}`}>{message}</p>
-      )}
-    </div>
+          <button
+            type="submit"
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "blue",
+              color: "white",
+              cursor: "pointer",
+              border: "none",
+            }}
+          >
+            Update Profile
+          </button>
+        </form>
+        {message && (
+          <p className={`UP-message ${isError ? "error" : ""}`}>{message}</p>
+        )}
+      </div>
 
-
-     <div className="box4">
+      <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
           <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
         </div>
       </div>
     </div>
-    
   );
 }
 

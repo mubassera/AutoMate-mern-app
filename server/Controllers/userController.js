@@ -249,7 +249,9 @@ const getServiceHistoryController = expressAsyncHandler(async (req, res) => {
   try {
     const serviceRequests = await ServiceRequest.find({
       customerId: new mongoose.Types.ObjectId(req.params.id),
-    }).populate("customerId");
+    })
+      .populate("customerId")
+      .sort({ _id: -1 });
     console.log(serviceRequests);
     res.json(serviceRequests);
   } catch (error) {

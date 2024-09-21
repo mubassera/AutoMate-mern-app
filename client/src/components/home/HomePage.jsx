@@ -21,16 +21,9 @@ const HomePage = () => {
     <div className="homePage">
       <Navbar />
 
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          backgroundColor: "white",
-        }}
-      >
+      <div className="profileContainer">
         <NavLink to="/profile" className="profileIcon">
-          <AiOutlineUser size={30} style={{ color: "black", cursor: "pointer" }} />
+          <AiOutlineUser size={30} />
         </NavLink>
       </div>
 
@@ -72,16 +65,16 @@ const HomePage = () => {
           <h3>What we do?</h3>
           <div className="workList">
             <ul>
-              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
                 <li>Vehicle Service</li>
               </NavLink>
-              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
                 <li>Vehicle Wash</li>
               </NavLink>
-              <NavLink to="/parts" style={{ textDecoration: 'none' }}>
+              <NavLink to="/parts" style={{ textDecoration: "none" }}>
                 <li>Parts Sell</li>
               </NavLink>
-              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
                 <li>Emergency Service</li>
               </NavLink>
             </ul>

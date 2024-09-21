@@ -2,8 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 import { refreshAccessToken } from "./userPanel";
 
-//const adminURL = "https://auto-mate-mern-app-glrn.vercel.app/admin";
-const adminURL = "http://localhost:5000/admin";
+const adminURL = "https://auto-mate-mern-app-glrn.vercel.app/admin";
+//const adminURL = "http://localhost:5000/admin";
 
 export const fetchAllUsers = async () => {
   try {
@@ -210,7 +210,7 @@ export const fetchOrders = async (page, limit, paymentStatus, status) => {
     };
 
     const response = await axios.get(
-      `http://localhost:5000/admin/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
+      `${adminURL}//orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
       config
     );
     return response.data; // Return the fetched data
@@ -225,7 +225,7 @@ export const fetchOrders = async (page, limit, paymentStatus, status) => {
         };
 
         const response = await axios.get(
-          `http://localhost:5000/admin/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
+          `${adminURL}//orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
           config
         );
         return response.data;
@@ -247,7 +247,7 @@ export const updateOrder = async (orderId, paymentStatus, status) => {
     };
 
     await axios.post(
-      `http://localhost:5000/admin/update-order`,
+      `${adminURL}//update-order`,
       { orderId, paymentStatus, status },
       config
     );
@@ -262,7 +262,7 @@ export const updateOrder = async (orderId, paymentStatus, status) => {
         };
 
         await axios.post(
-          `http://localhost:5000/admin/update-order`,
+          `${adminURL}//update-order`,
           { orderId, paymentStatus, status },
           config
         );
@@ -277,23 +277,29 @@ export const updateOrder = async (orderId, paymentStatus, status) => {
 export const fetchAllServices = async () => {
   try {
     const token = getToken();
-    const response = await axios.get("http://localhost:5000/all-services", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.get(
+      "https://auto-mate-mern-app-glrn.vercel.app/all-services",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 403) {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        const response = await axios.get("http://localhost:5000/all-services", {
-          headers: {
-            Authorization: `Bearer ${newToken}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          "https://auto-mate-mern-app-glrn.vercel.app/all-services",
+          {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         return response.data;
       }
     }
@@ -306,7 +312,7 @@ export const updateServiceCostApi = async (id, cost) => {
   try {
     const token = getToken();
     await axios.put(
-      `http://localhost:5000/admin/services/${id}`,
+      `${adminURL}/services/${id}`,
       { cost },
       {
         headers: {
@@ -320,7 +326,7 @@ export const updateServiceCostApi = async (id, cost) => {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         await axios.put(
-          `http://localhost:5000/admin/services/${id}`,
+          `${adminURL}/services/${id}`,
           { cost },
           {
             headers: {
@@ -339,7 +345,7 @@ export const updateServiceCostApi = async (id, cost) => {
 export const addNewServiceApi = async (serviceData) => {
   const token = getToken();
   try {
-    await axios.post("http://localhost:5000/admin/new-service", serviceData, {
+    await axios.post(`${adminURL}/new-service`, serviceData, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -349,16 +355,12 @@ export const addNewServiceApi = async (serviceData) => {
     if (error.response && error.response.status === 403) {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
-        await axios.post(
-          "http://localhost:5000/admin/new-service",
-          serviceData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${newToken}`,
-            },
-          }
-        );
+        await axios.post(`${adminURL}/new-service`, serviceData, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${newToken}`,
+          },
+        });
       }
     }
     throw error;
@@ -370,7 +372,7 @@ export const fetchServiceRequestsApi = async (params) => {
   try {
     const token = getToken();
     const response = await axios.get(
-      "http://localhost:5000/admin/service-requests",
+      `${adminURL}/service-requests`,
       { params },
       {
         headers: {
@@ -385,7 +387,7 @@ export const fetchServiceRequestsApi = async (params) => {
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         const response = await axios.get(
-          "http://localhost:5000/admin/service-requests",
+          `${adminURL}/service-requests`,
           { params },
           {
             headers: {
@@ -411,7 +413,7 @@ export const updateServiceRequestStatusApi = async (
   try {
     const token = getToken();
     const response = await axios.put(
-      `http://localhost:5000/admin/update-service-status/${id}`,
+      `${adminURL}/update-service-status/${id}`,
       {
         status,
         paymentStatus,
@@ -429,7 +431,7 @@ export const updateServiceRequestStatusApi = async (
       const newToken = await refreshAccessToken(); // Refresh token and retry request
       if (newToken) {
         const response = await axios.put(
-          `http://localhost:5000/admin/update-service-status/${id}`,
+          `${adminURL}/update-service-status/${id}`,
           {
             status,
             paymentStatus,

@@ -10,6 +10,17 @@ const orderModel = require("../models/orderModel");
 const Service = require("../models/serviceModel");
 const ServiceRequest = require("../models/serviceRequestModel");
 
+const nodemailer = require("nodemailer");
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "austcse49b@gmail.com",
+    pass: "oqzb gsof mjso jryv",
+  },
+});
+
 // Setup multer for file uploads
 /*const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -163,6 +174,7 @@ const fetchAllOrdersController = expressAsyncHandler(async (req, res) => {
       .find(query)
       .populate("partId")
       .populate("userId") // Populate partId if necessary
+      .sort({ _id: -1 })
       .limit(limit * 1) // Convert limit to a number
       .skip((page - 1) * limit)
       .exec();
@@ -201,7 +213,10 @@ const postNewServiceController = expressAsyncHandler(async (req, res) => {
 const updateOrderController = expressAsyncHandler(async (req, res) => {
   try {
     const { orderId, status, paymentStatus } = req.body;
-    const order = await orderModel.findById(orderId);
+    const order = await orderModel
+      .findById(orderId)
+      .populate("userId")
+      .populate("partId");
 
     if (!order) {
       res.status(404).json({ message: "Order not found" });
@@ -211,6 +226,30 @@ const updateOrderController = expressAsyncHandler(async (req, res) => {
     order.paymentStatus = paymentStatus;
     order.status = status;
     await order.save();
+
+    // Send email to customer
+    const mailOptions = {
+      from: "austcse49b@gmail.com",
+      to: order.userId.email, // Assuming you have the customer's email in the order
+      subject: "Order Status Update",
+      text: `Hello, your order status of orderID: ${order._id} has been updated to: ${status}.
+
+Order Details
+- OrderID: ${order._id},
+- Part Name: ${order.partId.name},
+- Quantity: ${order.quantity},
+- Total Cost: ${order.totalPrice},
+- Status: ${status}
+- Payment status: ${paymentStatus}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
 
     res.json(order);
   } catch (error) {
@@ -233,13 +272,46 @@ const updateServiceRequestController = expressAsyncHandler(async (req, res) => {
       return res.status(404).send({ message: "Service request not found" });
     }
 
+    // Send email to the customer
+    const mailOptions = {
+      from: "austcse49b@gmail.com",
+      to: serviceRequest.customerEmail, // Assuming you have the customer's email in the serviceRequest
+      subject: "Service Request Status Update",
+      text: `Hello, the status of your Service Request ID: ${
+        serviceRequest._id
+      } has been updated to: ${serviceRequest.status}.
+
+Service Request Details:
+- Service Request ID: ${serviceRequest._id}
+- Customer Email: ${serviceRequest.customerEmail}
+- Customer Phone: ${serviceRequest.customerPhone}
+- Selected Services: ${serviceRequest.selectedServices
+        .map(
+          (service) =>
+            `${service.name} (Vehicle Type: ${service.vehicleType}, Cost: $${service.cost})`
+        )
+        .join(", ")}
+- Booking Date: ${serviceRequest.bookingDate.toLocaleDateString()}
+- Total Cost: ${serviceRequest.totalCost}BDT
+- Current Status: ${serviceRequest.status}
+- Payment Status: ${serviceRequest.paymentStatus}
+- Additional Comments: ${serviceRequest.comments || "N/A"}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+
     res.send({ message: "Service status updated", serviceRequest });
   } catch (error) {
     console.error("Error updating service status:", error);
     res.status(500).send({ message: "Error updating service status" });
   }
 });
-
 //fetch all service requests
 const fetchAllServiceRequestController = expressAsyncHandler(
   async (req, res) => {
@@ -258,6 +330,8 @@ const fetchAllServiceRequestController = expressAsyncHandler(
       const serviceRequests = await ServiceRequest.find(query)
         .limit(limit * 1) // Convert to number
         .skip((page - 1) * limit)
+        .populate("customerId")
+        .sort({ _id: -1 })
         .exec();
 
       // Get total count for pagination

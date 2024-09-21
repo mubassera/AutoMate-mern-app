@@ -89,8 +89,13 @@ const AdminOrderManagement = () => {
             <select value={statusFilter} onChange={handleStatusFilterChange}>
               <option value="">All</option>
               <option value="Pending">Pending</option>
-              <option value="Completed">Completed</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
               <option value="Cancelled">Cancelled</option>
+              <option value="Returned">Returned</option>
+              <option value="Refunded">Refunded</option>
+              <option value="Closed">Closed</option>
             </select>
           </form>
         </div>
@@ -146,8 +151,13 @@ const AdminOrderManagement = () => {
                 onChange={(e) => handleStatusChange(order._id, e.target.value)}
               >
                 <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
                 <option value="Cancelled">Cancelled</option>
+                <option value="Returned">Returned</option>
+                <option value="Refunded">Refunded</option>
+                <option value="Closed">Closed</option>
               </select>
               <button onClick={() => handleUpdateOrder(order)}>
                 Update Order
