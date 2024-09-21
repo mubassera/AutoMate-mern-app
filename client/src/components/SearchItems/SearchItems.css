@@ -24,7 +24,7 @@ select {
 
 /* General results styling */
 .results {
-    background-color: white;
+    background-color: var(--neutral-light-gray);
     flex-grow: 1;
     padding: 20px;
     max-height: 100vh;
@@ -39,7 +39,7 @@ select {
     height: 100vh;
     /* Adjusted to cover full height of the viewport */
     padding: 20px;
-    background-color: bisque;
+    background-color: var(--secondary-light-blue);
     border-right: 1px solid #ccc;
     display: flex;
     flex-direction: column;
@@ -50,6 +50,7 @@ select {
 .sidebar h1 {
     padding: 10px 0;
     font-size: 25px;
+    color: var(--primary-navy-blue);
 }
 
 .sidebar form {
@@ -60,16 +61,18 @@ select {
 .sidebar label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: var(--accent-teal-blue);
 }
 
 .sidebar input,
 .sidebar select {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--accent-muted-blue);
     border-radius: 4px;
     /* Rounded corners for inputs and selects */
     width: 100%;
+    background-color: var(--neutral-white);
 }
 
 .sidebar button {
@@ -77,8 +80,8 @@ select {
     padding: 12px;
     width: 100%;
     border: none;
-    background-color: rgb(255, 136, 0);
-    color: #fff;
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
@@ -86,13 +89,13 @@ select {
 }
 
 .sidebar button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
 
 /* Results header styling */
 .results h2 {
     font-size: 24px;
-    color: rgb(14, 14, 83);
+    color: var(--primary-navy-blue);
     margin-bottom: 20px;
 }
 
@@ -102,7 +105,6 @@ select {
     flex-direction: column;
     /* Stack cards vertically */
     gap: 20px;
-    
     /* Adds space between the cards */
 }
 
@@ -110,8 +112,8 @@ select {
 .card {
     display: flex;
     /* Arrange image and text in a row */
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: var(--neutral-white);
+    border: 1px solid var(--neutral-light-gray);
     border-radius: 8px;
     padding: 20px;
     width: 100%;
@@ -125,6 +127,7 @@ select {
     /* Needed for absolute positioning of the button */
     cursor: pointer;
 }
+
 .card:hover {
     transform: scale(1.03);
     /* Slightly increase the size */
@@ -144,7 +147,6 @@ select {
 
 /* Container for text content */
 .card-content {
-    
     display: flex;
     flex-direction: column;
     /* Arrange text content in a column */
@@ -155,7 +157,7 @@ select {
 /* Card title (part name) */
 .card h3 {
     font-size: 18px;
-    color: #333;
+    color: var(--accent-teal-blue);
     margin: 10px 0;
 }
 
@@ -172,10 +174,9 @@ select {
     /* Smaller padding for the button */
     font-size: 14px;
     /* Smaller font size */
-    background-color: rgb(255, 136, 0);
-    color: white;
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
     position: absolute;
-    
     /* Allows for positioning relative to the card */
     bottom: 35%;
     /* Position the button at the bottom of the card */
@@ -184,15 +185,15 @@ select {
 }
 
 .card button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
 
 /* Pagination button styling */
 .results button {
     padding: 12px;
     margin: 10px;
-    background-color: rgb(255, 136, 0);
-    color: #fff;
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -201,5 +202,7 @@ select {
 }
 
 .results button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
+
+/* CSS Variables for the color palette */

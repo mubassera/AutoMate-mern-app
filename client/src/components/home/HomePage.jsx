@@ -4,7 +4,7 @@ import {
   AiOutlineTool,
   AiOutlineSafetyCertificate,
   AiOutlineDollarCircle,
-  AiOutlineUser, // Import the profile icon
+  AiOutlineUser,
 } from "react-icons/ai";
 import "./HomePage.css";
 import { NavLink } from "react-router-dom";
@@ -21,7 +21,6 @@ const HomePage = () => {
     <div className="homePage">
       <Navbar />
 
-      {/* Add profile icon with NavLink to profile */}
       <div
         style={{
           position: "absolute",
@@ -31,10 +30,7 @@ const HomePage = () => {
         }}
       >
         <NavLink to="/profile" className="profileIcon">
-          <AiOutlineUser
-            size={30}
-            style={{ color: "black", cursor: "pointer" }}
-          />
+          <AiOutlineUser size={30} style={{ color: "black", cursor: "pointer" }} />
         </NavLink>
       </div>
 
@@ -76,10 +72,18 @@ const HomePage = () => {
           <h3>What we do?</h3>
           <div className="workList">
             <ul>
-              <li>Vehicle Service</li>
-              <li>Vehicle Wash</li>
-              <li>Parts Sell</li>
-              <li>Emergency Service</li>
+              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+                <li>Vehicle Service</li>
+              </NavLink>
+              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+                <li>Vehicle Wash</li>
+              </NavLink>
+              <NavLink to="/parts" style={{ textDecoration: 'none' }}>
+                <li>Parts Sell</li>
+              </NavLink>
+              <NavLink to="/services" style={{ textDecoration: 'none' }}>
+                <li>Emergency Service</li>
+              </NavLink>
             </ul>
           </div>
         </div>

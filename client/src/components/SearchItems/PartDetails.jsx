@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./PartDetails.css";
+import Navbar from "../navbar/navbar";
 
 const PartDetails = () => {
   const location = useLocation();
@@ -9,7 +10,9 @@ const PartDetails = () => {
   if (!viewingPart) return <p>Loading...</p>;
 
   return (
-    <div className="part-details-container">
+    <div>
+      <Navbar />
+        <div className="part-details-container">
       <div className="part-image-section">
         <img
           src={viewingPart.image}
@@ -32,9 +35,18 @@ const PartDetails = () => {
         <p>
           <strong>Long Description:</strong> {viewingPart.longDescription}
         </p>
-        <button>Buy</button>
+        <button >Buy</button>
       </div>
+       <div className="box4">
+        <div className="contactUs">
+          <h3>Contact Us</h3>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
+        </div>
+      </div>
+      
     </div>
+    </div>
+    
   );
 };
 

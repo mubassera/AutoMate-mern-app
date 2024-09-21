@@ -148,7 +148,7 @@ export const AdminParts = () => {
 
         <div className="add-part-button">
           <button onClick={() => navigate("/adminParts/details")}>
-            AddPart
+            Add Part
           </button>
         </div>
       </div>

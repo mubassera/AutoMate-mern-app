@@ -1,6 +1,6 @@
 .users {
   display: flex;
-  background-color: bisque;
+  background-color: #e7f3fe;
 }
 
 .usersContents {
@@ -55,7 +55,7 @@
   border-collapse: collapse;
 }
 
-.usersTable th,
+
 .usersTable td {
   background-color: white;
   border: 1px solid #ddd;
@@ -65,7 +65,13 @@
 }
 
 .usersTable th {
-  background-color: rgb(255, 136, 0);
+  background-color: rgb(14, 14, 83);
+
+    
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: white;
 }
 
 .usersTable input {
@@ -85,7 +91,7 @@
 .addUserButton button {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: rgb(255, 136, 0);
+  background-color: rgb(14, 14, 83);
   color: white;
   border: none;
   border-radius: 4px;
@@ -93,7 +99,7 @@
 }
 
 .addUserButton button:hover {
-  background-color: rgb(255, 115, 0);
+  background-color: rgb(66, 66, 179);
 }
 
 .addUserCancelButton button {
