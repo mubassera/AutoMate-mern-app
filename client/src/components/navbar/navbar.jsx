@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import { logoutUser } from "../../Api/auth";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -19,45 +20,53 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      if (!e.target.closest(".dropdown")) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", closeDropdown);
+    return () => document.removeEventListener("mousedown", closeDropdown);
+  }, []);
+
   const userData = JSON.parse(localStorage.getItem("userData"));
   const isAdmin = userData ? userData.isAdmin : false;
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${menuOpen ? "menu-open" : ""}`}>
       <div className="navLogo">
-        <h2>Automate</h2>
+        <h2>AutoMate</h2>
       </div>
 
-      <ul className="navMenu">
+      {/* Mobile menu toggle */}
+      <div className="menu-toggle" onClick={toggleMenu}>
+        ☰
+      </div>
+
+      <ul className={`navMenu ${menuOpen ? "show-menu" : ""}`}>
         <li>
-          <NavLink
-            to="/home"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/book-now"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/services" className={({ isActive }) => (isActive ? "active" : "")}>
             Book Now
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/parts"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/parts" className={({ isActive }) => (isActive ? "active" : "")}>
             Parts
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/about-us"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/about-us" className={({ isActive }) => (isActive ? "active" : "")}>
             About Us
           </NavLink>
         </li>
@@ -68,18 +77,12 @@ const Navbar = () => {
           {dropdownOpen && (
             <ul className="dropdown-menu">
               <li>
-                <NavLink
-                  to="/OrderHistory"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
+                <NavLink to="/OrderHistory" className={({ isActive }) => (isActive ? "active" : "")}>
                   Order History
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/service-history"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
+                <NavLink to="/service-history" className={({ isActive }) => (isActive ? "active" : "")}>
                   Service History
                 </NavLink>
               </li>
@@ -89,21 +92,14 @@ const Navbar = () => {
 
         {isAdmin && (
           <li>
-            <NavLink
-              to="/admin-page"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
+            <NavLink to="/admin-page" className={({ isActive }) => (isActive ? "active" : "")}>
               Admin
             </NavLink>
           </li>
         )}
 
         <li>
-          <NavLink
-            to="/"
-            onClick={handleLogout}
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/" onClick={handleLogout} className={({ isActive }) => (isActive ? "active" : "")}>
             Logout
           </NavLink>
         </li>

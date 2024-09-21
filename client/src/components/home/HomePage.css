@@ -1,7 +1,10 @@
 body {
-    margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
+}
+
+.homePage {
+    width: 100%;
+    height: 100%;
 }
 
 .box1 {
@@ -11,11 +14,13 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: bisque;
+    background-color: #e7f3fe;
+    /* Light Blue Background */
 }
 
 .box1 h1 {
     color: rgb(14, 14, 83);
+    /* Navy Blue Text */
     font-weight: 600;
     font-size: 40px;
     margin-top: 20px;
@@ -23,6 +28,7 @@ body {
 
 .box1 p {
     color: rgb(14, 14, 83);
+    /* Navy Blue Text */
 }
 
 .bookNow {
@@ -35,7 +41,8 @@ body {
     width: 150px;
     height: 45px;
     color: white;
-    background-color: rgb(255, 136, 0);
+    background-color: #ff8800;
+    /* Bright Orange Button */
     border-radius: 100px;
     font-size: 16px;
     font-weight: 600;
@@ -43,8 +50,10 @@ body {
 }
 
 .bookNow:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7300;
+    /* Darker Orange */
     color: rgb(14, 14, 83);
+    /* Navy Blue on Hover */
 }
 
 .ourQuality {
@@ -66,18 +75,22 @@ body {
     height: 250px;
     margin: 25px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
+    /* White Background */
     border: 1px solid #ccc;
+    /* Light Gray Border */
     border-radius: 8px;
 }
 
 .icons {
-    color: rgb(231, 152, 5);
+    color: #e79805;
+    /* Gold Color */
     font-size: 70px;
 }
 
 .qualityBox p {
     color: rgb(14, 14, 83);
+    /* Navy Blue Text */
     font-size: 18px;
     font-weight: 500;
 }
@@ -89,7 +102,8 @@ body {
     gap: 20px;
     padding: 20px;
     margin-top: 50px;
-    background-color: #fff;
+    background-color: #ffffff;
+    /* White Background */
 }
 
 .imageContainer {
@@ -112,7 +126,8 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #ffffff;
+    /* White Background */
 }
 
 .WhatWeDo {
@@ -123,6 +138,7 @@ body {
 .WhatWeDo h3 {
     font-size: 35px;
     color: rgb(14, 14, 83);
+    /* Navy Blue Text */
 }
 
 .workList {
@@ -146,11 +162,21 @@ body {
     justify-content: center;
     gap: 5px;
     color: #626262;
+    /* Neutral Gray Text */
     font-size: 16px;
     font-weight: 500;
     padding: 15px;
     border: 2px solid #e27909;
+    /* Accent Orange Border */
     border-radius: 8px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.workList li:hover {
+    transform: translateY(-5px);
+    color: rgb(14, 14, 83);
+    /* Navy Blue on Hover */
 }
 
 .box3 {
@@ -160,7 +186,8 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: bisque;
+    background-color: #e7f3fe;
+    /* Light Blue Background */
 }
 
 .box4 {
@@ -170,7 +197,9 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: rgb(7, 7, 57);
+    background: rgb(14, 14, 83);
+    
+    /* Navy Blue Background */
 }
 
 .WhyChooseUs {
@@ -181,6 +210,7 @@ body {
     font-size: 35px;
     padding: 20px;
     color: rgb(14, 14, 83);
+    /* White Text */
 }
 
 .whyUsList ul {
@@ -194,106 +224,112 @@ body {
 }
 
 .contactUs {
-    margin-top: 20px;
-    color: #e27909;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-@media (max-width: 768px) {
+.contactUs h3 {
+    color: white;
+    /* White Text */
+}
 
-    .qualityBox,
-    .workList li {
-        width: 100%;
+.contactUs p {
+    color: white;
+    /* White Text */
+    text-align: center;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .homePage {
+        padding: 10px;
+    }
+
+    .box1 {
+        padding: 15px;
+    }
+
+    .box1 h1 {
+        font-size: 30px;
+    }
+
+    .box1 p {
+        font-size: 14px;
+    }
+
+    .bookNow {
+        width: 100px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .qualityBox {
+        width: 150px;
+    }
+
+    .serviceImages {
+        flex-direction: column;
     }
 
     .imageContainer img {
         width: 100%;
-        margin: 10px 0;
-    }
-
-    .qualityBox {
-        margin: 10px 0;
+        max-width: 200px;
+        margin: 15px 0;
     }
 
     .WhatWeDo h3 {
         font-size: 28px;
     }
 
-    .WhatWeDo,
-    .WhyChooseUs,
-    .contactUs {
-        padding: 20px;
+    .workList ul {
+        flex-direction: column;
     }
 
-    .bookNow {
-        width: 120px;
-        height: 40px;
+    .workList li {
+        width: 90%;
+        margin: 5px auto;
+    }
+
+    .box3,
+    .box4 {
+        padding: 15px;
+    }
+
+    .contactUs h3,
+    .contactUs p {
         font-size: 14px;
-    }
-
-    .bookNow2 {
-        padding-left: 0;
-    }
-
-    .ourQuality {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .serviceImages {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .whyUsList ul {
-        padding-left: 5%;
+        text-align: center;
     }
 }
 
 @media (max-width: 480px) {
     .box1 h1 {
-        font-size: 32px;
-    }
-
-    .bookNow {
-        width: 100px;
-        height: 35px;
-        font-size: 12px;
-    }
-
-    .WhatWeDo h3,
-    .WhyChooseUs h1 {
         font-size: 24px;
     }
 
-    .qualityBox,
+    .bookNow {
+        font-size: 12px;
+    }
+
+    .qualityBox p,
+    .WhatWeDo h3,
     .workList li {
-        width: 100%;
-        margin: 10px 0;
+        font-size: 14px;
     }
 
-    .imageContainer img {
-        width: 100%;
-        margin: 5px 0;
+    .WhyChooseUs h1 {
+        font-size: 28px;
     }
+}
 
-    .qualityBox {
-        gap: 10px;
-        text-align: center;
-    }
-
-    .ourQuality {
-        gap: 10px;
-    }
-
-    .serviceImages {
-        gap: 10px;
-    }
-
-    .whyUsList ul {
-        padding-left: 0;
-    }
-
-    .bookNow2 {
-        padding-left: 0;
-    }
+:root {
+    --primary-navy-blue: rgb(14, 14, 83);
+    --secondary-light-blue: #e7f3fe;
+    --accent-bright-orange: #ff8800;
+    --accent-teal-blue: #22577a;
+    --neutral-white: #ffffff;
+    --neutral-light-gray: #f2f2f2;
+    --accent-muted-blue: #8080ac;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchProfileData, updateProfileData } from "../../Api/userPanel";
 import "./UserProfile.css"; // Import the CSS file
+import Navbar from "../navbar/navbar";
 
 function Profile() {
   const [userData, setUserData] = useState({
@@ -55,7 +56,9 @@ function Profile() {
   };
 
   return (
-    <div className="UP-profile-container">
+    <div className="UPP">
+      <Navbar />
+      <div className="UP-profile-container">
       <h1>User Profile</h1>
       <form onSubmit={handleProfileUpdate}>
         {Object.entries(userData).map(([key, value]) => (
@@ -76,91 +79,6 @@ function Profile() {
             />
           </div>
         ))}
-        <button type="submit">Update Profile</button>
-        <div style={{ marginBottom: "15px" }}>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={userData.name}
-            onChange={handleInputChange}
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleInputChange}
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Vehicle Type:</label>
-          <input
-            type="text"
-            name="vehicleType"
-            value={userData.vehicleType}
-            onChange={handleInputChange}
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Vehicle Brand:</label>
-          <input
-            type="text"
-            name="vehicleBrand"
-            value={userData.vehicleBrand}
-            onChange={handleInputChange}
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Vehicle Model:</label>
-          <input
-            type="text"
-            name="vehicleModel"
-            value={userData.vehicleModel}
-            onChange={handleInputChange}
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Mobile Number:</label>
-          <input
-            type="tel"
-            name="mobileNumber"
-            value={userData.mobileNumber}
-            onChange={handleInputChange}
-            placeholder="Enter mobile number"
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-            required
-          />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Address:</label>
-          <input
-            type="text"
-            name="address"
-            value={userData.address}
-            onChange={handleInputChange}
-            placeholder="Enter your address"
-            style={{ width: "100%", padding: "10px", marginTop: "5px" }}
-          />
-        </div>
 
         <button
           type="submit"
@@ -179,6 +97,16 @@ function Profile() {
         <p className={`UP-message ${isError ? "error" : ""}`}>{message}</p>
       )}
     </div>
+
+
+     <div className="box4">
+        <div className="contactUs">
+          <h3>Contact Us</h3>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
+        </div>
+      </div>
+    </div>
+    
   );
 }
 

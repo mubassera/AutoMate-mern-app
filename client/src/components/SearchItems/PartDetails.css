@@ -1,76 +1,113 @@
-/* Container to hold the entire part details */
+/* Reset default styles */
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+/* Navbar styling */
+/* .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(14, 14, 83);
+    color: white;
+    padding: 15px 20px;
+}
+
+.navbar h1 {
+    font-size: 24px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+} */
+
+/* Part details container styling */
 .part-details-container {
     display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-    /* max-width: 1200px; */
-    margin: 0 auto;
-    gap: 20px;
-    background-color: white;
-}
-
-/* Left section for the part image */
-.part-image-section {
-    flex: 1;
-    /* padding-top:1%; */
-    position: relative;
-    margin-top: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 300px;
-   
-}
-
-/* Image styling */
-.part-image-details {
-    width: 100% ; 
-    max-width: 800px; /* Increased the max width for a bigger image */
-    height: auto;
-    object-fit: contain;
-    border: none; /* Removed border */
-}
-
-/* Right section for part details */
-.part-info-section {
-    flex: 1;
-    padding-top: 10%;
-    min-width: 300px;
-    padding-left: 20px;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding-top: 50px;
 }
 
-/* Styling for the part title */
-.part-info-section h1 {
-    font-size: 28px;
-    color: #333;
+/* Image section styling */
+.part-image-section {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-/* Styling for part details */
-.part-info-section p {
-    font-size: 16px;
-    color: #666;
-    margin: 10px 0;
+.part-image-details {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for the Buy button */
+/* Info section styling */
+.part-info-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    /* Center text */
+    flex: 1;
+}
+
+/* Title styling */
+.part-info-section h1 {
+    font-size: 28px;
+    color: rgb(14, 14, 83);
+    margin-bottom: 10px;
+}
+
+/* Text styling */
+.part-info-section p {
+    font-size: 16px;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* Button styling */
 .part-info-section button {
-    background-color: #f90;
+    padding: 12px 20px;
+    background-color: rgb(255, 136, 0);
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
 }
 
 .part-info-section button:hover {
-    background-color: #e68a00;
+    background-color: rgb(255, 115, 0);
 }
+
+/* Contact Us box styling */
+
+
+/* .contactUs {
+    padding: 20px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contactUs h3 {
+    margin-bottom: 10px;
+    color: rgb(14, 14, 83);
+}
+
+.contactUs p {
+    font-size: 14px;
+    color: #666;
+} */

@@ -6,7 +6,7 @@
 .admin-orders,
 .admin-parts-management {
   display: flex;
-  background-color: bisque;
+  background-color: #e7f3fe;
   min-height: 100vh;
 }
 

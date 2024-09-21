@@ -1,7 +1,7 @@
-// ServiceHistory.jsx
 import React, { useState, useEffect } from "react";
 import { fetchServiceHistory } from "../../Api/userPanel"; // Import the new API function
 import Navbar from "../navbar/navbar";
+import './ServiceHistory.css';
 
 const ServiceHistory = () => {
   const [services, setServices] = useState([]);
@@ -21,14 +21,14 @@ const ServiceHistory = () => {
   }, []);
 
   return (
-    <div className="service-history-page">
+    <div className="SH-service-history-page">
       <Navbar />
-      <div className="service-history-container">
+      <div className="SH-service-history-container">
         <h2>Your Service Requests</h2>
-        <ul className="service-history-list">
+        <ul className="SH-service-history-list">
           {services.map((service, index) => (
-            <li style={{ color: "black" }} key={index} className="service-card">
-              <div className="service-details">
+            <li key={index} className="SH-service-card">
+              <div className="SH-service-details">
                 <p>
                   <span>Service Request ID:</span> {service._id}
                 </p>
@@ -59,6 +59,12 @@ const ServiceHistory = () => {
             </li>
           ))}
         </ul>
+      </div>
+ <div className="box4">
+        <div className="contactUs">
+          <h3>Contact Us</h3>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
+        </div>
       </div>
     </div>
   );

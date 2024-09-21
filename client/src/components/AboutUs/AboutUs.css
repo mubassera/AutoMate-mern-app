@@ -44,10 +44,10 @@ padding: 20px;
 }
 
 .about-container ul li {
-  background:bisque;
+  background:#e7f3fe;
   margin: 5px 0;
   padding: 10px;
-  border-left: 5px solid rgb(231, 152, 5);
+  border-left: 5px solid #22577a;
 }
 
 /* Contact Info Styles */

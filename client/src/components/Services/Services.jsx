@@ -163,6 +163,12 @@ function Services() {
 
         {message && <p className="message">{message}</p>}
       </div>
+            <div className="box4">
+        <div className="contactUs">
+          <h3>Contact Us</h3>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
+        </div>
+      </div>
     </div>
   );
 }

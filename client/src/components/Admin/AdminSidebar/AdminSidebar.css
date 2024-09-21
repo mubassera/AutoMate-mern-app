@@ -10,6 +10,12 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+.logo-link{
+    text-decoration: none;
+}
+
+
+
 .admin-sidebar.collapsed {
     max-height: 0;
     overflow: hidden;
