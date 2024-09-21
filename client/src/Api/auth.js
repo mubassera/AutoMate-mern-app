@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const baseURL = "https://auto-mate-mern-app-glrn.vercel.app";
-const baseURL = "http://localhost:5000";
+const baseURL = "https://auto-mate-mern-app-glrn.vercel.app";
+//const baseURL = "http://localhost:5000";
 
 //sign up user
 export const signup = async (data) => {
