@@ -1,5 +1,6 @@
 const express = require("express");
 const userModel = require("../models/userModel");
+const bcrypt = require("bcryptjs");
 const expressAsyncHandler = require("express-async-handler");
 const {
   generateRefreshToken,
@@ -14,10 +15,12 @@ const mongoose = require("mongoose");
 const loginController = expressAsyncHandler(async (req, res) => {
   console.log(req.body);
   const { email, password } = req.body;
-  const user = await userModel.findOne({ email });
-  //console.log("fetched user data");
 
-  if (user && (await user.matchPassword(password))) {
+  // Find user by email
+  const user = await userModel.findOne({ email });
+
+  // Check if user exists and password matches
+  if (user && (await bcrypt.compare(password, user.password))) {
     const response = {
       _id: user._id,
       name: user.name,
@@ -27,10 +30,9 @@ const loginController = expressAsyncHandler(async (req, res) => {
       accessToken: generateAccessToken(user._id),
     };
     console.log(response);
-    //console.log("user exists");
     res.json(response);
   } else {
-    res.json("Invalid email or password");
+    res.status(401); // 401 Unauthorized
     throw new Error("Invalid email or password");
   }
 });
@@ -68,11 +70,14 @@ const registerController = expressAsyncHandler(async (req, res) => {
     throw new Error("Username has been taken");
   }
 
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   //create an entry in the database
   const user = await userModel.create({
     name,
     email,
-    password,
+    password: hashedPassword,
     vehicleType,
     vehicleBrand,
     vehicleModel,
