@@ -5,11 +5,9 @@
   padding: 16px;
   box-shadow: 0 1px 3px -2px black;
   width: 100%;
-  height: 150px;
   background: rgb(7, 7, 57);
   align-items: center;
   flex-wrap: wrap;
-  position: relative;
 }
 
 .navLogo {
@@ -37,8 +35,6 @@
   align-items: center;
   list-style: none;
   gap: 50px;
-  color: #ec8383;
-  /* Default color for list items */
   font-size: 20px;
   font-weight: 500;
   padding-right: 30px;
@@ -48,27 +44,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 3px;
   cursor: pointer;
   color: white;
-  /* Default color for list items */
 }
 
 .navMenu li a {
-  color: rgb(255, 255, 255);
-  /* Change default color for links */
+  color: white;
   text-decoration: none;
 }
 
-.navMenu li a:hover {
-  color: bisque;
-  /* Hover color for links */
-}
-
+.navMenu li a:hover,
 .navMenu li:hover {
   color: bisque;
-  /* Hover color for list items */
 }
 
 .navMenu li a.active {
@@ -76,7 +63,7 @@
 }
 
 /* Dropdown Styles */
-.dropdown {
+.navDropdown {
   position: relative;
 }
 
@@ -98,7 +85,6 @@
 
 .dropdown-menu li a {
   color: white;
-  /* Color for dropdown links */
   text-decoration: none;
   display: block;
 }
@@ -116,7 +102,6 @@
   .navMenu {
     gap: 40px;
     font-size: 18px;
-    padding-right: 20px;
   }
 }
 
@@ -124,33 +109,22 @@
   .navbar {
     flex-direction: column;
     align-items: flex-start;
-    height: auto;
-    position: relative;
   }
 
   .menu-toggle {
     display: block;
   }
 
-  .navLogo {
-    width: 100%;
-    justify-content: space-between;
-  }
-
   .navMenu {
     display: none;
     flex-direction: column;
-    gap: 20px;
     width: 100%;
     align-items: flex-start;
-    padding-right: 0;
     background: rgb(7, 7, 57);
-    padding: 10px 0;
     position: absolute;
     top: 100px;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   .navMenu.show-menu {
@@ -162,10 +136,6 @@
     text-align: center;
     padding: 10px 0;
   }
-
-  .navbar.menu-open .navLogo h2 {
-    color: rgb(255, 136, 0);
-  }
 }
 
 @media (max-width: 480px) {
@@ -176,9 +146,5 @@
   .navMenu {
     gap: 10px;
     font-size: 16px;
-  }
-
-  .navbar {
-    padding: 8px;
   }
 }

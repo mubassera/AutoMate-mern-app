@@ -79,10 +79,11 @@ body {
 
 .ourQuality {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
   padding: 20px;
+  flex-wrap: wrap;
 }
 
 .qualityBox {
@@ -198,6 +199,42 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #e7f3fe;
+  text-align: center;
+  /* Center aligns text in the box */
+}
+
+.WhyChooseUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center aligns the content */
+  text-align: center;
+  /* Center aligns text */
+  width: 100%;
+  /* Ensure it takes full width */
+}
+
+.whyUsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center aligns the list */
+}
+
+.whyUsList ul {
+  list-style-type: none;
+  /* Remove default list styling */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margin */
+}
+
+.whyUsList li {
+  margin: 10px 0;
+  /* Add some space between list items */
+  color: rgb(14, 14, 83);
+  /* Ensure text color is consistent */
 }
 
 .box4 {
@@ -208,6 +245,18 @@ body {
   display: flex;
   flex-direction: column;
   background: rgb(14, 14, 83);
+}
+
+/* Contact Us Section Center Alignment */
+.contactUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Center aligns the text */
+  padding: 25px;
+  gap: 10px;
+  /* Space between elements */
 }
 
 .contactUs h3,
