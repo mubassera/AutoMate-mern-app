@@ -15,7 +15,7 @@ export const AdminPage = () => {
     const fetchVehicleData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/admin/vehicle-type-count"
+          "https://auto-mate-mern-app-glrn.vercel.app/admin/vehicle-type-count"
         );
         setVehicleData(data);
       } catch (error) {

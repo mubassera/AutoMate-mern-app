@@ -197,8 +197,6 @@ export const fetchAllParts = async () => {
   }
 };
 
-const adminOrdersUrl = "http://localhost:5000/admin";
-
 // Function to fetch orders with filters and pagination
 export const fetchOrders = async (page, limit, paymentStatus, status) => {
   try {
@@ -447,6 +445,36 @@ export const updateServiceRequestStatusApi = async (
       }
     }
 
+    throw error;
+  }
+};
+
+//collect vehicle type count
+export const fetchVehicleData = async () => {
+  try {
+    const token = getToken();
+    const { data } = await axios.get(`${adminURL}/vehicle-type-count`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return data;
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      const newToken = await refreshAccessToken(); // Refresh token and retry request
+      if (newToken) {
+        const { data } = await axios.get(`${adminURL}/vehicle-type-count`, {
+          headers: {
+            Authorization: `Bearer ${newToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        return data;
+      }
+    }
+
+    console.error("Error fetching vehicle data:", error);
     throw error;
   }
 };
