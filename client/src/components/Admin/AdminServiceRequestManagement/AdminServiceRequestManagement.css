@@ -1,0 +1,210 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.asrm-container {
+  background-color: #ffffff;
+  /* Neutral Color 1 */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  padding-left: 270px;
+  flex-grow: 1;
+}
+
+/* Top Navigation Bar */
+.top-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.top-navigation h1 {
+  font-size: 26px;
+  color: rgb(14, 14, 83);
+  /* Primary Color */
+  font-weight: 700;
+  width: 100%;
+  margin-bottom: 30px;
+  /* Spacing below heading */
+}
+
+.top-navigation form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* Space between form elements */
+}
+
+.top-navigation label {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+  /* Prevent label from breaking */
+}
+
+/* Dropdowns */
+.asrm-select {
+  padding: 8px 14px;
+  /* Added padding for comfort */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.asrm-select:focus {
+  border-color: rgb(14, 14, 83);
+  /* Primary Color */
+  box-shadow: 0 0 6px rgba(14, 14, 83, 0.3);
+  /* Glow effect */
+  outline: none;
+}
+
+/* Buttons */
+button {
+  padding: 10px 18px;
+  /* Increased padding */
+  background-color: rgb(14, 14, 83);
+  /* Primary Color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+  background-color: #22577a;
+  /* Teal Blue shade for hover */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(14, 14, 83, 0.4);
+}
+
+/* Table */
+.asrm-content {
+  margin-top: 20px;
+}
+
+.asrm-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+
+.asrm-table td {
+  border: 1px solid #ccc;
+  padding: 16px;
+  /* Increased padding for better readability */
+  text-align: left;
+  font-size: 14px;
+  color: black;
+}
+
+.asrm-table th {
+  background-color: rgb(14, 14, 83);
+  /* Primary Color */
+  color: white;
+  font-weight: bold;
+  
+  border: 1px solid #ccc;
+    padding: 16px;
+    /* Increased padding for better readability */
+    text-align: left;
+    font-size: 14px;
+}
+
+.asrm-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  /* Neutral Color 2 */
+}
+
+.asrm-table tr:hover {
+  background-color: #e7f3fe;
+  /* Secondary Color */
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 16px;
+  /* Consistent padding with main buttons */
+  background-color: rgb(14, 14, 83);
+  /* Primary Color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #22577a;
+  /* Teal Blue shade for hover */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Arrow Icons for Pagination */
+.pagination .prev::before {
+  content: '←';
+  /* Left Arrow */
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.pagination .next::after {
+  content: '→';
+  /* Right Arrow */
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .top-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .top-navigation form {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+
+  .asrm-table th,
+  .asrm-table td {
+    padding: 12px;
+    /* Adjusted for smaller screens */
+    font-size: 12px;
+  }
+
+  button,
+  .pagination button {
+    padding: 8px 14px;
+    /* Reduced padding for smaller screens */
+  }
+}

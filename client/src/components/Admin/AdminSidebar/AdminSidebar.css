@@ -1,49 +1,95 @@
+/* AdminSidebar.css */
 .admin-sidebar {
     width: 250px;
     background-color: rgb(7, 7, 57);
     color: white;
     height: 100vh;
     position: fixed;
-    
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-link{
+    text-decoration: none;
+}
+
+
+
+.admin-sidebar.collapsed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.sidebar-toggle {
+    display: none;
+    cursor: pointer;
+    background-color: rgb(7, 7, 57);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+    /* Remove default padding */
 }
 
 .admin-sidebar ul li {
     margin: 20px 0;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 10px 20px;
+    /* Combined padding */
     cursor: pointer;
+    transition: background-color 0.3s;
+    /* Smooth background transition */
+}
+
+.admin-sidebar ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Hover effect */
 }
 
 .admin-sidebar ul li a {
     color: white;
     text-decoration: none;
+    display: block;
+    /* Make the whole list item clickable */
 }
 
 .admin-sidebar ul li a.active {
     color: bisque;
 }
 
-.logo-link {
-    text-decoration: none;
-    /* Remove underline from the AutoMate link */
-}
-
 .name {
     color: rgb(255, 136, 0);
     padding: 20px;
-    padding-top: 40px;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .name:hover {
     color: rgb(223, 88, 30);
-    /* Change to a light color on hover */
 }
 
 .underline {
-    color: rgb(43, 43, 136);
-    margin-left: 0px;
-    margin-right: 0px;
-    padding: 0px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    /* Improved underline styling */
+    margin: 20px 0;
+    /* Add margin for spacing */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        /* Reset max-height for mobile */
+    }
+
+    .sidebar-toggle {
+        display: block;
+        /* Show toggle button */
+    }
 }

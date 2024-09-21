@@ -1,41 +1,86 @@
-.admin-parts {
+/* MainContainer.css */
+
+/* Main container styling */
+.admin-parts,
+.admin-users,
+.admin-orders,
+.admin-parts-management {
   display: flex;
-  background-color: bisque;
+  background-color: #e7f3fe;
+  min-height: 100vh;
 }
 
-.adminPartsContents {
+/* Sidebar and content area styling */
+.adminPartsContents,
+.adminUsersContents,
+.adminOrdersContents,
+.adminPartsManagementContents {
   flex-grow: 1;
   padding: 20px;
   padding-left: 270px;
-  /* Adjust if needed */
+  /* Sidebar width */
+  transition: padding 0.3s ease;
 }
 
-.adminPartsContents h1 {
+.adminPartsContents h1,
+.adminUsersContents h1,
+.adminOrdersContents h1,
+.adminPartsManagementContents h1 {
   color: rgb(14, 14, 83);
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
+/* Search filters styling */
 .search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-filters input,
 .search-filters select,
 .search-filters button {
-  margin-right: 10px;
+  flex: 1;
+  min-width: 180px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
+.search-filters input:focus,
+.search-filters select:focus,
+.search-filters button:hover {
+  border-color: rgb(255, 136, 0);
+}
+
+.search-filters button {
+  background-color: rgb(255, 136, 0);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-filters button:hover {
+  background-color: rgb(255, 115, 0);
+}
+
+/* Parts list styling */
 .parts-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+/* Part box styling */
 .part-box {
   display: flex;
   align-items: flex-start;
@@ -46,16 +91,20 @@
   width: 100%;
   max-width: 1000px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  height: 250px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.part-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .part-box img {
   width: 150px;
-  height: auto;
+  height: 150px;
   margin-right: 20px;
   border-radius: 8px;
-  margin-top: 20px;
+  object-fit: cover;
 }
 
 .part-box .content {
@@ -65,8 +114,8 @@
 }
 
 .part-box .content h3 {
-  font-size: 18px;
-  color: black;
+  font-size: 20px;
+  color: rgb(14, 14, 83);
   margin: 10px 0;
 }
 
@@ -77,25 +126,22 @@
 }
 
 .part-box .buttons {
-
-
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  margin-top: 20px;
-  /* Adjust spacing from content as needed */
+  margin-top: 9%;
 }
 
 .part-box .buttons button {
-
-  margin-top: 60px;
   padding: 10px 20px;
   background-color: rgb(255, 136, 0);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .part-box .buttons button:hover {
@@ -114,8 +160,78 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .add-part-button button:hover {
   background-color: rgb(255, 115, 0);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1024px) {
+
+  .admin-parts,
+  .admin-users,
+  .admin-orders,
+  .admin-parts-management {
+    flex-direction: column;
+    /* Stack sidebar and content vertically */
+  }
+
+  .adminPartsContents,
+  .adminUsersContents,
+  .adminOrdersContents,
+  .adminPartsManagementContents {
+    padding-left: 0;
+    /* Remove left padding */
+    width: 100%;
+    /* Full width for content */
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    /* Full width for the top bar */
+    height: auto;
+    /* Adjust height for top bar */
+    position: relative;
+    /* Reset position */
+    order: 1;
+    /* Ensure it comes first */
+  }
+
+  .search-filters {
+    flex-direction: column;
+    /* Stack filters vertically */
+  }
+
+  .part-box {
+    flex-direction: column;
+    /* Stack content vertically */
+    align-items: center;
+    text-align: center;
+  }
+
+  .part-box img {
+    margin-bottom: 20px;
+  }
+
+  .part-box .buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .search-filters input,
+  .search-filters select,
+  .search-filters button {
+    min-width: unset;
+    /* Remove minimum width */
+  }
+
+  .search-filters button {
+    width: 100%;
+    /* Full width button */
+  }
 }

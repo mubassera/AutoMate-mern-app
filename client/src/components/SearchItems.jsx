@@ -51,6 +51,9 @@ const SearchParts = () => {
   const handleCardClick = (part) => {
     navigate(`/parts/${part._id}`, { state: { part } }); // Navigate to the details page
   };
+  const handlePartPurchase = (part) => {
+    navigate(`/PurchasePart`, { state: { part } }); // Navigate to the details page
+  };
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -129,7 +132,7 @@ const SearchParts = () => {
                   <img
                     src={part.image}
                     alt={part.name}
-                    className="part-image"
+                    className="part-image-small"
                   />
                   <div className="texts">
                     <h3>{part.name}</h3>
@@ -143,7 +146,14 @@ const SearchParts = () => {
                     </p>
                     <p>{part.shortDescription}</p>
                   </div>
-                  <button>Buy</button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePartPurchase(part);
+                    }}
+                  >
+                    Buy
+                  </button>
                 </div>
               ))
             ) : (
@@ -161,6 +171,14 @@ const SearchParts = () => {
               <button onClick={() => handlePageChange(page + 1)}>Next</button>
             )}
           </div>
+        </div>
+        
+      </div>
+
+       <div className="box4">
+        <div className="contactUs">
+          <h3>Contact Us</h3>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
         </div>
       </div>
     </div>

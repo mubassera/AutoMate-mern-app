@@ -4,6 +4,7 @@ import {
   AiOutlineTool,
   AiOutlineSafetyCertificate,
   AiOutlineDollarCircle,
+  AiOutlineUser,
 } from "react-icons/ai";
 import "./HomePage.css";
 import { NavLink } from "react-router-dom";
@@ -15,15 +16,23 @@ import carwashImage from "../Assets/carwash.jpeg";
 const HomePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   console.log(userData);
+
   return (
     <div className="homePage">
       <Navbar />
+
+      <div className="profileContainer">
+        <NavLink to="/profile" className="profileIcon">
+          <AiOutlineUser size={30} />
+        </NavLink>
+      </div>
+
       <div className="box1">
         <h1>Vehicle Services</h1>
         <p>Your Reliable Partner for Vehicle Care</p>
         <p>Your Vehicle | Our Expertise | Your Comfort</p>
 
-        <NavLink to="/book-now" className="bookNow">
+        <NavLink to="/services" className="bookNow">
           <h3>BOOK NOW</h3>
         </NavLink>
 
@@ -56,10 +65,18 @@ const HomePage = () => {
           <h3>What we do?</h3>
           <div className="workList">
             <ul>
-              <li>Vehicle Service</li>
-              <li>Vehicle Wash</li>
-              <li>Parts Sell</li>
-              <li>Emergency Service</li>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
+                <li>Vehicle Service</li>
+              </NavLink>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
+                <li>Vehicle Wash</li>
+              </NavLink>
+              <NavLink to="/parts" style={{ textDecoration: "none" }}>
+                <li>Parts Sell</li>
+              </NavLink>
+              <NavLink to="/services" style={{ textDecoration: "none" }}>
+                <li>Emergency Service</li>
+              </NavLink>
             </ul>
           </div>
         </div>
@@ -78,7 +95,7 @@ const HomePage = () => {
             </ul>
           </div>
           <div className="bookNow2">
-            <NavLink to="/book-now" className="bookNow">
+            <NavLink to="/services" className="bookNow">
               <h3>BOOK NOW</h3>
             </NavLink>
           </div>
@@ -88,18 +105,9 @@ const HomePage = () => {
       <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
-          <p>123, ABC Street,Dhaka-1000,Bangladesh</p>
+          <p>123, ABC Street, Dhaka-1000, Bangladesh</p>
         </div>
-
-        {/* <div className='socialHandles'>
-          <ul>
-            <li>instagram</li>
-            <li>facebook</li>
-          </ul>
-        </div> */}
       </div>
-
-      {/* admin ...change here */}
     </div>
   );
 };

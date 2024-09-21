@@ -4,11 +4,12 @@
   justify-content: space-between;
   padding: 16px;
   box-shadow: 0 1px 3px -2px black;
-  /* width: 100vw; */
+  width: 100%;
   height: 150px;
   background: rgb(7, 7, 57);
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .navLogo {
@@ -18,15 +19,18 @@
   color: white;
 }
 
-.navLogo h2{
+.navLogo h2 {
   color: rgb(255, 136, 0);
   font-size: 48px;
-  /* font-weight: 600; */
   padding: 20px;
- 
 }
 
-
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 30px;
+  color: white;
+}
 
 .navMenu {
   display: flex;
@@ -34,12 +38,11 @@
   list-style: none;
   gap: 50px;
   color: #ec8383;
+  /* Default color for list items */
   font-size: 20px;
   font-weight: 500;
   padding-right: 30px;
 }
-
-
 
 .navMenu li {
   display: flex;
@@ -48,51 +51,134 @@
   justify-content: center;
   gap: 3px;
   cursor: pointer;
-  color: bisque;
-  
-}
-
-.navMenu li a:hover{
-    color: bisque;
-}
-
-.navbar li a {
   color: white;
+  /* Default color for list items */
+}
+
+.navMenu li a {
+  color: rgb(255, 255, 255);
+  /* Change default color for links */
   text-decoration: none;
+}
+
+.navMenu li a:hover {
+  color: bisque;
+  /* Hover color for links */
+}
+
+.navMenu li:hover {
+  color: bisque;
+  /* Hover color for list items */
 }
 
 .navMenu li a.active {
   text-decoration: underline;
 }
 
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background: rgb(7, 7, 57);
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  list-style: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(229, 222, 222, 0.1);
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.dropdown-menu li a {
+  color: white;
+  /* Color for dropdown links */
+  text-decoration: none;
+  display: block;
+}
+
 /* Responsive Styles */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 12px;
+  }
+
+  .navLogo h2 {
+    font-size: 40px;
+  }
+
+  .navMenu {
+    gap: 40px;
+    font-size: 18px;
+    padding-right: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navLogo {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .navMenu {
+    display: none;
     flex-direction: column;
     gap: 20px;
     width: 100%;
     align-items: flex-start;
+    padding-right: 0;
+    background: rgb(7, 7, 57);
+    padding: 10px 0;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .navMenu.show-menu {
+    display: flex;
   }
 
   .navMenu li {
     width: 100%;
-    align-items: flex-start;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .navbar.menu-open .navLogo h2 {
+    color: rgb(255, 136, 0);
   }
 }
 
 @media (max-width: 480px) {
-  .navLogo p {
+  .navLogo h2 {
     font-size: 28px;
   }
 
   .navMenu {
     gap: 10px;
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  .navbar {
+    padding: 8px;
   }
 }

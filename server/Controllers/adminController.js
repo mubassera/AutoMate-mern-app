@@ -6,6 +6,20 @@ const { storage } = require("../firebaseConfig");
 const { v4: uuidv4 } = require("uuid");
 //const multer = require("multer");
 const path = require("path");
+const orderModel = require("../models/orderModel");
+const Service = require("../models/serviceModel");
+const ServiceRequest = require("../models/serviceRequestModel");
+
+const nodemailer = require("nodemailer");
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "austcse49b@gmail.com",
+    pass: "oqzb gsof mjso jryv",
+  },
+});
 
 // Setup multer for file uploads
 /*const storage = multer.diskStorage({
@@ -142,6 +156,249 @@ const deletePartController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//fetch orders
+const fetchAllOrdersController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { page = 1, limit = 5, paymentStatus, status } = req.query;
+
+    const query = {};
+    if (paymentStatus) {
+      query.paymentStatus = paymentStatus; // Filter by payment status
+    }
+    if (status) {
+      query.status = status; // Filter by order status
+    }
+
+    // Paginate and filter orders
+    const orders = await orderModel
+      .find(query)
+      .populate("partId")
+      .populate("userId") // Populate partId if necessary
+      .sort({ _id: -1 })
+      .limit(limit * 1) // Convert limit to a number
+      .skip((page - 1) * limit)
+      .exec();
+
+    // Get total count for pagination
+    const count = await orderModel.countDocuments(query);
+
+    // Return the orders and the total count
+    res.json({
+      orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: parseInt(page),
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).send("Server Error");
+  }
+});
+
+//post new service
+const postNewServiceController = expressAsyncHandler(async (req, res) => {
+  try {
+    const newService = await Service.create({
+      name: req.body.name,
+      vehicleType: req.body.vehicleType,
+      cost: req.body.cost,
+    });
+    res.status(201).json(newService);
+  } catch (err) {
+    console.error("Error adding service:", err);
+    res.status(500).json({ error: "Failed to add service" });
+  }
+});
+
+//update order controller
+const updateOrderController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { orderId, status, paymentStatus } = req.body;
+    const order = await orderModel
+      .findById(orderId)
+      .populate("userId")
+      .populate("partId");
+
+    if (!order) {
+      res.status(404).json({ message: "Order not found" });
+      throw new Error("Order not found");
+    }
+
+    order.paymentStatus = paymentStatus;
+    order.status = status;
+    await order.save();
+
+    // Send email to customer
+    const mailOptions = {
+      from: "austcse49b@gmail.com",
+      to: order.userId.email, // Assuming you have the customer's email in the order
+      subject: "Order Status Update",
+      text: `Hello, your order status of orderID: ${order._id} has been updated to: ${status}.
+
+Order Details
+- OrderID: ${order._id},
+- Part Name: ${order.partId.name},
+- Quantity: ${order.quantity},
+- Total Cost: ${order.totalPrice},
+- Status: ${status}
+- Payment status: ${paymentStatus}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+
+    res.json(order);
+  } catch (error) {
+    console.error("Error updating service status:", error);
+    res.status(500).send({ message: "Error updating service status" });
+  }
+});
+
+//update payment status and status of service request
+const updateServiceRequestController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { status, paymentStatus } = req.body;
+    const serviceRequest = await ServiceRequest.findByIdAndUpdate(
+      req.params.id,
+      { status, paymentStatus },
+      { new: true }
+    );
+
+    if (!serviceRequest) {
+      return res.status(404).send({ message: "Service request not found" });
+    }
+
+    // Send email to the customer
+    const mailOptions = {
+      from: "austcse49b@gmail.com",
+      to: serviceRequest.customerEmail, // Assuming you have the customer's email in the serviceRequest
+      subject: "Service Request Status Update",
+      text: `Hello, the status of your Service Request ID: ${
+        serviceRequest._id
+      } has been updated to: ${serviceRequest.status}.
+
+Service Request Details:
+- Service Request ID: ${serviceRequest._id}
+- Customer Email: ${serviceRequest.customerEmail}
+- Customer Phone: ${serviceRequest.customerPhone}
+- Selected Services: ${serviceRequest.selectedServices
+        .map(
+          (service) =>
+            `${service.name} (Vehicle Type: ${service.vehicleType}, Cost: $${service.cost})`
+        )
+        .join(", ")}
+- Booking Date: ${serviceRequest.bookingDate.toLocaleDateString()}
+- Total Cost: ${serviceRequest.totalCost}BDT
+- Current Status: ${serviceRequest.status}
+- Payment Status: ${serviceRequest.paymentStatus}
+- Additional Comments: ${serviceRequest.comments || "N/A"}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+
+    res.send({ message: "Service status updated", serviceRequest });
+  } catch (error) {
+    console.error("Error updating service status:", error);
+    res.status(500).send({ message: "Error updating service status" });
+  }
+});
+//fetch all service requests
+const fetchAllServiceRequestController = expressAsyncHandler(
+  async (req, res) => {
+    try {
+      const { page = 1, limit = 5, status, paymentStatus } = req.query;
+
+      const query = {};
+      if (status) {
+        query.status = status;
+      }
+      if (paymentStatus) {
+        query.paymentStatus = paymentStatus;
+      }
+
+      // Paginate and filter service requests
+      const serviceRequests = await ServiceRequest.find(query)
+        .limit(limit * 1) // Convert to number
+        .skip((page - 1) * limit)
+        .populate("customerId")
+        .sort({ _id: -1 })
+        .exec();
+
+      // Get total count for pagination
+      const count = await ServiceRequest.countDocuments(query);
+
+      // Return the service requests and the total count
+      res.json({
+        serviceRequests,
+        totalPages: Math.ceil(count / limit),
+        currentPage: parseInt(page),
+      });
+    } catch (error) {
+      console.error("Error fetching service requests:", error);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+//update cost of a service
+const updateServiceCostController = expressAsyncHandler(async (req, res) => {
+  try {
+    const { cost } = req.body;
+    const service = await Service.findByIdAndUpdate(
+      req.params.id,
+      { cost },
+      { new: true }
+    );
+
+    if (!service) {
+      return res.status(404).send({ message: "Service not found" });
+    }
+
+    res.send({ message: "Service updated", service });
+  } catch (error) {
+    console.error("Error updating service:", error);
+    res.status(500).send({ message: "Error updating service" });
+  }
+});
+
+//delete a service
+const deleteServiceController = expressAsyncHandler(async (req, res) => {
+  try {
+    const service = await Service.findByIdAndDelete(req.params.id);
+
+    if (!service) {
+      return res.status(404).send({ message: "Service not found" });
+    }
+
+    res.send({ message: "Service deleted", service });
+  } catch (error) {
+    console.error("Error deleting service:", error);
+    res.status(500).send({ message: "Error deleting service" });
+  }
+});
+
+//get vehicletype count
+const vehicleTypeCountController = expressAsyncHandler(async (req, res) => {
+  try {
+    const carCount = await User.countDocuments({ vehicleType: "Car" });
+    const bikeCount = await User.countDocuments({ vehicleType: "Bike" });
+
+    res.json({ car: carCount, bike: bikeCount });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching vehicleType data" });
+  }
+});
+
 module.exports = {
   fetchAllUsersController,
   postNewUserController,
@@ -151,4 +408,12 @@ module.exports = {
   fetchAllPartsController,
   updatePartController,
   deletePartController,
+  fetchAllOrdersController,
+  updateOrderController,
+  postNewServiceController,
+  updateServiceRequestController,
+  fetchAllServiceRequestController,
+  updateServiceCostController,
+  deleteServiceController,
+  vehicleTypeCountController,
 };

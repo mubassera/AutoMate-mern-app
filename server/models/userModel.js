@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema(
     vehicleModel: {
       type: String,
     },
+    mobileNumber: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
   },
   {
     timeStamp: true,
@@ -54,5 +60,5 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("users", userSchema);
 module.exports = User;

@@ -1,3 +1,4 @@
+/* Reset default styles */
 body,
 h1,
 h2,
@@ -12,31 +13,44 @@ button,
 select {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    box-sizing: border-box;
+    /* Ensures padding and border are included in the element's total width and height */
 }
 
+/* Flex container for search item contents */
 .searchItemContents {
     display: flex;
 }
 
+/* General results styling */
 .results {
-    background-color: white;
+    background-color: var(--neutral-light-gray);
+    flex-grow: 1;
+    padding: 20px;
+    max-height: 100vh;
+    /* Ensures results area takes full viewport height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
 }
 
+/* Sidebar styling */
 .sidebar {
     width: 250px;
-    height: 100vh; /* Adjusted to cover full height of the viewport */
+    height: 100vh;
+    /* Adjusted to cover full height of the viewport */
     padding: 20px;
-    background-color: bisque;
+    background-color: var(--secondary-light-blue);
     border-right: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Allows the sidebar to be scrollable */
+    overflow-y: auto;
+    /* Allows the sidebar to be scrollable */
 }
 
 .sidebar h1 {
     padding: 10px 0;
     font-size: 25px;
+    color: var(--primary-navy-blue);
 }
 
 .sidebar form {
@@ -47,15 +61,18 @@ select {
 .sidebar label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: var(--accent-teal-blue);
 }
 
 .sidebar input,
 .sidebar select {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px; /* Rounded corners for inputs and selects */
+    border: 1px solid var(--accent-muted-blue);
+    border-radius: 4px;
+    /* Rounded corners for inputs and selects */
     width: 100%;
+    background-color: var(--neutral-white);
 }
 
 .sidebar button {
@@ -63,70 +80,84 @@ select {
     padding: 12px;
     width: 100%;
     border: none;
-    background-color: rgb(255, 136, 0);
-    color: #fff;
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px; /* Improved button font size for better readability */
+    font-size: 16px;
+    /* Improved button font size for better readability */
 }
 
 .sidebar button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
 
-.results {
-    flex-grow: 1;
-    padding: 20px;
-    max-height: 100vh; /* Ensures results area takes full viewport height */
-    overflow-y: auto; /* Enable vertical scrolling */
-}
-
+/* Results header styling */
 .results h2 {
     font-size: 24px;
-    color: rgb(14, 14, 83);
+    color: var(--primary-navy-blue);
     margin-bottom: 20px;
 }
 
+/* Container for cards */
 .cards-container {
     display: flex;
-    flex-direction: column; /* Stack cards vertically */
-    gap: 20px; /* Adds space between the cards */
+    flex-direction: column;
+    /* Stack cards vertically */
+    gap: 20px;
+    /* Adds space between the cards */
 }
 
 /* Individual card styling */
 .card {
-    display: flex; /* Arrange image and text in a row */
-    background-color: white;
-    border: 1px solid #ccc;
+    display: flex;
+    /* Arrange image and text in a row */
+    background-color: var(--neutral-white);
+    border: 1px solid var(--neutral-light-gray);
     border-radius: 8px;
     padding: 20px;
     width: 100%;
-    max-width: 1000px; /* Increased max-width for a wider card */
+    max-width: 1000px;
+    /* Increased max-width for a wider card */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
-    text-align: left; /* Align text to the left */
+    text-align: left;
+    /* Align text to the left */
+    position: relative;
+    /* Needed for absolute positioning of the button */
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    /* Slightly increase the size */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhance the shadow */
 }
 
 /* Image styling inside the card */
-.part-image {
-    width: 200px; /* Adjust width as needed */
-    height: auto;
+.part-image-small {
+    width: 100px !important;
+    height: auto !important;
     object-fit: cover;
+    padding: 20px;
     border-radius: 4px;
-    margin-right: 20px; /* Space between image and text */
+    margin-right: 20px;
 }
 
 /* Container for text content */
 .card-content {
     display: flex;
-    flex-direction: column; /* Arrange text content in a column */
-    flex: 1; /* Takes up remaining space */
+    flex-direction: column;
+    /* Arrange text content in a column */
+    flex: 1;
+    /* Takes up remaining space */
 }
 
 /* Card title (part name) */
 .card h3 {
     font-size: 18px;
-    color: #333;
+    color: var(--accent-teal-blue);
     margin: 10px 0;
 }
 
@@ -139,35 +170,39 @@ select {
 
 /* Buy button styling inside the card */
 .card button {
-    padding: 12px;
-    border: none;
-    background-color: rgb(255, 136, 0);
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px; /* Improved button font size for better readability */
-    margin-top: auto; /* Pushes the button to the bottom of the card content */
+    padding: 8px 12px;
+    /* Smaller padding for the button */
+    font-size: 14px;
+    /* Smaller font size */
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
+    position: absolute;
+    /* Allows for positioning relative to the card */
+    bottom: 35%;
+    /* Position the button at the bottom of the card */
+    right: 20px;
+    /* Position the button on the right side of the card */
 }
 
 .card button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
-
-
 
 /* Pagination button styling */
 .results button {
     padding: 12px;
     margin: 10px;
-    background-color: rgb(255, 136, 0);
-    color: #fff;
+    background-color: var(--accent-bright-orange);
+    color: var(--neutral-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px; /* Improved button font size for better readability */
+    font-size: 16px;
+    /* Improved button font size for better readability */
 }
 
 .results button:hover {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7700;
 }
 
+/* CSS Variables for the color palette */

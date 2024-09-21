@@ -1,11 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminPartDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
-//import { PartsContext } from "../PartsContext";
 import { addPart, updatePart } from "../../../Api/adminPanel";
 
 export const AdminPartDetails = () => {
-  //const { parts, setParts } = useContext(PartsContext);
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -72,18 +70,15 @@ export const AdminPartDetails = () => {
   };
 
   return (
-    <div className="part-details">
+    <div className="admin-part-details">
+      <h2>{editingPart ? "Edit Part" : "Add New Part"}</h2>
       <div
         className="image-upload-box"
         onClick={() => document.getElementById("partImageInput").click()}
       >
         {partImage ? (
           <img
-            src={
-              typeof partImage === "string"
-                ? partImage
-                : URL.createObjectURL(partImage)
-            }
+            src={typeof partImage === "string" ? partImage : URL.createObjectURL(partImage)}
             alt="Part Preview"
           />
         ) : (
@@ -98,64 +93,26 @@ export const AdminPartDetails = () => {
         onChange={handleImageUpload}
       />
 
-      <input
-        type="text"
-        placeholder="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <select
-        value={vehicleType}
-        onChange={(e) => setVehicleType(e.target.value)}
-      >
+      <input type="text" placeholder="Part Name" value={name} onChange={(e) => setName(e.target.value)} />
+      <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)}>
         <option value="">Select Vehicle Type</option>
         <option value="car">Car</option>
         <option value="bike">Bike</option>
       </select>
-      <input
-        type="text"
-        placeholder="Vehicle Brand"
-        value={vehicleBrand}
-        onChange={(e) => setVehicleBrand(e.target.value)}
-      />
-
-      <input
-        type="text"
-        placeholder="Short Description"
-        value={shortDescription}
-        onChange={(e) => setShortDescription(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="quantity"
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
-      />
-      <select
-        value={isAvailable}
-        onChange={(e) => setIsAvailable(e.target.value)}
-      >
+      <input type="text" placeholder="Vehicle Brand" value={vehicleBrand} onChange={(e) => setVehicleBrand(e.target.value)} />
+      <input type="text" placeholder="Short Description" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} />
+      <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+      <input type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+      <select value={isAvailable} onChange={(e) => setIsAvailable(e.target.value)}>
         <option value="">Select Availability</option>
         <option value="Yes">Available</option>
         <option value="No">Unavailable</option>
       </select>
-      <textarea
-        placeholder="Long Description"
-        value={longDescription}
-        onChange={(e) => setLongDescription(e.target.value)}
-      />
+      <textarea placeholder="Long Description" value={longDescription} onChange={(e) => setLongDescription(e.target.value)} />
 
       <div className="button-group">
         <button onClick={handleSave}>Save</button>
-        <button className="cancel-button" onClick={handleCancel}>
-          Cancel
-        </button>
+        <button className="cancel-button" onClick={handleCancel}>Cancel</button>
       </div>
     </div>
   );
