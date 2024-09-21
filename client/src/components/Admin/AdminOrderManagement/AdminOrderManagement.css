@@ -117,3 +117,24 @@
   margin-top: 20px;
   /* Space above pagination */
 }
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  .admin-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack sidebar and content */
+  }
+
+  .admin-order-container {
+    width: 100%;
+    /* Full width for the container */
+    margin-left: 0;
+    /* No margin left */
+  }
+
+  .admin-order-container h1 {
+    text-align: center;
+    /* Center heading on smaller screens */
+  }
+}

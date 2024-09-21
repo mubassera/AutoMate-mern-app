@@ -4,7 +4,7 @@
 
 .admin-service-container {
     padding: 30px;
-    background-color: bisque;
+    background-color:#e7f3fe;
     width: calc(100% - 250px);
     margin-left: 250px;
     /* Offset for the sidebar */

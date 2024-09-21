@@ -1,4 +1,3 @@
-// AdminOrderManagement.jsx
 import React, { useState, useEffect } from "react";
 import { fetchOrders, updateOrder } from "../../../Api/adminPanel"; // Import API functions
 import "./AdminOrderManagement.css";
@@ -18,12 +17,7 @@ const AdminOrderManagement = () => {
 
   const fetchOrderData = async () => {
     try {
-      const data = await fetchOrders(
-        page,
-        limit,
-        paymentStatusFilter,
-        statusFilter
-      );
+      const data = await fetchOrders(page, limit, paymentStatusFilter, statusFilter);
       setOrders(data.orders);
       setTotalPages(data.totalPages);
     } catch (error) {
@@ -115,7 +109,6 @@ const AdminOrderManagement = () => {
                 <span id="info1">Username: </span>
                 {order.userId.name}
               </p>
-
               <p>
                 <span id="info1">Part name: </span>
                 {order.partId.name}

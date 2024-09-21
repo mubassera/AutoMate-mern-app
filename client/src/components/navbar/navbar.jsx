@@ -24,10 +24,9 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const closeDropdown = (e) => {
-      if (!e.target.closest(".dropdown")) {
+      if (!e.target.closest(".navDropdown")) {
         setDropdownOpen(false);
       }
     };
@@ -42,11 +41,9 @@ const Navbar = () => {
     <div className={`navbar ${menuOpen ? "menu-open" : ""}`}>
       <div className="navLogo">
         <h2>AutoMate</h2>
-      </div>
-
-      {/* Mobile menu toggle */}
-      <div className="menu-toggle" onClick={toggleMenu}>
-        ☰
+        <div className="menu-toggle" onClick={toggleMenu}>
+          ☰
+        </div>
       </div>
 
       <ul className={`navMenu ${menuOpen ? "show-menu" : ""}`}>
@@ -72,7 +69,7 @@ const Navbar = () => {
         </li>
 
         {/* Dropdown for History */}
-        <li className="dropdown" onClick={toggleDropdown}>
+        <li className="navDropdown" onClick={toggleDropdown}>
           <span className="dropdown-toggle">Purchase & Booking History</span>
           {dropdownOpen && (
             <ul className="dropdown-menu">
