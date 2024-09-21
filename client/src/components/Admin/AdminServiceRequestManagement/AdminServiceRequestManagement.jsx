@@ -74,14 +74,14 @@ function AdminServiceRequestManagement() {
   };
 
   return (
-    <div>
+    <div className="asrm-wrapper">
       <AdminSidebar />
       <div className="asrm-container">
         <div className="top-navigation">
           <h1>Service Request Management</h1>
           <form onSubmit={handleSearch}>
             <div>
-              <label>Status: </label>
+              <label style={{ color: "black" }}>Status: </label>
               <select
                 value={selectedStatusForSearch}
                 onChange={(e) => setSelectedStatusForSearch(e.target.value)}
@@ -95,7 +95,7 @@ function AdminServiceRequestManagement() {
               </select>
             </div>
             <div>
-              <label>Payment Status: </label>
+              <label style={{ color: "black" }}>Payment Status: </label>
               <select
                 value={selectedPaymentStatusForSearch}
                 onChange={(e) =>
@@ -187,9 +187,6 @@ function AdminServiceRequestManagement() {
             >
               Previous
             </button>
-            {/* <span>
-              Page {page} of {totalPages}
-            </span> */}
             <button
               disabled={page === totalPages}
               onClick={() => setPage((prev) => prev + 1)}

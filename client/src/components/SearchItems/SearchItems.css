@@ -11,243 +11,243 @@ input,
 label,
 button,
 select {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Flex container for search item contents */
 .searchItemContents {
-    display: flex;
+  display: flex;
 }
 
 /* General results styling */
 .results {
-    background-color: #f2f2f2;
-    /* Light Gray */
-    flex-grow: 1;
-    padding: 20px;
-    max-height: 100vh;
-    /* Ensures results area takes full viewport height */
-    overflow-y: auto;
-    /* Enable vertical scrolling */
+  background-color: #f2f2f2;
+  /* Light Gray */
+  flex-grow: 1;
+  padding: 20px;
+  max-height: 100vh;
+  /* Ensures results area takes full viewport height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
 }
 
 /* Sidebar styling */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    /* Adjusted to cover full height of the viewport */
-    padding: 20px;
-    background-color: #e7f3fe;
-    /* Light Blue */
-    border-right: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    /* Allows the sidebar to be scrollable */
+  width: 250px;
+  height: 100vh;
+  /* Adjusted to cover full height of the viewport */
+  padding: 20px;
+  background-color: #e7f3fe;
+  /* Light Blue */
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  /* Allows the sidebar to be scrollable */
 }
 
 .sidebar h1 {
-    padding: 10px 0;
-    font-size: 25px;
-    color: #0e0e53;
-    /* Navy Blue */
+  padding: 10px 0;
+  font-size: 25px;
+  color: #0e0e53;
+  /* Navy Blue */
 }
 
 .sidebar form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #22577a;
-    /* Teal Blue */
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #22577a;
+  /* Teal Blue */
 }
 
 .sidebar input,
 .sidebar select {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #8080ac;
-    /* Muted Blue */
-    border-radius: 4px;
-    /* Rounded corners for inputs and selects */
-    width: 100%;
-    background-color: #ffffff;
-    /* White */
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #8080ac;
+  /* Muted Blue */
+  border-radius: 4px;
+  /* Rounded corners for inputs and selects */
+  width: 100%;
+  background-color: #ffffff;
+  /* White */
 }
 
 .sidebar button {
-    margin-top: 10px;
-    padding: 12px;
-    width: 100%;
-    border: none;
-    background-color: #ff8800;
-    /* Bright Orange */
-    color: #ffffff;
-    /* White */
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    /* Improved button font size for better readability */
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  background-color: #ff8800;
+  /* Bright Orange */
+  color: #ffffff;
+  /* White */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  /* Improved button font size for better readability */
 }
 
 .sidebar button:hover {
-    background-color: #ff7700;
+  background-color: #ff7700;
 }
 
 /* Results header styling */
 .results h2 {
-    font-size: 24px;
-    color: #0e0e53;
-    /* Navy Blue */
-    margin-bottom: 20px;
+  font-size: 24px;
+  color: #0e0e53;
+  /* Navy Blue */
+  margin-bottom: 20px;
 }
 
 /* Loading and error messages */
 .error {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .loading {
-    font-size: 18px;
-    color: #666;
+  font-size: 18px;
+  color: #666;
 }
 
 /* Container for cards */
 .cards-container {
-    display: flex;
-    flex-direction: column;
-    /* Stack cards vertically */
-    gap: 20px;
-    /* Adds space between the cards */
+  display: flex;
+  flex-direction: column;
+  /* Stack cards vertically */
+  gap: 20px;
+  /* Adds space between the cards */
 }
 
 /* Individual card styling */
 .card {
-    display: flex;
-    /* Arrange image and text in a row */
-    background-color: #ffffff;
-    /* White */
-    border: 1px solid #f2f2f2;
-    /* Light Gray */
-    border-radius: 8px;
-    padding: 20px;
-    width: 100%;
-    max-width: 1000px;
-    /* Increased max-width for a wider card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    text-align: left;
-    /* Align text to the left */
-    position: relative;
-    /* Needed for absolute positioning of the button */
-    cursor: pointer;
+  display: flex;
+  /* Arrange image and text in a row */
+  background-color: #ffffff;
+  /* White */
+  border: 1px solid #f2f2f2;
+  /* Light Gray */
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  /* Increased max-width for a wider card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  text-align: left;
+  /* Align text to the left */
+  position: relative;
+  /* Needed for absolute positioning of the button */
+  cursor: pointer;
 }
 
 .card:hover {
-    transform: scale(1.03);
-    /* Slightly increase the size */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    /* Enhance the shadow */
+  transform: scale(1.03);
+  /* Slightly increase the size */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Enhance the shadow */
 }
 
 /* Image styling inside the card */
 .part-image-small {
-    width: 100px !important;
-    height: auto !important;
-    object-fit: cover;
-    padding: 20px;
-    border-radius: 4px;
-    margin-right: 20px;
+  width: 100px !important;
+  height: auto !important;
+  object-fit: cover;
+  padding: 20px;
+  border-radius: 4px;
+  margin-right: 20px;
 }
 
 /* Buy button styling inside the card */
 .card button {
-    padding: 8px 12px;
-    /* Smaller padding for the button */
-    font-size: 14px;
-    /* Smaller font size */
-    background-color: #ff8800;
-    /* Bright Orange */
-    color: #ffffff;
-    /* White */
-    position: absolute;
-    /* Allows for positioning relative to the card */
-    bottom: 35%;
-    /* Position the button at the bottom of the card */
-    right: 20px;
-    /* Position the button on the right side of the card */
-    border: none;
-    /* Remove border */
-    border-radius: 4px;
-    /* Rounded corners */
-    cursor: pointer;
-    /* Pointer cursor on hover */
+  padding: 8px 12px;
+  /* Smaller padding for the button */
+  font-size: 14px;
+  /* Smaller font size */
+  background-color: #ff8800;
+  /* Bright Orange */
+  color: #ffffff;
+  /* White */
+  position: absolute;
+  /* Allows for positioning relative to the card */
+  bottom: 35%;
+  /* Position the button at the bottom of the card */
+  right: 20px;
+  /* Position the button on the right side of the card */
+  border: none;
+  /* Remove border */
+  border-radius: 4px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor on hover */
 }
 
 .card button:hover {
-    background-color: #ff7700;
+  background-color: #ff7700;
 }
 
 /* Pagination button styling */
 .results button {
-    padding: 12px;
-    margin: 10px;
-    background-color: #ff8800;
-    /* Bright Orange */
-    color: #ffffff;
-    /* White */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    /* Improved button font size for better readability */
+  padding: 12px;
+  margin: 10px;
+  background-color: #ff8800;
+  /* Bright Orange */
+  color: #ffffff;
+  /* White */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  /* Improved button font size for better readability */
 }
 
 .results button:hover {
-    background-color: #ff7700;
+  background-color: #ff7700;
 }
 
 /* Media queries for responsive design */
 @media (max-width: 768px) {
-    .searchItemContents {
-        flex-direction: column;
-        /* Stack sidebar and results vertically */
-    }
+  .searchItemContents {
+    flex-direction: column;
+    /* Stack sidebar and results vertically */
+  }
 
-    .sidebar {
-        width: 100%;
-        /* Full width for sidebar */
-        height: auto;
-        /* Adjust height */
-    }
+  .sidebar {
+    width: 100%;
+    /* Full width for sidebar */
+    height: auto;
+    /* Adjust height */
+  }
 
-    .results {
-        padding: 10px;
-        /* Adjust padding for results */
-    }
+  .results {
+    padding: 10px;
+    /* Adjust padding for results */
+  }
 
-    .card {
-        flex-direction: column;
-        /* Stack content vertically on small screens */
-    }
+  .card {
+    flex-direction: column;
+    /* Stack content vertically on small screens */
+  }
 
-    .part-image-small {
-        width: 80%;
-        /* Make image responsive */
-        margin: 0 auto;
-        /* Center image */
-    }
+  .part-image-small {
+    width: 80%;
+    /* Make image responsive */
+    margin: 0 auto;
+    /* Center image */
+  }
 
-    .card button {
-        position: static;
-        /* Reset positioning for smaller screens */
-        margin-top: 10px;
-        /* Add margin for spacing */
-    }
+  .card button {
+    position: relative;
+    /* Reset positioning for smaller screens */
+    margin-top: 10px;
+    /* Add margin for spacing */
+  }
 }

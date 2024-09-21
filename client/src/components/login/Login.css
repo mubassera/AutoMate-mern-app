@@ -1,248 +1,155 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.LSP-loginpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(
+    135deg,
+    #e7f3ff,
+    #0c81e0
+  ); /* Gradient using Secondary and Neutral Color 1 */
 }
 
-html,
-body {
-    font-family: Arial, sans-serif;
-    /* background-color: rgb(14, 14, 83) !important; */
-    /* height: 100%; */
-    /* display: flex; */
-    /* flex-direction: column; */
+.LSP-leftContainer {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.loginpage {
-    height: 500px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    padding: 20px;
-    flex-wrap: wrap;
-    background-color: #e7f3fe;
+.LSP-leftContainer h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ff8800; /* Accent Color 1 */
 }
 
-.leftContainer {
-    flex: 1;
-    margin-right: 200px;
-    margin-left: 200px;
-    justify-content: center;
-    text-align: center;
-    /* Center align the text content */
-    display: flex;
-    /* Use flexbox */
-    flex-direction: column;
-    /* Align content vertically */
-    align-items: center;
-    /* Center align items horizontally */
+.LSP-leftContainer p {
+  color: rgb(14, 14, 83); /* Primary Color */
 }
 
-.leftContainer h1 {
-    font-size: 48px;
-    color: rgb(255, 136, 0);
+.LSP-container {
+  background: #ffffff; /* Neutral Color 1 */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
 }
 
-.leftContainer p {
-    font-size: 20px;
-    color: #22577a;
-    margin-top: 10px;
+.LSP-inputs {
+  display: flex;
+  flex-direction: column;
 }
 
-.container {
-    flex: 1;
-    justify-content: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.LSP-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.underline {
-    width: 100%;
-    height: 1px;
-    background: #6c99d2;
-    margin-top: 10px;
+.LSP-Icon {
+  margin-right: 10px;
+  color: #22577a; /* Accent Color 2 */
 }
 
-.inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.LSP-input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #8080ac; /* Accent Color 3 */
+  border-radius: 4px;
 }
 
-.input {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    background-color: #f0f2f5;
-    border-radius: 6px;
-    padding: 0 20px;
+.LSP-submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.icon,
-.Icon {
-    margin-right: 10px;
-    color: #606770;
+.LSP-submit {
+  background-color: #22577a; /* Teal Blue */
+  color: #ffffff; /* Neutral Color 1 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
 }
 
-.input input {
-    flex: 1;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #606770;
-    font-size: 13px;
+.LSP-submit:hover {
+  background-color: #1a4460; /* Darker shade of Teal Blue */
 }
 
-.vehicleOption {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.LSP-vehicleOption {
+  margin-top: 15px;
 }
 
-.vehicleTitle {
-    font-size: 18px;
-    font-weight: 600;
-    color: #06254c;
+.LSP-vehicleTitle {
+  margin-bottom: 10px;
+  color: #22577a; /* Accent Color 2 */
 }
 
-.vehicles {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+.LSP-vehicles {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.vehicles div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.LSP-existing-account {
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(14, 14, 83); /* Primary Color */
 }
 
-.vehicles label {
-    font-size: 16px;
-    color: #606770;
-}
-
-.vehicles input[type='radio'] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #606770;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-}
-
-.vehicles input[type='radio']:checked {
-    background-color: #06254c;
-    border-color: #06254c;
-}
-
-.checkboxInput {
-    display: flex;
-    align-items: center;
-}
-
-#checkbox {
-    margin-right: 5px;
-}
-
-#rememberMe {
-    font-size: 12px;
-}
-
-.forgot-password {
-    text-align: center;
-    color: #e02b2b;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.submit-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 10px;
-}
-
-.submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    color: white;
-    background-color: rgb(14, 14, 83);
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.submit.gray {
-    background-color: #eaeaea;
-    color: #676767;
-}
-
-.submit:hover {
-    background-color: #145dbf;
-}
-
-.submit.gray:hover {
-    background-color: #d3d3d3;
-}
-
-.existing-account {
-    text-align: center;
-    color: #606770;
-    font-size: 14px;
-}
-
-.existing-account span {
-    color: #43a2d1;
-    cursor: pointer;
-}
-
-.footer {
-    width: 100%;
-    background-color: rgb(6, 6, 50);
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
-.footer p {
-    margin: 0;
-    font-size: 18px;
+.LSP-underline {
+  height: 1px;
+  background-color: #f2f2f2; /* Neutral Color 2 */
+  margin: 20px 0;
 }
 
 @media (max-width: 768px) {
+  .LSP-container {
+    padding: 15px;
+  }
 
-    .leftContainer,
-    .container {
-        margin: 10px;
-        max-width: 100%;
-    }
+  .LSP-submit {
+    padding: 8px 15px;
+  }
+}
 
-    .leftContainer h1 {
-        font-size: 36px;
-    }
+@media (max-width: 480px) {
+  .LSP-leftContainer h1 {
+    font-size: 1.5rem;
+  }
 
-    .leftContainer p {
-        font-size: 18px;
-    }
+  .LSP-container {
+    width: 100%;
+  }
+
+  .LSP-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .LSP-input input {
+    width: calc(100% - 20px);
+  }
+
+  .LSP-vehicles {
+    flex-direction: column;
+  }
+
+  .LSP-submit {
+    padding: 10px;
+    width: 100%;
+  }
+}
+.login-link {
+  color: rgb(14, 14, 83); /* Primary Color */
+  cursor: pointer;
+  text-decoration: underline; /* Underline for better visibility */
+}
+
+.login-link:hover {
+  color: #2d87eecc; /* Bright Orange */
+  font-weight: bold; /* Make it bold on hover */
 }

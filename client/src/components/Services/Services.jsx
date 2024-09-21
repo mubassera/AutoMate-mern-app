@@ -77,7 +77,7 @@ function Services() {
             <h2>Car Services</h2>
             <ul>
               {carServices.map((service) => (
-                <li key={service.name}>
+                <li style={{ color: "black" }} key={service.name}>
                   <label>
                     <input
                       type="checkbox"
@@ -95,7 +95,7 @@ function Services() {
             <h2>Bike Services</h2>
             <ul>
               {bikeServices.map((service) => (
-                <li key={service.name}>
+                <li style={{ color: "black" }} key={service.name}>
                   <label>
                     <input
                       type="checkbox"
@@ -163,7 +163,7 @@ function Services() {
 
         {message && <p className="message">{message}</p>}
       </div>
-            <div className="box4">
+      <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
           <p>123, ABC Street, Dhaka-1000, Bangladesh</p>

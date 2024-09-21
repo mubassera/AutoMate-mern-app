@@ -1,29 +1,34 @@
 .users {
   display: flex;
   background-color: #e7f3fe;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .usersContents {
   flex-grow: 1;
   padding: 20px;
-  padding-left: 270px;
+  padding-left: 270px; /* Adjust as needed */
+  min-height: 100vh;
+  width: 100%; /* Ensure full width */
 }
 
 .usersContents h1 {
   color: rgb(14, 14, 83);
   padding-bottom: 20px;
-    font-size: 28px;
+  font-size: 28px;
 }
 
 .UserSearch {
   margin-bottom: 20px;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap; /* Allow wrapping */
 }
 
 .searchWrapper {
   position: relative;
-  width: 100%;
+  flex: 1; /* Allow input to grow */
+  min-width: 200px; /* Minimum width for search input */
 }
 
 .searchInput {
@@ -42,19 +47,22 @@
   color: #ccc;
 }
 
-/* .filterSelectButton {} */
-
 .filterSelect {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  flex-basis: 150px; /* Fixed width for filter select */
+}
+
+.usersTable {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .usersTable table {
   width: 100%;
   border-collapse: collapse;
 }
-
 
 .usersTable td {
   background-color: white;
@@ -66,27 +74,18 @@
 
 .usersTable th {
   background-color: rgb(14, 14, 83);
-
-    
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-      color: white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  color: white;
 }
 
 .usersTable input {
-  max-width: 70px;
-  /* Adjust this value as needed */
+  max-width: 100%; /* Full width for inputs */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-/* .button {
-  padding: 5px;
-  margin: 10px;
-} */
 
 .addUserButton button {
   margin-top: 10px;
@@ -96,6 +95,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%; /* Full width button */
 }
 
 .addUserButton button:hover {
@@ -105,14 +105,46 @@
 .addUserCancelButton button {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: red;
-  /* Red color for cancel button */
+  background-color: red; /* Red color for cancel button */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%; /* Full width button */
 }
 
 .addUserCancelButton button:hover {
   background-color: darkred;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .usersContents {
+    padding-left: 20px; /* Reduce left padding */
+  }
+
+  .UserSearch {
+    flex-direction: column; /* Stack search elements */
+  }
+
+  .searchWrapper,
+  .filterSelectButton {
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .usersTable table {
+    display: block; /* Make table scrollable */
+    overflow-x: auto;
+  }
+
+  .usersTable th,
+  .usersTable td {
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+}
+
+@media (max-width: 480px) {
+  .usersContents h1 {
+    font-size: 24px; /* Smaller heading on very small screens */
+  }
 }

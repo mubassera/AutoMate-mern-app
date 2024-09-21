@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchServiceHistory } from "../../Api/userPanel"; // Import the new API function
 import Navbar from "../navbar/navbar";
-import './ServiceHistory.css';
+import "./ServiceHistory.css";
 
 const ServiceHistory = () => {
   const [services, setServices] = useState([]);
@@ -33,8 +33,8 @@ const ServiceHistory = () => {
                   <span>Service Request ID:</span> {service._id}
                 </p>
                 <div>
-                  <span>Selected Services:</span>
-                  <ul>
+                  <span style={{ color: "black" }}>Selected Services:</span>
+                  <ul style={{ color: "black" }}>
                     {service.selectedServices.map((s, index) => (
                       <li key={index}>
                         {s.name} - ${s.cost}
@@ -60,7 +60,7 @@ const ServiceHistory = () => {
           ))}
         </ul>
       </div>
- <div className="box4">
+      <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
           <p>123, ABC Street, Dhaka-1000, Bangladesh</p>

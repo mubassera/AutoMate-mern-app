@@ -1,17 +1,51 @@
 /* src/components/AdminPage/AdminPage.css */
 
-
 .admin-page {
-    display: flex;
-    background-color: bisque;
+  display: flex;
+  background-color: #e7f3fe; /* Secondary Color */
+  min-height: 100vh;
 }
 
 .admin-content {
-    flex-grow: 1;
-    padding: 20px;
-    padding-left: 270px;
+  flex-grow: 1;
+  padding: 20px;
+  padding-left: 270px;
 }
 
-.admin-content h1{
-    color: rgb(14, 14, 83);;
+.admin-content h1 {
+  color: rgb(14, 14, 83); /* Primary Color */
+  font-size: 2rem;
+}
+
+.chart-container {
+  max-width: 500px; /* Set a max width for the chart */
+  width: 100%; /* Make it responsive */
+  height: auto;
+  margin: 0 auto; /* Center the chart */
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    padding-left: 0;
+    padding: 15px;
+  }
+
+  .admin-page {
+    flex-direction: column;
+  }
+
+  .admin-content h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-content {
+    padding: 10px;
+  }
+
+  .admin-content h1 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 }

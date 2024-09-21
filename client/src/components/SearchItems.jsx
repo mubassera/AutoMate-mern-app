@@ -121,7 +121,7 @@ const SearchParts = () => {
         <div className="results">
           <h2>Results</h2>
 
-          <div className="cards-container">
+          <div style={{ color: "black" }} className="cards-container">
             {parts && parts.length > 0 ? (
               parts.map((part) => (
                 <div
@@ -172,10 +172,9 @@ const SearchParts = () => {
             )}
           </div>
         </div>
-        
       </div>
 
-       <div className="box4">
+      <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
           <p>123, ABC Street, Dhaka-1000, Bangladesh</p>

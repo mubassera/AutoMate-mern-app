@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { login, signup } from "../../Api/auth";
 import "./Login.css";
+import { color } from "chart.js/helpers";
 
 export const Login = () => {
   const navigate = useNavigate();
 
-  //pre-loggedIn check
+  // pre-loggedIn check
   const userData = JSON.parse(localStorage.getItem("userData"));
   console.log(userData);
 
@@ -74,17 +75,17 @@ export const Login = () => {
   };
 
   return (
-    <div className="loginpage">
-      <div className="leftContainer">
+    <div className="LSP-loginpage">
+      <div className="LSP-leftContainer">
         <h1>AutoMate</h1>
         <p>Your Reliable Partner for Vehicle Care</p>
       </div>
-      <div className="container">
+      <div className="LSP-container">
         {action === "Login" ? (
           <>
-            <form onSubmit={handleLogin} className="inputs">
-              <div className="input">
-                <span className="Icon">
+            <form onSubmit={handleLogin} className="LSP-inputs">
+              <div className="LSP-input">
+                <span className="LSP-Icon">
                   <FaEnvelope />
                 </span>
                 <input
@@ -95,8 +96,8 @@ export const Login = () => {
                   required
                 />
               </div>
-              <div className="input">
-                <span className="Icon">
+              <div className="LSP-input">
+                <span className="LSP-Icon">
                   <FaLock />
                 </span>
                 <input
@@ -108,26 +109,16 @@ export const Login = () => {
                 />
               </div>
 
-              {/* <div className="checkboxInput">
-                <input type="checkbox" id="checkbox" />
-                <label htmlFor="checkbox" id="rememberMe">
-                  Remember me
-                </label>
-              </div> */}
-
-              <div className="submit-container">
-                <button type="submit" className="submit">
+              <div className="LSP-submit-container">
+                <button type="submit" className="LSP-submit">
                   Login
                 </button>
               </div>
             </form>
 
-            {/* <div className="forgot-password">
-              Forgot Password? <span>Click Here!</span>
-            </div> */}
-            <div className="underline"></div>
-            <div className="submit-container">
-              <div className="submit" onClick={() => setAction("Sign Up")}>
+            <div className="LSP-underline"></div>
+            <div className="LSP-submit-container">
+              <div className="LSP-submit" onClick={() => setAction("Sign Up")}>
                 Create New Account
               </div>
             </div>
@@ -135,9 +126,9 @@ export const Login = () => {
         ) : (
           <>
             <form onSubmit={handleSignUp}>
-              <div className="inputs">
-                <div className="input">
-                  <span className="Icon">
+              <div className="LSP-inputs">
+                <div className="LSP-input">
+                  <span className="LSP-Icon">
                     <FaUser />
                   </span>
                   <input
@@ -148,8 +139,8 @@ export const Login = () => {
                     required
                   />
                 </div>
-                <div className="input">
-                  <span className="Icon">
+                <div className="LSP-input">
+                  <span className="LSP-Icon">
                     <FaEnvelope />
                   </span>
                   <input
@@ -160,8 +151,8 @@ export const Login = () => {
                     required
                   />
                 </div>
-                <div className="input">
-                  <span className="Icon">
+                <div className="LSP-input">
+                  <span className="LSP-Icon">
                     <FaLock />
                   </span>
                   <input
@@ -174,9 +165,9 @@ export const Login = () => {
                 </div>
               </div>
 
-              <div className="vehicleOption">
-                <div className="vehicleTitle">Choose Your Vehicle:</div>
-                <div className="vehicles">
+              <div className="LSP-vehicleOption">
+                <div className="LSP-vehicleTitle">Choose Your Vehicle:</div>
+                <div style={{ color: "black" }} className="LSP-vehicles">
                   <div>
                     <input
                       type="radio"
@@ -200,8 +191,8 @@ export const Login = () => {
                 </div>
               </div>
 
-              <div className="input">
-                <span className="Icon">
+              <div className="LSP-input">
+                <span className="LSP-Icon">
                   <FaCar />
                 </span>
                 <input
@@ -213,10 +204,8 @@ export const Login = () => {
                 />
               </div>
 
-              <br />
-
-              <div className="input">
-                <span className="Icon">
+              <div className="LSP-input">
+                <span className="LSP-Icon">
                   <FaMotorcycle />
                 </span>
                 <input
@@ -228,41 +217,27 @@ export const Login = () => {
                 />
               </div>
 
-              <div className="submit-container">
+              <div className="LSP-submit-container">
                 <button
                   type="submit"
-                  className="submit"
+                  className="LSP-submit"
                   onSubmit={handleSignUp}
                 >
                   Sign Up
                 </button>
               </div>
             </form>
-            <div className="existing-account">
+            <div className="LSP-existing-account">
               Already have an account?{" "}
-              <span onClick={() => setAction("Login")}>Login</span>
+              <span className="login-link" onClick={() => setAction("Login")}>
+                Login
+              </span>
             </div>
           </>
         )}
-      </div>
-
-      <div className="footer">
-        <p>&copy; 2024 AutoMate. All rights reserved.</p>
       </div>
     </div>
   );
 };
 
 export default Login;
-
-/*
-{
-    "name": "amiiii",
-    "email": "meow1@gmail.com",
-    "password": "123456",
-    "vehicleType": "bike",
-    "vehicleBrand": "yamaha",
-    "vehicleModel": "mt15"
-
-}
-*/

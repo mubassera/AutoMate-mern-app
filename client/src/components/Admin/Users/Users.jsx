@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Users.css";
 import { AdminSidebar } from "../AdminSidebar/AdminSidebar";
 import { FaSearch, FaEdit, FaTrash, FaSave } from "react-icons/fa";
-import { fetchAllUsers, updateUser, deleteUser, addUser } from "../../../Api/adminPanel";
+import {
+  fetchAllUsers,
+  updateUser,
+  deleteUser,
+  addUser,
+} from "../../../Api/adminPanel";
 
 export const Users = () => {
   const [search, setSearch] = useState("");
@@ -75,6 +80,7 @@ export const Users = () => {
       await deleteUser(id);
       const updatedUsers = users.filter((user) => user._id !== id);
       setUsers(updatedUsers);
+      alert("User has been deleted");
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -140,6 +146,7 @@ export const Users = () => {
               <FaSearch />
             </span>
             <input
+              style={{ backgroundColor: "white" }}
               type="text"
               placeholder={`Search by ${selectedFilter}`}
               className="searchInput"
@@ -149,6 +156,7 @@ export const Users = () => {
           </div>
           <div className="filterSelectButton">
             <select
+              style={{ backgroundColor: "white", color: "black" }}
               className="filterSelect"
               value={selectedFilter}
               onChange={handleFilterChange}

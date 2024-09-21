@@ -41,7 +41,7 @@ export const AdminPage = () => {
       <AdminSidebar />
       <div className="admin-content">
         <h1>Dashboard</h1>
-        <div style={{ width: "400px", height: "400px" }}>
+        <div className="chart-container">
           <Pie data={chartData} />
         </div>
       </div>
