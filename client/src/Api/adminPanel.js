@@ -210,7 +210,7 @@ export const fetchOrders = async (page, limit, paymentStatus, status) => {
     };
 
     const response = await axios.get(
-      `${adminURL}//orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
+      `${adminURL}/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&status=${status}`,
       config
     );
     return response.data; // Return the fetched data
