@@ -18,16 +18,20 @@ function Profile() {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const data = await fetchProfileData();
-      setUserData({
-        name: data?.name || "",
-        email: data?.email || "",
-        mobileNumber: data?.mobileNumber || "",
-        address: data?.address || "",
-        vehicleType: data?.vehicleType || "",
-        vehicleBrand: data?.vehicleBrand || "",
-        vehicleModel: data?.vehicleModel || "",
-      });
+      try {
+        const data = await fetchProfileData();
+        setUserData({
+          name: data?.name || "",
+          email: data?.email || "",
+          mobileNumber: data?.mobileNumber || "",
+          address: data?.address || "",
+          vehicleType: data?.vehicleType || "",
+          vehicleBrand: data?.vehicleBrand || "",
+          vehicleModel: data?.vehicleModel || "",
+        });
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
     };
 
     fetchUserProfile();

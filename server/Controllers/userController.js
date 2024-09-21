@@ -186,7 +186,7 @@ const makeServiceRequestController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update user data
+// Update user data
 const updateUserDataController = expressAsyncHandler(async (req, res) => {
   const user = await userModel.findById(req.user._id);
 
@@ -198,6 +198,10 @@ const updateUserDataController = expressAsyncHandler(async (req, res) => {
     user.vehicleType = req.body.vehicleType || user.vehicleType;
     user.vehicleBrand = req.body.vehicleBrand || user.vehicleBrand;
     user.vehicleModel = req.body.vehicleModel || user.vehicleModel;
+
+    if (req.body.password) {
+      user.password = req.body.password; // Ensure password hashing is handled
+    }
 
     const updatedUser = await user.save();
 
@@ -217,15 +221,13 @@ const updateUserDataController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//fetch user data
-const fetchUserDataController = async (req, res) => {
+// Fetch user data
+const fetchUserDataController = expressAsyncHandler(async (req, res) => {
   try {
-    // Find user by ID (from the auth middleware)
     const user = await userModel.findById(req.user._id);
     console.log("id:" + req.user._id);
 
     if (user) {
-      // Return user data (excluding the password)
       res.json({
         _id: user._id,
         name: user.name,
@@ -243,8 +245,9 @@ const fetchUserDataController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+});
 
+//fetch service history
 const getServiceHistoryController = expressAsyncHandler(async (req, res) => {
   try {
     const serviceRequests = await ServiceRequest.find({
