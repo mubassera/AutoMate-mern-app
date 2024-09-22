@@ -25,36 +25,40 @@ const OrderHistory = () => {
       <Navbar />
       <div className="OH-order-history-container">
         <h2>Your Orders</h2>
-        <ul className="OH-order-history-list">
-          {orders.map((order, index) => (
-            <li key={index} className="OH-order-card">
-              <img
-                src={order.partId.image}
-                alt={order.partId.name}
-                className="OH-part-image"
-              />
-              <div className="OH-order-details">
-                <p>
-                  <span>Part Name:</span> {order.partId.name}
-                </p>
-                <p>
-                  <span>Quantity:</span> {order.quantity} units
-                </p>
-                <p>
-                  <span>Total Price:</span> ${order.totalPrice}
-                </p>
-                <p>
-                  <span>Status:</span> {order.status}
-                </p>
-                <p>
-                  <span>Payment Status:</span> {order.paymentStatus}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {orders.length > 0 ? (
+          <ul className="OH-order-history-list">
+            {orders.map((order, index) => (
+              <li key={index} className="OH-order-card">
+                <img
+                  src={order.partId.image}
+                  alt={order.partId.name}
+                  className="OH-part-image"
+                />
+                <div className="OH-order-details">
+                  <p>
+                    <span>Part Name:</span> {order.partId.name}
+                  </p>
+                  <p>
+                    <span>Quantity:</span> {order.quantity} units
+                  </p>
+                  <p>
+                    <span>Total Price:</span> ${order.totalPrice}
+                  </p>
+                  <p>
+                    <span>Status:</span> {order.status}
+                  </p>
+                  <p>
+                    <span>Payment Status:</span> {order.paymentStatus}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="OH-no-orders">No order has been made yet.</p>
+        )}
       </div>
-       <div className="box4">
+      <div className="box4">
         <div className="contactUs">
           <h3>Contact Us</h3>
           <p>123, ABC Street, Dhaka-1000, Bangladesh</p>

@@ -41,6 +41,12 @@
 .SH-service-details span {
   font-weight: bold;
 }
+.SH-no-services {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8080ac; /* Using your muted blue accent color */
+  margin-top: 20px;
+}
 
 /* Responsive Styles */
 @media (max-width: 600px) {

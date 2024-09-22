@@ -25,40 +25,46 @@ const ServiceHistory = () => {
       <Navbar />
       <div className="SH-service-history-container">
         <h2>Your Service Requests</h2>
-        <ul className="SH-service-history-list">
-          {services.map((service, index) => (
-            <li key={index} className="SH-service-card">
-              <div className="SH-service-details">
-                <p>
-                  <span>Service Request ID:</span> {service._id}
-                </p>
-                <div>
-                  <span style={{ color: "black" }}>Selected Services:</span>
-                  <ul style={{ color: "black" }}>
-                    {service.selectedServices.map((s, index) => (
-                      <li key={index}>
-                        {s.name} - ${s.cost}
-                      </li>
-                    ))}
-                  </ul>
+        {services.length > 0 ? (
+          <ul className="SH-service-history-list">
+            {services.map((service, index) => (
+              <li key={index} className="SH-service-card">
+                <div className="SH-service-details">
+                  <p>
+                    <span>Service Request ID:</span> {service._id}
+                  </p>
+                  <div>
+                    <span style={{ color: "black" }}>Selected Services:</span>
+                    <ul style={{ color: "black" }}>
+                      {service.selectedServices.map((s, index) => (
+                        <li key={index}>
+                          {s.name} - ${s.cost}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <p>
+                    <span>Booking Date:</span>{" "}
+                    {new Date(service.bookingDate).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <span>Total Price:</span> ${service.totalCost}
+                  </p>
+                  <p>
+                    <span>Status:</span> {service.status}
+                  </p>
+                  <p>
+                    <span>Payment Status:</span> {service.paymentStatus}
+                  </p>
                 </div>
-                <p>
-                  <span>Booking Date:</span>{" "}
-                  {new Date(service.bookingDate).toLocaleDateString()}
-                </p>
-                <p>
-                  <span>Total Price:</span> ${service.totalCost}
-                </p>
-                <p>
-                  <span>Status:</span> {service.status}
-                </p>
-                <p>
-                  <span>Payment Status:</span> {service.paymentStatus}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="SH-no-services">
+            No service request has been made yet.
+          </p>
+        )}
       </div>
       <div className="box4">
         <div className="contactUs">

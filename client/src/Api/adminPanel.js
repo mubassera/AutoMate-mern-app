@@ -245,7 +245,7 @@ export const updateOrder = async (orderId, paymentStatus, status) => {
     };
 
     await axios.post(
-      `${adminURL}//update-order`,
+      `${adminURL}/update-order`,
       { orderId, paymentStatus, status },
       config
     );
@@ -260,7 +260,7 @@ export const updateOrder = async (orderId, paymentStatus, status) => {
         };
 
         await axios.post(
-          `${adminURL}//update-order`,
+          `${adminURL}/update-order`,
           { orderId, paymentStatus, status },
           config
         );

@@ -70,6 +70,7 @@ const SearchParts = () => {
             <div>
               <label>Name: </label>
               <input
+                style={{ color: "black" }}
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -79,6 +80,7 @@ const SearchParts = () => {
             <div>
               <label>Vehicle Type: </label>
               <select
+                style={{ color: "black" }}
                 value={vehicleType}
                 onChange={(e) => setVehicleType(e.target.value)}
               >
@@ -92,19 +94,25 @@ const SearchParts = () => {
             <div>
               <label>Vehicle Brand: </label>
               <select
+                style={{ color: "black" }}
                 value={vehicleBrand}
                 onChange={(e) => setVehicleBrand(e.target.value)}
               >
                 <option value="">Select Vehicle Brand</option>
                 <option value="toyota">Toyota</option>
                 <option value="honda">Honda</option>
-                <option value="bmw">BMW</option>
+                <option value="hero">Hero</option>
+                <option value="yamaha">Yamaha</option>
+                <option value="suzuki">Suzuki</option>
+                <option value="bajaj">Bajaj</option>
+                <option value="tvs">TVS</option>
               </select>
             </div>
 
             <div>
               <label>Availability: </label>
               <select
+                style={{ color: "black" }}
                 value={isAvailable}
                 onChange={(e) => setIsAvailable(e.target.value)}
               >

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Services.css";
 import Navbar from "../navbar/navbar";
 import { fetchAllServices, makeServiceRequest } from "../../Api/userPanel";
+import { useNavigate } from "react-router-dom";
 
 function Services() {
   const [carServices, setCarServices] = useState([]);
@@ -11,7 +12,8 @@ function Services() {
   const [message, setMessage] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [comments, setComments] = useState("");
-  const [bookingDate, setBookingDate] = useState(""); // State for booking date
+  const [bookingDate, setBookingDate] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -61,6 +63,8 @@ function Services() {
       const data = await makeServiceRequest(params);
 
       setMessage(data.message);
+      alert(data.message);
+      navigate("/service-history");
     } catch (error) {
       console.error("Error booking services:", error);
       setMessage("There was an error sending the booking request.");

@@ -74,3 +74,10 @@
     padding: 15px;
   }
 }
+
+.OH-no-orders {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8080ac;
+  margin-top: 20px;
+}
